@@ -1,0 +1,253 @@
+# vim: filetype=sh
+# localhist
+#
+#   localhist [h]elp    # Get help.
+#   localhist [o]n      # Set HISTFILE to <current dir>/bash_history
+#   localhist [j]oin    # Join by searching up in tree for 'bash_history'
+#   localhist [w]rite   # Write buffer to current HISTFILE
+#   localhist e[x]port  # Write buffer to specific file, with edit option
+#   localhist [r]ead    # Read from current HISTFILE to buffer
+#   localhist [i]mport  # Read from file(s) into buffer
+#   localhist of[f]     # Switch HISTFILE back to ~/bash_history
+#   localhist [s]how    # Show status
+#   localhist [d]ump    # Dump current histfile
+#   localhist [e]dit    # Load current history buffer into $EDITOR
+#   localhist [c]lear   # Clear buffer only
+#   localhist c[l]ean   # Clean current HISTFILE, removing unworthy stuff
+#   localhist [mem]clean# Clean current memory buffer removing unworthy stuff
+#   localhist co[m]pare # Compare current HISTFILE with ~/.bash_history
+#   localhist [z]merge  # Merge one or more file args into HISTFILE
+#   localhist [g]rep    # Search all ~/.localhist/* registered files
+#   localhist ca[t]alog # Print stats on all ~/.localhist registered files
+#   lo             : : : :  E x a m p l e s   : : : :
+#   localhist on read   # Turn on, then read.
+#   localhist o r       # ... same thing, fewer letters
+#   localhist r l w     # Read, cLean, Write
+#   localhost w l m     # Write, cLean, coMpare with ~/.bash_history
+
+
+# stub() {
+#     echo -e "\033[;34m   stub[$@]\033[;0m" >&2
+# }
+
+histevent_count() {
+    ( grep -vE '^#[0-9]+' ${1} 2>/dev/null || :) | wc -l
+}
+
+localhist_join() {
+    # Search up thru parent dirs to find nearest 'bash_history' (no dot),
+    # and set HISTFILE to that path.  Typically such files are per-project
+    # bound.
+    local orgDir=$PWD
+    while true; do
+        if [[ -f bash_history ]]; then
+            localhist_set $PWD/bash_history
+            localhist_register $HISTFILE
+            echo "Ok I found and set HISTFILE to $HISTFILE"
+            cd $orgDir
+            return
+        fi
+        if [[ $PWD == '/' ]]; then
+            echo "I can't find a parent bash_history, HISTFILE is still $HISTFILE"
+            cd $orgDir
+            false
+            return
+        fi
+        cd ..
+    done
+    cd $orgDir
+}
+localhist_set() {
+    # HISTFILE_PRESERVE allows restore our HISTFILE across shell init:
+    if [[ $1 != $HISTFILE ]]; then
+        export HISTFILE_PREV=$HISTFILE
+        (
+            HISTFILE=$HOME/.bash_history;
+            history -s "HISTFILE=$1  # Switching from $HISTFILE_PREV";
+            history -w
+        )
+        HISTFILE=$1
+    fi
+    export HISTFILE_PRESERVE=$1
+}
+
+help_highlight() {
+    local line
+    local lx
+    while read line; do
+        if [[ $line == loc* ]]; then
+            lx=$(echo "$line" | sed 's/\[/[\\033[;35m/' | sed 's/]/\\033[;0m]/')
+        else
+            lx="\033[;32m${line}\033[;0m"
+        fi
+        echo -e "$lx"
+    done
+}
+
+localhist_register() {
+    # Maintain ~/.localhist symlink registry
+    local filename=$(readlink -f "$1" 2>/dev/null)
+    [[ -f $filename ]] || { false; return; }
+    if [[ ! -d $HOME/.localhist ]]; then
+        mkdir -p $HOME/.localhist &>/dev/null
+        ln -sf $HOME/.bash_history "$HOME/.localhist/HOME^.bash_history"
+    fi
+    local linkname="${filename//[\/]/^}"
+    ln -sf "${filename}" $HOME/.localhist/${linkname}  &>/dev/null
+}
+
+localhist_export_help() {
+    # Set up context and invoke localhist_export.sh
+    (
+        [[ -x localhist-merge.sh ]] || { echo "ERROR: can't find localhist-merge.sh" >&2; exit 1; }
+        HISTFILE=$(mktemp)
+        trap 'rm $HISTFILE' exit
+        history -w
+        localhist-merge.sh $HISTFILE "$@"
+    )
+}
+
+localhist_memclean() {
+    local -r tmpfile=$(mktemp)
+    local -r orig_histfile=$HISTFILE
+    trap "rm $tmpfile &>/dev/null; HISTFILE=${orig_histfile};" return
+    HISTFILE=${tmpfile}
+    history -w
+    #histfile-cleanup.sh $HISTFILE &>/dev/null
+    histfile-cleanup.sh $HISTFILE
+    history -c
+    history -r
+    echo "Ok: I cleaned history in buffer"
+}
+
+localhist_import_files() {
+    # Import files in $@.  If empty, default to current dir bash_history
+    [[ $# == 0 ]] && set -- ./bash_history
+    local imported_files=()
+    local orig_histfile=$HISTFILE
+    for arg in "$@"; do
+        local srcfile=$(readlink -f $1)
+        shift
+        [[ -r $srcfile ]] || { echo "ERROR: Can't find/read $srcfile\n"; continue; }
+        HISTFILE=$srcfile
+        history -r || { echo "ERROR loading $srcfile"; continue; }
+        imported_files+=( ${arg} )
+    done
+    HISTFILE=$orig_histfile
+    printf "OK: I imported ${imported_files[@]}"
+}
+
+localhist_help() {
+    [[ -r $LocalhistHelpRendered ]] && { echo -ne "$(<${LocalhistHelpRendered})"; echo; return; }
+    LocalhistHelpRendered=$(mktemp) # This rendering is noticeably slower the first time thru, thus
+                                    # the tmpfile cache...
+    egrep '^#   l' ~/bin/localhist | cut -c 3- | help_highlight | tee ${LocalhistHelpRendered}
+}
+
+localhist() {
+    [[ -z $1 ]] && { localhist help; echo -en "  \033[;33mNow:" $'\U27a9' " " ; localhist show; echo -en "\033[;0m"; return; }
+    while [[ -n $1 ]]; do
+        case $1 in
+            o|on)
+                if [[ $HISTFILE == $PWD/bash_history ]] ; then
+                    echo Already on
+                    localhist show
+                elif [[ -f ./.bash_history ]]; then
+                    echo "Can't do 'on' when ./.bash_history exists"
+                else
+                    localhist_set $PWD/bash_history
+                    localhist_register $HISTFILE
+                    echo "Ok: I set HISTFILE is $HISTFILE "
+                fi
+            ;;
+            j|join)
+                localhist_join "$@"
+            ;;
+            f|off)
+                if [[ $HISTFILE == ~/.bash_history ]]; then
+                    echo Already off
+                    localhist show
+                else
+                    localhist_set ~/.bash_history
+                    echo "Ok: I set HISTFILE to ~/.bash_history"
+                fi
+            ;;
+            w|write)
+                history -w
+                echo "Ok: I wrote buffer to $HISTFILE"
+            ;;
+            x|export)
+                shift
+                localhist_export_help "$@"
+                set --
+            ;;
+            z|merge)
+                shift
+                localhist-merge.sh "$@" -o $HISTFILE
+                set --
+            ;;
+            l|clean)
+                histfile-cleanup.sh $HISTFILE || return;
+                echo "Ok: cleaned $HISTFILE"
+            ;;
+            mem|memclean)
+                localhist_memclean
+            ;;
+
+            r|read)
+                history -r
+                echo "Ok: I read buffer from $HISTFILE"
+            ;;
+            i|import)
+                shift
+                localhist_import_files "$@"
+                set --
+            ;;
+            c|clear)
+                history -c
+                echo "Ok: I cleared the buffer"
+            ;;
+            e|edit)
+                echo "Editing $HISTFILE:"
+                $EDITOR $HISTFILE
+            ;;
+            s|show)
+                echo "HISTFILE=$HISTFILE: $(histevent_count $HISTFILE ) events, memory: $HISTCMD events"
+            ;;
+            d|dump)
+                ( history -c; history -r; history | cut -d' ' -f5-; echo -e "  \033[;33m(From $HISTFILE, $(histevent_count $HISTFILE ) events)\033[;0m" )
+            ;;
+            m|compare)
+                if [[ $HISTFILE == ~/.bash_history ]]; then
+                    echo "ERROR: nothing to compare, we're on $HISTFILE" >&2
+                    false
+                    return
+                elif diff $HISTFILE ~/.bash_history &>/dev/null; then
+                    echo "$HISTFILE is not different from ~/.bash_history"
+                    false
+                    return
+                fi
+                echo "Comparing ~/.bash_history and $HISTFILE:"
+                vimdiff ~/.bash_history $HISTFILE
+            ;;
+            g|grep)
+                shift
+                localhist-grep.sh "$@"
+                set --
+            ;;
+            t|catalog)
+                shift
+                localhist-catalog.sh
+            ;;
+            h|help)
+                localhist_help
+            ;;
+            *)
+                localhist help
+                echo "Error: unknown arg $1" >&2
+            ;;
+
+        esac
+        shift
+    done
+}
