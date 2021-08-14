@@ -1,0 +1,5 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+include $(DISTRIBUTION_REFROOT)/opt/bb/share/python-debhelper/python-debhelper.mk
+

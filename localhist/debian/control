@@ -1,9 +1,6 @@
 Source: localhist
 Section: unknown
 Maintainer: lmatheson4@bloomberg.net
-Depends: python (>= 3.5)
-Build-Depends: python-debhelper-ng
+Build-Depends: python3.8-debhelper
 Standards-Version: 3.8.4
-Package: localhist
-Arhictecture: all
 
