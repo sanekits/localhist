@@ -1,4 +1,4 @@
-Source: .
+Source: localhist
 Section: unknown
 Maintainer: lmatheson4@bloomberg.net
 Depends: python (>= 3.5)
