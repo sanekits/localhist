@@ -3,3 +3,5 @@
 
 include $(DISTRIBUTION_REFROOT)/opt/bb/share/python-debhelper/python-debhelper.mk
 
+$(eval $(call PYTHON_PACKAGE,localhist,3.7))
+
