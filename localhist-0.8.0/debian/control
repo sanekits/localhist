@@ -1,12 +1,11 @@
 Source: localhist
-Section: unknown
+Section: 
 Priority: extra
 Maintainer: Les Matheson <lmatheson4@bloomberg.net>
 Build-Depends: python3.7-debhelper, python3.7-setuptools
 Standards-Version: 3.8.4
 
 Package: localhist
-Architecture: all
+Architecture: amd64
 Description: Shell history management tool
-Depends: 
- python3.7
+Depends: python3.7
