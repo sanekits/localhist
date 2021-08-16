@@ -7,7 +7,8 @@ setup(
     author='Les Matheson',
     author_email='lmatheson4@bloomberg.net',
     description='Description of my package',
-    packages=find_packages(),    
+    #packages=find_packages(),    
+    py_modules = [ 'localhist' ],
     install_requires=[],
 )
 
