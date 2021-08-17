@@ -1,0 +1,6 @@
+localhist (0.8.0) unstable; urgency=low
+
+  * 473071b Fix Source: designation in control
+  * ecb8ec2 Sync (auto)
+
+ -- Les Matheson <lmatheson4@bloomberg.net>  Sat, 14 Aug 2021 09:11:03 -0400
