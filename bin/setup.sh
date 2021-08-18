@@ -19,13 +19,12 @@ inode() {
 is_on_path() {
     local tgt_dir="$1"
     [[ -z $tgt_dir ]] && { true; return; }
-    IFS=":" local vv=( $PATH )
-    for v in "${vv[@]}"; do
+    local vv=( $(echo "${PATH}" | tr ':' '\n') )
+    for v in ${vv[@]}; do
         if [[ $tgt_dir == $v ]]; then
-            true; return
+            return
         fi
     done
-    false
 }
 
 path_fixup() {
@@ -37,7 +36,7 @@ path_fixup() {
     fi
     local profile=$HOME/.bash_profile
     [[ -f $profile ]] || profile=$HOME/.profile
-    echo "export PATH=$HOME/.local/bin:$PATH # Added by localhist setup.sh" >> ${profile} || die 202
+    echo 'export PATH=$HOME/.local/bin:$PATH # Added by localhist setup.sh' >> ${profile} || die 202
     echo "~/.local/bin added to PATH.  Shell reload required." >&2
 }
 
