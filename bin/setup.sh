@@ -48,8 +48,8 @@ shrc_fixup() {
     [[ $(type -t localhist) == 'function' ]] && return
 
     (
-        echo '[[ -n $PS1 ]] && ' " source ${tgt_dir}/localhist/localhist # Added by localhist setup.sh"
-        echo '[[ -n $PS1 ]] && ' " source ${HOME}/.bash_completion.d/localhist-completion.bash # Added by localhist setup.sh"
+        echo '[[ -n $PS1 && ' "-f ${tgt_dir}/localhist/localhist" ' ]] && source ' "${tgt_dir}/localhist/localhist" ' # Added by localhist setup.sh'
+        echo '[[ -n $PS1 && -f ${HOME}/.bash_completion.d/localhist-completion.bash ]] && source ${HOME}/.bash_completion.d/localhist-completion.bash # Added by localhist setup.sh'
         echo
     ) >> ${HOME}/.bashrc
     echo "Your .bashrc has been updated." >&2
