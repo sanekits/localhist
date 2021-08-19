@@ -15,7 +15,7 @@ Scriptdir=$(dirname -- "$Script")
 Scriptname=$(basename $Script)
 
 LOCALHIST_EDITOR=${LOCALHIST_EDITOR:-$EDITOR}
-[[ -n $LOCALHIST_EDITOR ]] || LOCALHIST_EDITOR=vim
+[[ -n $LOCALHIST_EDITOR ]] || LOCALHIST_EDITOR=vi
 
 
 red() {
@@ -89,11 +89,8 @@ merge_edit() {
         input_tmpfiles+=( "${t0}" )
     done
     $LOCALHIST_EDITOR "${input_tmpfiles[@]}" || die
-    cat "${input_tmpfiles[@]}" >> "${outfile}"
-    # stub "merge_edit ${inpfiles[@]}"
-    # stub "merge_edit ${input_tmpfiles[@]}"
-    # stub "merge_noedit ${outfile}"
-    localhist-cleanup.sh "${outfile}"
+    cat "${input_tmpfiles[@]}" >> "${outfile}" || die
+    true
 }
 
 merge_noedit() {
@@ -104,8 +101,8 @@ merge_noedit() {
     for xf in ${inpfiles[@]}; do
         echo "  <- ${xf}"
     done
-    cat ${inpfiles[@]} >> "${outfile}"
-    histfile-cleanup.sh "${outfile}"
+    cat ${inpfiles[@]} >> "${outfile}" || die
+    true
 }
 
 backup_original() {

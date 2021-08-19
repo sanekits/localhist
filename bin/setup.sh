@@ -92,10 +92,9 @@ main() {
     if [[ $(inode $Script) -eq $(inode ${HOME}/.local/bin/localhist/setup.sh) ]]; then
         die "cannot run setup.sh from ${HOME}/.local/bin"
     fi
-    orgDir=$PWD
     cd ${HOME}/.local/bin/localhist || die "101"
     rm -rf ./* || die "102"
-    cp -r ${orgDir}/* ./ || die "failed copying from ${orgDir} to $PWD"
+    cp -r ${Scriptdir}/* ./ || die "failed copying from ${Scriptdir} to $PWD"
     cd .. # Now we're in .local/bin
     ln -sf localhist/localhist-*.sh ./  # We need these on the PATH
     path_fixup "$PWD" || die "102"
