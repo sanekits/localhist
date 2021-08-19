@@ -67,6 +67,7 @@ make_aliases() {
             echo "shopt -s histappend  # Append to history rather than overwrite"
             echo "shopt -s histverify  # When recalling an event from history, let the user check before running"
             echo "PROMPT_COMMAND='history -a'  # Save history at each shell prompt"
+            echo "HISTTIMEFORMAT=\"%F %H:%M \" # we want date/time stamps"
             echo "HISTCONTROL=ignoredups:ignorespace "
             echo "HISTSIZE=3000 # Size of in-memory hist buffer"
             echo "HISTFILESIZE=5000 # Size of a history file"
