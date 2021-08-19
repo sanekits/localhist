@@ -105,7 +105,7 @@ localhist_export_help() {
         [[ -z ${HISTFILE} ]] && exit 1;
         trap 'command rm -f $HISTFILE' exit
         history -w
-        ${LocalhistHome}/localhist-merge.sh $HISTFILE "$@"
+        ${LocalhistHome}/localhist-merge.sh --edit $HISTFILE -o "$@"
     )
 }
 

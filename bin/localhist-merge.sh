@@ -93,7 +93,7 @@ merge_edit() {
     # stub "merge_edit ${inpfiles[@]}"
     # stub "merge_edit ${input_tmpfiles[@]}"
     # stub "merge_noedit ${outfile}"
-    histfile-cleanup.sh "${outfile}"
+    localhist-cleanup.sh "${outfile}"
 }
 
 merge_noedit() {
