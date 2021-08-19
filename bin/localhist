@@ -31,6 +31,7 @@
 # }
 
 histevent_count() {
+    [[ -f $1 ]] || { echo 0; return; }
     ( grep -vE '^#[0-9]+' ${1} 2>/dev/null || :) | wc -l
 }
 
@@ -101,7 +102,8 @@ localhist_export_help() {
     (
         [[ -x ${LocalhistHome}/localhist-merge.sh ]] || { echo "ERROR: can't find ${LocalhistHome}/localhist-merge.sh" >&2; exit 1; }
         HISTFILE=$(mktemp)
-        trap 'rm $HISTFILE' exit
+        [[ -z ${HISTFILE} ]] && exit 1;
+        trap 'command rm -f $HISTFILE' exit
         history -w
         ${LocalhistHome}/localhist-merge.sh $HISTFILE "$@"
     )
@@ -110,7 +112,8 @@ localhist_export_help() {
 localhist_memclean() {
     local -r tmpfile=$(mktemp)
     local -r orig_histfile=$HISTFILE
-    trap "rm $tmpfile &>/dev/null; HISTFILE=${orig_histfile};" return
+    [[ -z ${tmpfile} ]] && return
+    trap "command rm -f $tmpfile &>/dev/null; HISTFILE=${orig_histfile};" return
     HISTFILE=${tmpfile}
     history -w
     ${LocalhistHome}/localhist-cleanup.sh $HISTFILE
@@ -133,7 +136,7 @@ localhist_import_files() {
         imported_files+=( ${arg} )
     done
     HISTFILE=$orig_histfile
-    printf "OK: I imported ${imported_files[@]}"
+    printf "OK: I imported ${imported_files[@]}\n"
 }
 
 localhist_help() {
@@ -144,7 +147,7 @@ localhist_help() {
 }
 
 localhist() {
-    [[ -z $1 ]] && { localhist help; echo -en "  \033[;33mNow:" $'\U27a9' " " ; localhist show; echo -en "\033[;0m"; return; }
+    [[ -z $1 ]] && { localhist help; echo -en "  \033[;33mNow: -> " ; localhist show; echo -en "\033[;0m"; return; }
     while [[ -n $1 ]]; do
         case $1 in
             -v|--version)
@@ -254,8 +257,8 @@ localhist() {
     done
 }
 
-[[ -z $LocalhistHome ]] && { 
-    export LocalhistHome=$(localhist-version.sh | cut -f1)
-    LocalhistHome=${LocalhistHome%%/localhist}
+[[ -z $LocalhistHome ]] && {
+    export LocalhistHome=${HOME}/.local/bin/localhist
 }
+[[ -f ${HOME}/.localhist-aliases ]] && source ${HOME}/.localhist-aliases
 

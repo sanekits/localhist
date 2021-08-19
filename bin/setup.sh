@@ -25,6 +25,7 @@ is_on_path() {
             return
         fi
     done
+    false
 }
 
 path_fixup() {
@@ -37,7 +38,43 @@ path_fixup() {
     local profile=$HOME/.bash_profile
     [[ -f $profile ]] || profile=$HOME/.profile
     echo 'export PATH=$HOME/.local/bin:$PATH # Added by localhist setup.sh' >> ${profile} || die 202
-    echo "~/.local/bin added to PATH.  Shell reload required." >&2
+    echo "~/.local/bin added to your PATH." >&2
+    reload_reqd=true
+}
+
+shrc_fixup() {
+    # We must ensure that .bashrc sources our localhist script
+    local tgt_dir="$1"
+    [[ $(type -t localhist) == 'function' ]] && return
+
+    (
+        echo '[[ -n $PS1 ]] && ' " source ${tgt_dir}/localhist/localhist # Added by localhist setup.sh"
+        echo '[[ -n $PS1 ]] && ' " source ${HOME}/.bash_completion.d/localhist-completion.bash # Added by localhist setup.sh"
+        echo
+    ) >> ${HOME}/.bashrc
+    echo "Your .bashrc has been updated." >&2
+    reload_reqd=true
+}
+
+make_aliases() {
+    # Create/update ~/.localhist-aliases
+    [[ -f ${HOME}/.localhist-aliases ]] || {
+        (
+            echo "# Added by localhist setup.sh: you can disable or update these, and we won't overwrite them."
+            echo
+            echo "alias lh=localhist"
+            echo "alias h=history"
+            echo "shopt -s histappend  # Append to history rather than overwrite"
+            echo "shopt -s histverify  # When recalling an event from history, let the user check before running"
+            echo "PROMPT_COMMAND='history -a'  # Save history at each shell prompt"
+            echo "HISTCONTROL=ignoredups:ignorespace "
+            echo "HISTSIZE=3000 # Size of in-memory hist buffer"
+            echo "HISTFILESIZE=5000 # Size of a history file"
+            echo
+        ) > ${HOME}/.localhist-aliases
+        echo "Created ~/.localhist-aliases: you can modify this file safely." >&2
+        reload_reqd=true
+    }
 }
 
 completion_fixup() {
@@ -48,6 +85,7 @@ completion_fixup() {
 }
 
 main() {
+    reload_reqd=false
     if [[ ! -d $HOME/.local/bin/localhist ]]; then
         mkdir -p $HOME/.local/bin/localhist || die "Failed creating $HOME/.local/bin/localhist"
     fi
@@ -61,7 +99,10 @@ main() {
     cd .. # Now we're in .local/bin
     ln -sf localhist/localhist-*.sh ./  # We need these on the PATH
     path_fixup "$PWD" || die "102"
+    shrc_fixup "$PWD" || die "104"
     completion_fixup "$PWD" || die  "103"
+    make_aliases "$PWD" || die "105"
+    $reload_reqd && echo "Shell reload required ('bash -l')" >&2
 }
 
 [[ -z $sourceMe ]] && main "$@"
