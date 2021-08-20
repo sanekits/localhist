@@ -152,3 +152,63 @@ lr
 cd ../bin
 #1629461635
 gs
+#1629461646
+gc -am "Add .gitignore"
+#1629461651
+.p
+#1629461654
+cd ../publish/
+#1629461660
+./publish-via-github-release.sh 
+#1629461699
+git --rev-parse HEAD
+#1629461704
+git rev-parse HEAD
+#1629461714
+./publish-via-github-release.sh 
+#1629463258
+gs
+#1629463284
+lr
+#1629463285
+gs
+#1629463292
+rm ../--transform 
+#1629463296
+./publish-via-github-release.sh 
+#1629463321
+gs
+#1629463327
+ga publish-via-github-release.sh 
+#1629463332
+cd ../bin/
+#1629463334
+ts
+#1629463336
+cd ../tmp
+#1629463337
+lr
+#1629463341
+tar tvf localhist-0.8.0.tgz 
+#1629463352
+lr
+#1629463356
+tar xvf localhist-0.8.0.tgz 
+#1629463360
+cd localhist/bin/
+#1629463360
+lr
+#1629463362
+cat hashfile 
+#1629463367
+tig
+#1629463401
+.3
+#1629463403
+gs
+#1629463406
+rm -rf tmp
+#1629463410
+gs
+#1629463420
+ga publish/
