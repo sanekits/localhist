@@ -10,9 +10,17 @@ die() {
 }
 
 if [[ -z $sourceMe ]]; then
+    set -x
+    cd ${Scriptdir}/../bin || die 100
+    if [[ $(command git status -s . | wc -l 2>/dev/null) -gt 0 ]]; then
+        die "One or more files in $PWD need to be committed before publish"
+    fi
+    set +x
+    git --rev-parse HEAD > ./hashfile || die 104
     cd ${Scriptdir}/.. || die 101
     mkdir -p tmp
-    tar czvf tmp/new-localhist.tgz bin/ || die 102
+    tar czvf --transform 's,^,localhist/,' tmp/new-localhist.tgz bin/ || die 102
+
     version=$(bin/localhist-version.sh | cut -f2)
     [[ -z $version ]] && die 103
     read -n 1 -p "Ready to make ${PWD}/tmp/localhist-${version}.tgz.  Ok? [y/N]"
