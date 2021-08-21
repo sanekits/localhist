@@ -2,7 +2,7 @@
 
 # Running localhist-version.sh is the correct way to
 # get the home path for localhist and its tools.
-LocalhistVer=0.8.0
+LocalhistVer=0.8.1
 
 set -e
 
@@ -11,5 +11,5 @@ Scriptdir=$(dirname -- "$Script")
 
 
 if [ -z "$sourceMe" ]; then
-    printf "%s\t%s" ${Scriptdir}/localhist ${LocalhistVer} 
+    printf "%s\t%s" ${Scriptdir}/localhist ${LocalhistVer}
 fi

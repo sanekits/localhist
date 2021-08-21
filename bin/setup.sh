@@ -82,7 +82,7 @@ completion_fixup() {
     # Setup ~/.bash_completion.d/localhist-completion.bash.  The
     # completion logic in bash searches this dir.
     [[ -d $HOME/.bash_completion.d ]] ||  mkdir -p $HOME/.bash_completion.d
-    ln -sf ${Scriptdir}/localhist-completion.bash $HOME/.bash_completion.d/
+    ln -sf ${HOME}/.local/bin/localhist/localhist-completion.bash $HOME/.bash_completion.d/
 }
 
 main() {
