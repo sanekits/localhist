@@ -10,3 +10,26 @@ cd /c/Projects/localhist/publish && ./publish-via-github-release.sh  # publish-n
 makeself.sh /c/Projects/localhist/bin ./tmp/localhist-0.8.0.run "Installing localhist-0.8.0" ./setup.sh  # Publish localhist with makself
 #1629559833
 cd /c/Projects/localhist && docker run --name lhtest -v `pwd`:/workarea -w /workarea --rm -it  artprod.dev.bloomberg.com/dpkg-python-development-base:3.9 /bin/bash -c 'set -x; cd /workarea/tmp ; pwd; ls -l; sleep 2; /bin/bash /workarea/tmp/localhist-setup-0.8.1.sh; echo ">> Use \"docksh lhtest\" in another terminal for testing, we are asleep here"; sleep infinity' # Run localhist-setup-vvv.setup.sh locally in a docker container, with sleep. vx2
+#1629560804
+lh l; gpa Fix spelling of localhist-setup-xxx.sh
+#1629594023
+clear
+#1629560637
+cd /c/Projects/localhist && docker run --name lhtest -v `pwd`:/workarea -w /workarea --rm -it  artprod.dev.bloomberg.com/dpkg-python-development-base:3.9 /bin/bash -c '/workarea/tmp/localhist-setup-0.8.1.sh; echo ">> Use \"docksh lhtest\" in another terminal for testing, we are asleep here"; sleep infinity' # Run localhist-setup-vvv.setup.sh locally in a docker container, with sleep. vx2
+#1629594112
+lr
+#1629594143
+lr
+#1629594147
+cd /home/lmatheson4/bin/tox-py # to tox
+#1629594149
+lr
+#1629594152
+gs
+lh j
+lh j
+h
+cd /c/Projects/localhist/publish && ./publish-via-github-release.sh  # publish-now
+gs
+.1
+gs
