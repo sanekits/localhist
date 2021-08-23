@@ -262,5 +262,4 @@ localhist() {
 [[ -z $LocalhistHome ]] && {
     export LocalhistHome=${HOME}/.local/bin/localhist
 }
-[[ -f ${HOME}/.localhist-aliases ]] && source ${HOME}/.localhist-aliases
-
+[[ -f ${HOME}/.localhistrc ]] && source ${HOME}/.localhistrc
