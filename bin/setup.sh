@@ -65,6 +65,8 @@ $(cat ./localhist/localhist_add)
 alias lh=localhist
 alias h=history
 alias lha=localhist_add
+alias hisg='set -f; history_grep'
+alias hg='set -f; history_grep'
 shopt -s histappend  # Append to history rather than overwrite
 shopt -s histverify  # When recalling an event from history, let the user check before running
 PROMPT_COMMAND='history -a'  # Save history at each shell prompt
@@ -72,6 +74,9 @@ HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=3000 # Size of in-memory hist buffer
 HISTFILESIZE=5000 # Size of a history file
+if [[ -n \$HISTFILE_PRESERVE ]]; then
+    export HISTFILE=\$HISTFILE_PRESERVE
+fi
 EOF
 }
 
