@@ -68,7 +68,7 @@ alias lha=localhist_add
 shopt -s histappend  # Append to history rather than overwrite
 shopt -s histverify  # When recalling an event from history, let the user check before running
 PROMPT_COMMAND='history -a'  # Save history at each shell prompt
-HISTTIMEFORMAT=\"%F %H:%M \" # we want date/time stamps
+HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=3000 # Size of in-memory hist buffer
 HISTFILESIZE=5000 # Size of a history file
