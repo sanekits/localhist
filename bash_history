@@ -33,3 +33,17 @@ cd /c/Projects/localhist/publish && ./publish-via-github-release.sh  # publish-n
 gs
 .1
 gs
+lh 
+lh 
+cd /c/Projects/localhist/publish && ./publish-via-github-release.sh  # publish-now
+cd tmp
+lr
+cd -
+cd ../tmp
+lr
+rm localhist-setup-0.8.1.sh 
+./localhist-setup-0.8.2.sh 
+exec bash
+lh 
+lh -v
+gs
