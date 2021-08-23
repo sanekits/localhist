@@ -56,24 +56,32 @@ shrc_fixup() {
     reload_reqd=true
 }
 
-make_aliases() {
-    # Create/update ~/.localhist-aliases
-    [[ -f ${HOME}/.localhist-aliases ]] || {
-        (
-            echo "# Added by localhist setup.sh: you can disable or update these, and we won't overwrite them."
-            echo
-            echo "alias lh=localhist"
-            echo "alias h=history"
-            echo "shopt -s histappend  # Append to history rather than overwrite"
-            echo "shopt -s histverify  # When recalling an event from history, let the user check before running"
-            echo "PROMPT_COMMAND='history -a'  # Save history at each shell prompt"
-            echo "HISTTIMEFORMAT=\"%F %H:%M \" # we want date/time stamps"
-            echo "HISTCONTROL=ignoredups:ignorespace "
-            echo "HISTSIZE=3000 # Size of in-memory hist buffer"
-            echo "HISTFILESIZE=5000 # Size of a history file"
-            echo
-        ) > ${HOME}/.localhist-aliases
-        echo "Created ~/.localhist-aliases: you can modify this file safely." >&2
+localhistrc_text() {
+    cat <<-EOF
+Added by localhist-setup.sh: you can disable or update these, and we won't overwrite them."
+
+$(cat ./cdpp/localhist/localhist_add)
+
+alias lh=localhist
+alias h=history
+alias lha=localhist_add
+shopt -s histappend  # Append to history rather than overwrite
+shopt -s histverify  # When recalling an event from history, let the user check before running
+PROMPT_COMMAND='history -a'  # Save history at each shell prompt
+HISTTIMEFORMAT=\"%F %H:%M \" # we want date/time stamps
+HISTCONTROL=ignoredups:ignorespace
+HISTSIZE=3000 # Size of in-memory hist buffer
+HISTFILESIZE=5000 # Size of a history file
+EOF
+}
+
+
+
+make_localhistrc() {
+    # Create/update ~/.localhistrc
+    [[ -f ${HOME}/.localhistrc ]] || {
+        localhistrc_text > ${HOME}/.localhistrc
+        echo "Created ~/.localhistrc: you can modify this file safely." >&2
         reload_reqd=true
     }
 }
@@ -101,7 +109,7 @@ main() {
     path_fixup "$PWD" || die "102"
     shrc_fixup "$PWD" || die "104"
     completion_fixup "$PWD" || die  "103"
-    make_aliases "$PWD" || die "105"
+    make_localhistrc "$PWD" || die "105"
     $reload_reqd && echo "Shell reload required ('bash -l')" >&2
 }
 
