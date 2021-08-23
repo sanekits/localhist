@@ -65,6 +65,7 @@ $(cat ./localhist/localhist_add)
 alias lh=localhist
 alias h=history
 alias lha=localhist_add
+alias lhac='localhist_add -c'
 alias hisg='set -f; history_grep'
 alias hg='set -f; history_grep'
 shopt -s histappend  # Append to history rather than overwrite
