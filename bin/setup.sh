@@ -58,7 +58,7 @@ shrc_fixup() {
 
 localhistrc_text() {
     cat <<-EOF
-Added by localhist-setup.sh: you can disable or update these, and we won't overwrite them.
+# Added by localhist-setup.sh: you can disable or update these, and we won't overwrite them.
 
 $(cat ./localhist/localhist_add)
 
