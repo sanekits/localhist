@@ -38,9 +38,7 @@ localhist_add() { # Append a text entry to HISTFILE
             text=$(command cat ${text_source} | command tr '\n' ';' )
             ;;
     esac
-    set -x
     builtin history -s "${prepend}${text}"
-    set +x
 }
 
 function history_grep {
