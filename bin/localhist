@@ -65,8 +65,8 @@ localhist_set() {
         export HISTFILE_PREV=$HISTFILE
         (
             HISTFILE=$HOME/.bash_history;
-            history -s "HISTFILE=$1  # Switching from $HISTFILE_PREV";
-            history -w
+            builtin history -s "HISTFILE=$1  # Switching from $HISTFILE_PREV";
+            builtin history -w
         )
         HISTFILE=$1
     fi
@@ -105,7 +105,7 @@ localhist_export_help() {
         HISTFILE=$(mktemp)
         [[ -z ${HISTFILE} ]] && exit 1;
         trap 'command rm -f $HISTFILE' exit
-        history -w
+        builtin history -w
         ${LocalhistHome}/localhist-merge.sh --edit $HISTFILE -o "$@"
         [[ $? -eq 0 ]] && echo "Ok I merged buffer into $@"
     )
@@ -117,10 +117,10 @@ localhist_memclean() {
     [[ -z ${tmpfile} ]] && return
     trap "command rm -f $tmpfile &>/dev/null; HISTFILE=${orig_histfile};" return
     HISTFILE=${tmpfile}
-    history -w
+    builtin history -w
     ${LocalhistHome}/localhist-cleanup.sh $HISTFILE
-    history -c
-    history -r
+    builtin history -c
+    builtin history -r
     echo "Ok: I cleaned history in buffer"
 }
 
@@ -134,7 +134,7 @@ localhist_import_files() {
         shift
         [[ -r $srcfile ]] || { echo "ERROR: Can't find/read $srcfile\n"; continue; }
         HISTFILE=$srcfile
-        history -r || { echo "ERROR loading $srcfile"; continue; }
+        builtin history -r || { echo "ERROR loading $srcfile"; continue; }
         imported_files+=( ${arg} )
     done
     HISTFILE=$orig_histfile
@@ -180,7 +180,7 @@ localhist() {
                 fi
             ;;
             w|write)
-                history -w
+                builtin history -w
                 echo "Ok: I wrote buffer to $HISTFILE"
             ;;
             x|export)
@@ -202,7 +202,7 @@ localhist() {
             ;;
 
             r|read)
-                history -r
+                builtin history -r
                 echo "Ok: I read buffer from $HISTFILE"
             ;;
             i|import)
@@ -211,7 +211,7 @@ localhist() {
                 set --
             ;;
             c|clear)
-                history -c
+                builtin history -c
                 echo "Ok: I cleared the buffer"
             ;;
             e|edit)
@@ -222,7 +222,7 @@ localhist() {
                 echo "HISTFILE=$HISTFILE: $(histevent_count $HISTFILE ) events, memory: $HISTCMD events"
             ;;
             d|dump)
-                ( history -c; history -r; history | cut -d' ' -f5-; echo -e "  \033[;33m(From $HISTFILE, $(histevent_count $HISTFILE ) events)\033[;0m" )
+                ( builtin history -c; builtin history -r; builtin history | cut -d' ' -f5-; echo -e "  \033[;33m(From $HISTFILE, $(histevent_count $HISTFILE ) events)\033[;0m" )
             ;;
             m|compare)
                 if [[ $HISTFILE == ~/.bash_history ]]; then
