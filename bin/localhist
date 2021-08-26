@@ -4,6 +4,7 @@
 #   localhist -v|--version
 #   localhist [o]n       # Set HISTFILE to <current dir>/bash_history
 #   localhist [j]oin     # Join by searching up in tree for 'bash_history'
+#   localhist [cd]       # Change dir to parent of HISTFILE
 #   localhist [w]rite    # Write buffer to current HISTFILE
 #   localhist e[x]port   # Write buffer to specific file, with edit option
 #   localhist [r]ead     # Read from current HISTFILE to buffer
@@ -160,7 +161,7 @@ localhist() {
                     echo Already on
                     localhist show
                 elif [[ -f ./.bash_history ]]; then
-                    echo "Can't do 'on' when ./.bash_history exists"
+                    builtin echo "Can't do 'on' when ./.bash_history exists" >&2
                 else
                     localhist_set $PWD/bash_history
                     localhist_register $HISTFILE
@@ -169,6 +170,11 @@ localhist() {
             ;;
             j|join)
                 localhist_join "$@"
+            ;;
+            cd)
+                [[ -d $(dirname $HISTFILE) ]] && { 
+                    cd $(dirname $HISTFILE)
+                    } || builtin echo "HISTFILE not set" >&2
             ;;
             f|off)
                 if [[ $HISTFILE == ~/.bash_history ]]; then
@@ -263,3 +269,4 @@ localhist() {
     export LocalhistHome=${HOME}/.local/bin/localhist
 }
 [[ -f ${HOME}/.localhistrc ]] && source ${HOME}/.localhistrc
+
