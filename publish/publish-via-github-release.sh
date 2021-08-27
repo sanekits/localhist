@@ -1,6 +1,7 @@
 #!/bin/bash
 # publish/publish-via-github-release.sh
 
+GithubReleases="https://github.com/sanekits/localhist/releases"
 Script=$(command readlink -f $0)
 Scriptdir=$(command dirname $Script)
 
@@ -22,5 +23,5 @@ if [[ -z $sourceMe ]]; then
     command mkdir -p ./tmp
 
     command makeself.sh --base64 $PWD/bin $PWD/tmp/localhist-setup-${version}.sh "localhist ${version}" ./setup.sh  # [src-dir] [dest-file] [label] [setup-command]
-    [[ $? -eq 0 ]] && echo "Done: upload $PWD/tmp/localhist-setup-${version}.sh to Github release page"
+    [[ $? -eq 0 ]] && echo "Done: upload $PWD/tmp/localhist-setup-${version}.sh to $GithubReleases"
 fi
