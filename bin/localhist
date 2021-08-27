@@ -170,6 +170,7 @@ localhist_annotate() {
     builtin read -p "editing(${entrynum}): " -ei "${entry}" edited
     [[ -z ${edited} ]] && return
     builtin history -s "${edited}"
+    [[ "${edited}" != "${entry}" ]] && printf "OK: history updated."
 }
 
 localhist() {
