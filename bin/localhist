@@ -159,6 +159,7 @@ localhist_annotate() {
     local i entrynum edited entry
     [[ ${#recent_hist[@]} -eq 0 ]] && { echo "No candidate events" >&2; return; }
     for i in {0..9}; do
+        [[ -z "${recent_hist[$i]}" ]] && break
         builtin echo -e "\033[;31m${i}\033[;0m: ${recent_hist[$i]}"
     done
     builtin echo -ne "\033[;33m Choose entry to annotate or [q]uit\033[;0m: "
