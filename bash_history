@@ -692,5 +692,11 @@ lha_test #
 gc -m "localhist_annotate() sort-of working"  # 
 #1630077552
 /c/Projects/localhist/publish/publish-via-github-release.sh  #
-#1630089538
+#1630090321
+echo ${#hv[*]}
+#1630090666
+echo ${#hv[*]} #
+#1630090916
 lha_test() { source ~/projects/localhist/bin/localhist; localhist_annotate; } # test1
+#1630091144
+lha_test # www
