@@ -79,8 +79,8 @@ help_highlight() {
     local line
     local lx
     while read line; do
-        if [[ $line == loc* ]]; then
-            lx=$(echo "$line" | sed 's/\[/[\\033[;35m/' | sed 's/]/\\033[;0m]/')
+        if [[ $line == *loc* ]]; then
+            lx=$(builtin echo "$line" | command sed 's/\[/[\\033[;35m/' | command sed 's/]/\\033[;0m]/')
         else
             lx="\033[;32m${line}\033[;0m"
         fi
