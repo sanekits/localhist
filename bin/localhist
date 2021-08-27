@@ -153,7 +153,7 @@ localhist_help() {
 
 localhist_annotate() {
     # Used to add comments or modify history after the fact
-    local raw="$( builtin fc -ln -100  | command tail -n 10  )"   # Get last 10 un-commented events
+    local raw="$( builtin fc -ln -100  | command tail -n 10 | sed 's/^[\t ]*//' )"   # Get last 10 un-commented events
 
     local IFS=$'\n' recent_hist=( $(echo "$raw") )
     local i entrynum edited entry
@@ -166,7 +166,7 @@ localhist_annotate() {
     builtin echo
     [[ ${entrynum} =~ [qQ] ]] && return
     entry=${recent_hist[$entrynum]}
-    builtin read -p "Edit: " -ei "${entry} # " edited
+    builtin read -p "${entrynum}: " -ei "${entry}" edited
     [[ -z ${edited} ]] && return
     builtin history -s "${edited}"
 }
