@@ -8,17 +8,20 @@ die() {
 
 [[ -d ~/.localhist ]] || die No ~/.localhist dir exists
 
-cd ~/.localhist
+echo "Searching ~/.localhist for pattern [$@]:" >&2
+
+builtin cd ~/.localhist
 for xf in *; do
-    xf=$(readlink -f ${xf})
+    xf=$(command readlink -f ${xf} 2>/dev/null)
     (
-        cd $(dirname ${xf});
+        [[ -z ${xf} ]] && continue
+        builtin cd $(command dirname -- ${xf}) 2>/dev/null || continue;
         set -o history
-        history -c
+        builtin history -c
         HISTTIMEFORMAT="%F %H:%M "
-        HISTFILE=$PWD/bash_history
-        history -r
-        echo -e "\033[;33mcd $(pwd -P)\033[;0m"
-        history | grep -E "$@" 2>/dev/null | sed 's/^/  /'
+        HISTFILE=$(command basename -- ${xf}) 
+        builtin history -r
+        builtin echo -e "\033[;33m${xf}:\033[;0m"
+        builtin history | command grep -E "$@" 2>/dev/null | command sed 's/^/  /'
     )
 done
