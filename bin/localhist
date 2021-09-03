@@ -277,7 +277,7 @@ localhist() {
             ;;
             t|catalog)
                 shift
-                ${LocalhistHome}/localhist-catalog.sh
+                ${LocalhistHome}/localhist-catalog.sh "$@"
             ;;
             h|help)
                 localhist_help
