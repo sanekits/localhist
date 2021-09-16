@@ -154,20 +154,25 @@ localhist_help() {
 localhist_annotate() {
     # Used to add comments or modify history after the fact
     local -a recent_hist
-    mapfile -t recent_hist < <( builtin fc -ln -10 | sed 's/^[\t ]*//' )
-    local i entrynum edited entry
+    mapfile -t recent_hist < <( builtin fc -ln -25 | sed 's/^[\t ]*//' )
+    local i entrykey entryidx edited entry
     [[ ${#recent_hist[@]} -eq 0 ]] && { echo "No candidate events" >&2; return; }
-    for i in {0..9}; do
+    local labels=( {0..9} {a..d} {f..p} )
+    for i in {0..24}; do
         [[ -z "${recent_hist[$i]}" ]] && break
-        builtin echo -e "\033[;31m${i}\033[;0m: ${recent_hist[$i]}"
+        builtin echo -e "\033[;31m${labels[${i}]}\033[;0m: ${recent_hist[$i]}"
     done
     builtin echo -ne "\033[;33m ? [\033[;31mnumber\033[;33m] <> [\033[;31me\033[;33m]dit \$HISTFILE <> [\033[;31mq\033[;33m]uit\033[;0m: "
-    builtin read -n 1 entrynum
+    builtin read -n 1 entrykey
     builtin echo
-    [[ ${entrynum} =~ [qQ] ]] && return
-    [[ ${entrynum} =~ [eE] ]] && { localhist edit; return ; }
-    entry=${recent_hist[$entrynum]}
-    builtin read -p "editing(${entrynum}): " -ei "${entry}" edited
+    [[ ${entrykey} =~ [qQ] ]] && return
+    [[ ${entrykey} =~ [eE] ]] && { localhist edit; return ; }
+    for entryidx in {0..24}; do
+        [[ ${entrykey} == ${labels[$entryidx]} ]] && break
+    done
+
+    entry=${recent_hist[$entryidx]}
+    builtin read -p "editing(${entrykey}): " -ei "${entry}" edited
     [[ -z ${edited} ]] && return
     builtin history -s "${edited}"
     [[ "${edited}" != "${entry}" ]] && printf "OK: history updated."
