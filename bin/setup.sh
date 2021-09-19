@@ -45,14 +45,17 @@ path_fixup() {
 shrc_fixup() {
     # We must ensure that .bashrc sources our localhist script
     local tgt_dir="$1"
-    [[ $(type -t localhist) == 'function' ]] && return
 
     (
+        if command grep -E '[^#]* source .*localhist\/localhist' ~/.bashrc &>/dev/null; then
+            echo "localhist already installed in ~/.bashrc: Ok" >&2
+            exit 0
+        fi
         echo '[[ -n $PS1 && ' "-f ${tgt_dir}/localhist/localhist" ' ]] && source ' "${tgt_dir}/localhist/localhist" ' # Added by localhist setup.sh'
         echo '[[ -n $PS1 && -f ${HOME}/.bash_completion.d/localhist-completion.bash ]] && source ${HOME}/.bash_completion.d/localhist-completion.bash # Added by localhist setup.sh'
+        echo "Your .bashrc has been updated." >&2
         echo
     ) >> ${HOME}/.bashrc
-    echo "Your .bashrc has been updated." >&2
     reload_reqd=true
 }
 
@@ -89,7 +92,9 @@ make_localhistrc() {
         localhistrc_text > ${HOME}/.localhistrc
         echo "Created ~/.localhistrc: you can modify this file safely." >&2
         reload_reqd=true
+        return
     }
+    echo "~/.localhistrc already exists, I didn't touch it.  Ok" >&2
 }
 
 completion_fixup() {
@@ -113,7 +118,7 @@ main() {
     cd .. # Now we're in .local/bin
     ln -sf localhist/localhist-*.sh ./  # We need these on the PATH
     path_fixup "$PWD" || die "102"
-    shrc_fixup "$PWD" || die "104"
+    shrc_fixup "$PWD" 
     completion_fixup "$PWD" || die  "103"
     make_localhistrc "$PWD" || die "105"
     $reload_reqd && echo "Shell reload required ('bash -l')" >&2

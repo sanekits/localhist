@@ -192,6 +192,10 @@ localhist() {
                 elif [[ -f ./.bash_history ]]; then
                     builtin echo "Can't do 'on' when ./.bash_history exists" >&2
                 else
+                    touch $PWD/bash_history || {
+                        builtin echo "Can't create $PWD/bash_history" >&2
+                        false; return
+                    }
                     localhist_set $PWD/bash_history
                     localhist_register $HISTFILE
                     echo "Ok: I set HISTFILE is $HISTFILE "
