@@ -51,7 +51,7 @@ shrc_fixup() {
             echo "localhist already installed in ~/.bashrc: Ok" >&2
             exit 0
         fi
-        echo '[[ -n $PS1 && ' "-f ${tgt_dir}/localhist/localhist" ' ]] && source ' "${tgt_dir}/localhist/localhist" ' # Added by localhist setup.sh'
+        echo '[[ -n $PS1 && -f ${HOME}/.local/bin/localhist/localhist ]] && source ${HOME}/.local/bin/localhist/localhist # Added by localhist setup.sh'
         echo '[[ -n $PS1 && -f ${HOME}/.bash_completion.d/localhist-completion.bash ]] && source ${HOME}/.bash_completion.d/localhist-completion.bash # Added by localhist setup.sh'
         echo "Your .bashrc has been updated." >&2
         echo

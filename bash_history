@@ -700,3 +700,33 @@ echo ${#hv[*]} #
 lha_test() { source ~/projects/localhist/bin/localhist; localhist_annotate; } # test1
 #1630091144
 lha_test # www
+#1631813044
+vim bin/localhist
+#1632161789
+gs
+#1632161791
+gdf
+#1632161796
+exit
+#1632161796
+exit
+#1632161796
+exit
+#1632392737
+lr
+#1632392741
+cd bin
+#1632392941
+cd bin
+#1632392942
+./setup.sh 
+#1632392994
+exec bash
+#1632392996
+lh j
+#1632393001
+gs
+#1632393007
+ga bin
+#1632393012
+gdf --cached
