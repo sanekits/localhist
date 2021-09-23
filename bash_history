@@ -730,3 +730,25 @@ gs
 ga bin
 #1632393012
 gdf --cached
+#1632393063
+gc -am "Fix .bashrc patching: use HOME instead of fixed original path"
+#1632393064
+lr
+#1632393077
+gs
+#1632393080
+ga bin
+#1632393086
+gc -m "Bump to 0.9.5"
+#1632393088
+git push
+#1632393093
+cd ./publish/
+#1632393093
+lr
+#1632393098
+./publish-via-github-release.sh 
+#1632393223
+gs
+#1632393230
+.1
