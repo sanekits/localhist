@@ -228,333 +228,37 @@ lha_test # www
 ln -sf /c/Projects/zap_container/bash_history ./^c^Projects^zap_container^bash_history #
 #1632918157
 make -f /c/Projects/localhist/bin/lh_archive.mk #
-#1632918157
-make -f /c/Projects/localhist/bin/lh_archive.mk #
-#1632934512
-h
-#1632934512
-h
 #1632934569
 lh grep \#
 #1632934575
 hg \#
-#1632934606
-h
-#1632934610
-exit
-#1632934772
-clear
-#1632934784
-cd ../publish/
-#1632934784
-lr
-#1632934790
-./publish-via-github-release.sh 
-#1632934793
-.1
-#1632934793
-gs
-#1632934811
-gdf
-#1632934830
-cd bin
-#1632934832
-./setup.sh 
-#1632934836
-exec bash
-#1632934841
-echo $LH_ARCHIVE
-#1632934851
-echo $HOST
-#1632934860
-echo $HOSTNAME
-#1632941697
-exec bash
-#1632941723
-echo $LH_ARCHIVE
-#1632941733
-unset  LH_ARCHIVE
-#1632941743
-lh arc
-#1632941749
-lh arch
-#1632941802
-./setup.sh 
-#1632941811
-exec bash
-#1632941816
-unset  LH_ARCHIVE #
-#1632941819
-lh arch
-#1632941905
-./setup.sh 
-#1632941909
-unset  LH_ARCHIVE #
-#1632941912
-lh arch
-#1632942015
-./setup.sh 
 #1632942017
 unset  LH_ARCHIVE #
-#1632942020
-lh arch
-#1632942174
-./setup.sh 
 #1632942203
 ./setup.sh; unset  LH_ARCHIVE ; lh arch; #
-#1632942253
-exec bash
-#1632942259
-./setup.sh; lh arch; #
-#1632942268
-echo $LH_ARCHIVE 
 #1632942335
 ./setup.sh; exec bash; lh arch; #
-#1632942342
-exec bash
 #1632942345
 lh arch #
-#1632942367
-echo $HOSTNAME
 #1632942408
 ./setup.sh; lh arch; #
-#1632942493
-cd ~/journal/lh_archive/pf140XGZ/
-#1632942494
-lr
-#1632942508
-gs
-#1632942534
-cd /c/Projects/localhist/bin
-#1632942576
-cd /home/lmatheson4/journal/lh_archive/pf140XGZ
-#1632942577
-lr
-#1632942579
-gs
-#1632942580
-.1
-#1632942581
-gs
-#1632942590
-rm *
-#1632946670
-cdb2sql --help
-#1632996114
-clear
-#1632996218
-h
 #1632996244
 cd /home/lmatheson4/journal/lh_archive/pf140XGZ #
-#1632996273
-e
-#1632996276
-h
-#1632996298
-hc
-#1632996372
-exec bash
-#1632996373
-hg
-#1632996395
-exec bash
-#1632996397
-hg
 #1632996407
 history_grep '#'
-#1632996423
-exec bash
-exec bash
-exec bash
-#1632996475
-exec bash
-#1632996477
-hg
-#1632996480
-type -a hg
-#1632996489
-hc
-#1632996493
-type -a hc
-#1632996512
-type -a history_grep
-#1632996551
-exec bash
-#1632996552
-hc
-#1632996793
-exec bash
-#1632996794
-hc
 #1632996821
 # TODO: stop cdpp from logging all cd changes with hash
 #1632996851
 # TODO: lh annotate should loop until user exit
-#1632996909
-lh e
-#1632997029
-cd localhi
-#1632997033
-cd localhi //
-#1632997036
-h
-#1632997043
-cd localhist/
-#1632997045
-lr
-#1632997050
-cd bin
-#1632997055
-source localhist
-#1632997059
-lh a
-#1632997070
-type -a localhist_annotate
-#1632997073
-type -a lha
-#1632997084
-lh
-#1632997102
-type -a localhist_annotate_inner 
-#1632997105
-lh a
-#1632997131
-source ./localhist
-#1632997133
-lh a
-#1632997145
-source ./localhist
-#1632997147
-lh a
-#1632997160
-type -a lh
-#1632997168
-localhist annotate
-#1632997201
-source ./localhist
-#1632997205
-lh a
-#1632997209
-exit
-#1632997209
-exit
-#1632997220
-lh a
-#1632997235
-source localhist
-#1632997238
-cd bin
-#1632997242
-source ./localhist
-#1632997243
-lh a
-#1632997274
-source ./localhist
-#1632997276
-lh a
-#1632997311
-source ./localhist
-#1632997322
-set +x
-#1632997323
-lh a
-#1632997343
-source ./localhist; lh a
 #1632997474
 source ./localhist #
 #1632997493
 type -a localhist_annotate_inner #
-#1632997497
-gs
-#1632997502
-lh arch
-#1632997528
-cd lh_arch
-#1632997535
-cd journal/lh_archive/
-#1632997535
-lr
-#1632997538
-cd pf140XGZ/
-#1632997539
-gs
-#1632997541
-ga .
-#1632997542
-gs
-#1632997546
-gpa
-#1632997565
-lh arch
-#1632997567
-gs
-#1632997842
-cd /c/Projects/localhist/bin
-#1632997851
-./localhist-grep.sh -a foo
-#1632997859
-./localhist-grep.sh --archive foo
-#1632997863
-./localhist-grep.sh foo
-#1632997885
-./localhist-grep.sh --archive foo
-#1632998113
-cat > localhist-dump.sh
-#1632998308
-lr
-#1632998359
-chmod +x localhist-dump.sh 
-#1632998362
-./localhist-dump.sh 
-#1632998462
-loop ./localhist-dump.sh 
-#1632998602
-loop ./localhist-dump.sh  -c
-#1632998613
-loop ./localhist-dump.sh  --commented
-#1632999022
-source ./localhist
-#1632999024
-lh d
-#1632999031
-./setup.sh 
-#1632999035
-lh d
-#1632999044
-lh d -c
-#1632999084
-source ./localhist; lh d -c
-#1632999170
-source ./localhist
-#1632999174
-type -a lh
-#1632999179
-lh d -c
-#1632999247
-source ./localhist
-#1632999250
-lh d -c
-#1632999302
-set +x
-#1632999304
-lh d -c
-#1632999315
-source ./localhist
-#1632999318
-set +x
-#1632999321
-lh d -c
-#1632999325
-lh d 
-#1632999330
-lh d -c
-#1632999476
-source ./localhist
-#1632999480
-lh d -c
-#1632999482
-gs
-#1632999484
-ga .
-#1632999484
-gs
+#1632999823
+echo 'foo bar # cat dog # again'
+#1632999861
+echo 'foo bar # cat dog # again' | sed 's^#^\033[;32m#^'
+#1632999868
+echo 'foo bar # cat dog # again' | sed 's^#^\\033[;32m#^'
+#1632999880
+echo -e $(echo 'foo bar # cat dog # again' | sed 's^#^\\033[;32m#^')
