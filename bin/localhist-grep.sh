@@ -6,11 +6,17 @@ die() {
     exit 1
 }
 
-[[ -d ~/.localhist ]] || die No ~/.localhist dir exists
+# If first arg is -a or --archive, we will search $LH_ARCHIVE/$(hostname), otherwise
+# the more expansive ~/.localhist search applies
+SEARCHDIR=$HOME/.localhist
 
-echo "Searching ~/.localhist for pattern [$@]:" >&2
+[[ $1 =~ ^(-a)|(--archive)$ ]] && { SEARCHDIR="$LH_ARCHIVE/$(hostname)"; shift; }
 
-builtin cd ~/.localhist
+[[ -d $SEARCHDIR ]] || die No \$SEARCHDIR exists
+
+echo "Searching $SEARCHDIR for pattern [$@]:" >&2
+
+builtin cd $SEARCHDIR
 for xf in *; do
     xf=$(command readlink -f ${xf} 2>/dev/null)
     (

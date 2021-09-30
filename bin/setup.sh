@@ -69,10 +69,12 @@ alias lh=localhist
 alias h=history
 alias lha=localhist_add
 alias lhac='localhist_add -c'
-alias hisg='set -f; history_grep'
-alias hg='set -f; history_grep'
+alias hisg='set -f; history_grep' # Short form of history_grep, disable globbinb
+alias hg='set -f; history_grep'   # Short form of history_grep, disable globbing
+alias hc=$'history | grep -E "#"' # Just show history records with hashes
 shopt -s histappend  # Append to history rather than overwrite
 shopt -s histverify  # When recalling an event from history, let the user check before running
+export LH_ARCHIVE=${HOME}/.localhist-archive
 PROMPT_COMMAND='history -a'  # Save history at each shell prompt
 HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
 HISTCONTROL=ignoredups:ignorespace

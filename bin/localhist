@@ -3,24 +3,27 @@
 #
 #   localhist -v|--version
 #   localhist [o]n       # Set HISTFILE to <current dir>/bash_history
+#   localhist of[f]      # Switch HISTFILE back to ~/bash_history
 #   localhist [j]oin     # Join by searching up in tree for 'bash_history'
 #   localhist [cd]       # Change dir to parent of HISTFILE
-#   localhist [w]rite    # Write buffer to current HISTFILE
-#   localhist e[x]port   # Write buffer to specific file, with edit option
 #   localhist [r]ead     # Read from current HISTFILE to buffer
-#   localhist [i]mport   # Read from file(s) into buffer
-#   localhist of[f]      # Switch HISTFILE back to ~/bash_history
+#   localhost [ann]otate # Edit recent events
 #   localhist [s]how     # Show status
 #   localhist [d]ump     # Dump current histfile
+#   localhist [d]ump -c  # Dump current histfile, comments only
 #   localhist [e]dit     # Load current history buffer into $EDITOR
-#   localhost [a]nnotate # Append a comment to recent event
+#   localhist [i]mport   # Read from file(s) into buffer
 #   localhist [c]lear    # Clear buffer only
 #   localhist c[l]ean    # Clean current HISTFILE, removing unworthy stuff
 #   localhist [mem]clean # Clean current memory buffer removing unworthy stuff
+#   localhist [arch]ive  # Copy and clean all ~/.localhist into $LH_ARCHIVE/..
 #   localhist co[m]pare  # Compare current HISTFILE with ~/.bash_history
 #   localhist [z]merge   # Merge one or more file args into HISTFILE
 #   localhist [g]rep     # Search all ~/.localhist/* registered files
+#   localhist [g]rep -a  # Search all LH_ARCHIVE/HOST files
 #   localhist ca[t]alog  # Print stats on all ~/.localhist registered files
+#   localhist e[x]port   # Write buffer to specific file, with edit option
+#   localhist [w]rite    # Write buffer to current HISTFILE
 #   lo             : : : :  E x a m p l e s   : : : :
 #   localhist on read    # Turn on, then read.
 #   localhist o r        # ... same thing, fewer letters
@@ -151,12 +154,12 @@ localhist_help() {
 }
 
 
-localhist_annotate() {
+localhist_annotate_inner() {
     # Used to add comments or modify history after the fact
     local -a recent_hist
     mapfile -t recent_hist < <( builtin fc -ln -25 | sed 's/^[\t ]*//' )
     local i entrykey entryidx edited entry
-    [[ ${#recent_hist[@]} -eq 0 ]] && { echo "No candidate events" >&2; return; }
+    [[ ${#recent_hist[@]} -eq 0 ]] && { echo "No candidate events" >&2; return 1;}
     local labels=( {0..9} {a..d} {f..p} )
     for i in {0..24}; do
         [[ -z "${recent_hist[$i]}" ]] && break
@@ -165,17 +168,26 @@ localhist_annotate() {
     builtin echo -ne "\033[;33m ? [\033[;31mnumber\033[;33m] <> [\033[;31me\033[;33m]dit \$HISTFILE <> [\033[;31mq\033[;33m]uit\033[;0m: "
     builtin read -n 1 entrykey
     builtin echo
-    [[ ${entrykey} =~ [qQ] ]] && return
-    [[ ${entrykey} =~ [eE] ]] && { localhist edit; return ; }
+    [[ ${entrykey} =~ [qQ] ]] && { return 1; }
+    [[ ${entrykey} =~ [eE] ]] && { localhist edit; return 0; }
     for entryidx in {0..24}; do
         [[ ${entrykey} == ${labels[$entryidx]} ]] && break
     done
 
     entry=${recent_hist[$entryidx]}
     builtin read -p "editing(${entrykey}): " -ei "${entry}" edited
-    [[ -z ${edited} ]] && return
+    [[ -z ${edited} ]] && return 0
     builtin history -s "${edited}"
     [[ "${edited}" != "${entry}" ]] && printf "OK: history updated."
+    return 0
+}
+
+localhist_annotate() {
+    while true; do
+        if ! localhist_annotate_inner; then
+            return
+        fi
+    done
 }
 
 localhist() {
@@ -239,6 +251,9 @@ localhist() {
             mem|memclean)
                 localhist_memclean
             ;;
+            ar|arch|archive)
+                ${LocalhistHome}/localhist-archive.sh || return;
+            ;;
 
             r|read)
                 builtin history -r
@@ -257,14 +272,15 @@ localhist() {
                 echo "Editing $HISTFILE:"
                 $EDITOR $HISTFILE
             ;;
-            a|annotate)
+            a|ann|annotate)
                 localhist_annotate
             ;;
             s|show)
                 echo "HISTFILE=$HISTFILE: $(histevent_count $HISTFILE ) events, memory: $HISTCMD events"
             ;;
             d|dump)
-                ( builtin history -c; builtin history -r; builtin history | cut -d' ' -f5-; echo -e "  \033[;33m(From $HISTFILE, $(histevent_count $HISTFILE ) events)\033[;0m" )
+                ${LocalhistHome}/localhist-dump.sh $2 --file $HISTFILE 
+                shift
             ;;
             m|compare)
                 if [[ $HISTFILE == ~/.bash_history ]]; then

@@ -1,487 +1,3 @@
-#1629745064
-cd /c/Projects/elt-classmgr.workspace # to class
-#1629804012
-# Improve path_undupe.py and path_undupe shell script.  What we want is a quick detection of dupes, emit a message, and then provide a simple means for user to de-dupe the path or at least know which path members are dupe
-#1629804231
-cd ~/bin; python3.8 -i path_undupe.py --list-dupes # test rp1
-#1629804836
-cd ~/bin; loop python3.8  path_undupe.py --unique #
-#1629806784
-source path_undupe.bash; path_undupe # Testing path_undupe
-#1629807360
-gpa "Rework path_undupe.{bash,py}" #
-#1629809363
-cd /c/Projects/elt-classmgr.workspace/mar22 # to class
-#1629826018
-cd /c/Projects/revision-control.workspace/trnma.revision-control # to revision
-#1629829518
-# Prepping to teach aug23 revision-control
-#1629829583
-# /c/Projects/revision-control.workspace/trnma.revision-control
-#1629829695
-# We're using labspace/ as a demo area with autosync bash_history
-#1629886331
-cd /c/Projects/revision-control.workspace/labspace # to revis
-#1629886438
-cd /home/lmatheson4/bin/tox-py # to tox
-#1629886438
-cd /c/Projects/zap_container # to zap
-#1629886438
-vim cdpath.taskrc # We want to define cdpath_add()
-#1629886438
-cd /c/Projects/progress-metrics.workspace # to prog
-#1629886438
-cd /c/Projects/riddle/1pp # to 1pp
-#1629886438
-cd /c/Projects/booktools # to book
-#1629886438
-docker run -v `pwd`:/workarea -w /workarea --rm -it  artprod.dev.bloomberg.com/dpkg-python-development-base:3.9 # Testing localhist setup
-#1629886438
-cd /c/Projects/unix.workspace/trnma.unix # to unix
-#1629886438
-cd /c/Projects/explore/dpkg/localhist/workspace # to dpkg
-#1629886438
-cd /c/Projects/explore/dpkg # to dpkg
-#1629886438
-cd /c/Projects/dev-environment.workspace/trnma.dev-environment # to de
-#1629886438
-cd /c/Projects/docker.workspace # to dock
-#1629886438
-cd /c/Projects/docker.workspace # to dock //
-#1629886438
-cd /c/Projects/dmp.workspace/trnma.dmp/workshop/publisher/python/2-start-model/sample_solution/trnweisv/debian # to dmp debian
-#1629886438
-cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to dmp
-#1629886438
-cd /c/Projects/fsdlm74 # to fsd
-#1629886438
-cd /c/Projects/explore/dpkg/localhist/localhist-0.8/src # to dpkg
-#1629886438
-localhist [mem]clean# Clean current memory buffer removing unworthy stuff
-#1629886438
-localhist c[l]ean   # Clean current HISTFILE, removing unworthy stuff
-#1629886438
-echo Running tutorial for packaging shell scripts "https://blog.packagecloud.io/eng/2016/12/15/howto-build-debian-package-containing-simple-shell-scripts/" #
-#1629886438
-cd /c/Projects/explore/bash # to bash
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord # to prog
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pmpilots/template-reportspecs # to prog 11
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pm_sys # to prog 1
-#1629886438
-cd /c/Projects/progress-metrics.workspace # to prog 0
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pm_sys # to prog
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pmpilots/template-reportspecs # to prog
-#1629886438
-d /c/Projects/wsl.HOME/bin-pub/tox-py # to tox
-#1629886438
-cd /c/Projects/wsl.HOME/bin-pub/tox-py # to tox
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pmpilots # to prog
-#1629886438
-cd /c/Projects/wsl.HOME/my-home/landlord-live # to land
-#1629886438
-tail -f ~/.tox_core.log # How we tail the logfile for tox
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pmpilots # to pilo
-#1629886438
-cd /c/Projects/progress-metrics.workspace/tmp/test.tmp # to prog
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pm_reportserv/pm_reportserv/templates # to prog
-#1629886438
-echo Hello world # Never heard of -v before, but it echoes commands before execution.  What would be the use case?
-#1629886438
-IFS=$"|\n" read -a myary <<< "$lx"  # Parsing lx into my array
-#1629886438
-IFS=$"|\n" read a b c <<< "$lx"  # Here we parse on the bar
-#1629886438
-lx="aa|bb|cc" # setup for read word-splitting test
-#1629886438
-printf -v varg "this is my format string: %(%F)T" -1 # More printf goodness: it can create/update a variable with -v, skipping a whole command-substitution
-#1629886438
-printf "this is my format string: %(%F)T" -1 # printf is underrated: the ability to do all of C printf, plus the %T which takes a -1 for current time, plus the abilty todo echo-style escape sequences?  That's a lot
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord # to land
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord # to landlord
-#1629886438
-printf "%s:  %d" hello 32  # We've ignored printf too long
-#1629886438
-foo() {   local a=32; local; } # TIL you can write the locals to stdout with just plain 'local'
-#1629886438
-foo() {   local -  # Make shell options local!;   set -x  # Now this wont affect caller?;   echo hello; }  # TIL you can local-scope the shell options with "local -"
-#1629886438
-foo() {   local -  # Make shell options local!;   set -x  # Now this won't affect caller?;   echo hello; }  # TIL you can local-scope the shell options with "local -"
-#1629886438
-foo() {   local -  # Make shell options local!;   set -x  # Now this won't affect caller?;   echo hello; }
-#1629886438
-exec -a foobar bash # TIL you can set the arg0 with -a
-#1629886438
-enable -n echo; echo This is a disk command  # TIL you can disable built-ins!
-#1629886438
-enable -d echo; echo This is a disk command  # TIL you can disable built-ins!
-#1629886438
-disable echo; echo This is a disk command  # TIL you can disable built-ins!
-#1629886438
-shopt -s extdebug; declare -Ff tox_w  # TIL you can print the line/file for a declaration!
-#1629886438
-continue 2 # TIL that continue also allows nest-depth specification
-#1629886438
-echo # TIL that it makes sense to override built-in cd with function cd, so that tox_w can be called if cd fails
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pmpilots/trnma.bas # to prog //
-#1629886438
-cd /c/Projects/middleware.workspace/kafka # to unix kaf
-#1629886438
-break 3 # TIL that break can exit from nested control sections
-#1629886438
-source dockershell_completion.bash arg1 arg2  # Never realized that the positional args are set during a source.  This could be useful for tools like taskrc
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord # to landl
-#1629886438
-export _cstb_term=/dev/pts/2 # wfl
-#1629886438
-source /home/lmatheson4/bin/tmuxw_completion.bash # lfw
-#1629886438
-cd /home/lmatheson4/.taskrc # to task
-#1629886438
-HISTFILE=/home/lmatheson4/.bash_history  # Switching from /home/lmatheson4/bash_history
-#1629886438
-source  /c/Projects/explore/bash/_dothis_completions.bash # reload tv1
-#1629886438
-source ~/bin/localhist_completion.bash # tv2
-#1629886438
-echo ${#DIRSTACK[@]}
-#1629886438
-_cstb_term=/dev/pts/11 # set debug terminal for tv1
-#1629886438
-PATH="$PATH:$PWD"  # just testing dothis
-#1629886438
-complete -F _dothis_completions dothis # Register tv1
-#1629886438
-. /c/Projects/explore/bash/_dothis_completions.bash # reload tv1
-#1629886438
-_cstb_term=/dev/pts/17 # set debug terminal for tv1
-#1629886438
-compgen -W "now tomorrow never" nev # Trying to understand compgen
-#1629886438
-compgen -W "now tomorrow never"  # Trying to understand compgen
-#1629886438
-_dothis_completions()  {   COMPREPLY+=("now");   COMPREPLY+=("tomorrow");   COMPREPLY+=("never"); };  # tv1
-#1629886438
-echo # Just understanding the "complete -F" output is half the job, if you can borrow the completion logic of an existing function you can wrap it or reuse it
-#1629886438
-complete -p # List all completions
-#1629886438
-complete -r dothis  # It can take multiple -r's to remove a completion if it was added more than once
-#1629886438
-complete -A function dothis # How to supply function names
-#1629886438
-complete -A file dothis # How to supply file names as completion options
-#1629886438
-dothis .vscode/ # demo of dir
-#1629886438
-complete -A directory dothis # How to supply dir names as completion options
-#1629886438
-function dothis {    echo "dothis invoked with $@"; }  # For testing bash completion
-#1629886438
-complete -W "now tomorrow never" dothis  # If the completion possibilities are simple, a -W can just list them
-#1629886438
-shopt -s progcomp  # TIL that Ctrl+R Ctrl+R recalls most-recently searched term!
-#1629886438
-shopt | grep sourcepath # TIL that sourcepath opt is why I can source files on the PATH
-#1629886438
-shopt -u progcomp  # turning off programmable completion
-#1629886438
-cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to unix
-#1629886438
-PS1="\#"
-#1629886438
-vv+=(13)  # Adding a new value to end of array 'vv'
-#1629886438
-echo "${vv[@]}" # dump
-#1629886438
-/home/lmatheson4/bin/localhist-merge.sh ^c^Projects^dmp.workspace^bash_history ^c^Projects^elt-classmgr.workspace^may24^bash_history -o /tmp/foohist  # t3
-#1629886438
-/home/lmatheson4/bin/localhist-merge.sh ^c^Projects^dmp.workspace^bash_history ^c^Projects^elt-classmgr.workspace^may24^bash_history -o /tmp/foo  # t2
-#1629886438
-/home/lmatheson4/bin/localhist-merge.sh ^c^Projects^dmp.workspace^bash_history ^c^Projects^elt-classmgr.workspace^may24^bash_history /tmp/foo  # t2
-#1629886438
-echo ${${#}}
-#1629886438
-echo ${#}
-#1629886438
-localhist-merge.sh # t2
-#1629886438
-CDPATH=:~:/c/Projects # cdpath simple
-#1629886438
-for vv in {0..99}; do echo -en "\033[;${vv}m${vv}|"; done  # one-line colorchart
-#1629886438
-hisg \#
-#1629886438
-[[ hello -ef bash_history ]]; echo $?  # Compare inodes for equality!
-#1629886438
-[[ hello -ef hello2 ]]; echo $?  # Compare inodes for equality!
-#1629886438
-[[ hello -ot bash_history ]]; echo $?  # Did you know that modification times can be compared with -nt and -ot ??
-#1629886438
-[[ hello -nt bash_history ]]; echo $?  # Did you know that modification times can be compared with -nt and -ot ??
-#1629886438
-type -a [  # Actually [ is a built-in as well as ext command
-#1629886438
-declare -i vv=0x1000; (( vv >> 3 )); echo $vv  # And hex values
-#1629886438
-declare -i vv=32; (( vv %= 10 )); echo $vv  # And modulo-arithmetic?
-#1629886438
-declare -i vv=32; (( vv >>= 2 )); echo $vv  # did you know that C-style bit math is done?
-#1629886438
-for vv; do echo -en "\033[;${vv}m${vv}|"; done  # How to make a quick-and-dirty color chart!
-#1629886438
-shopt -s expand_aliases  # TIL that it's possible to expand aliases in a shell script!
-#1629886438
-alias ss='( echo "hello"; read -p "u haz question?"; )'  # You have underestimated aliases
-#1629886438
-echo $(<hello)  # Did not know you could use this instead of 'cat hello'
-#1629886438
-echo ${!B*}  # Print all vars that start with B
-#1629886438
-echo ${!HIST*}  # Print all vars that start with HIST
-#1629886438
-echo ${vc:=39}  # You can set the variable default this way.  If vc is defined, it will be used, otherwise 32 will be assigned
-#1629886438
-echo ${vc:=32}  # You can set the variable default this way.  If vc is defined, it will be used, otherwise 32 will be assigned
-#1629886438
-xx=PATH; echo ${!xx}  # Bet you didn't know that variables can be indirect like this
-#1629886438
-xx=PATH; echo #{!xx}  # Bet you didn't know that variables can be indirect like this
-#1629886438
-HISTFILE=/home/lmatheson4/.bash_history  # Switching from t1
-#1629886438
-cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to unix //
-#1629886438
-cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to trnma
-#1629886438
-ls ~-  # this is worth practicing, so you can ls the old dir
-#1629886438
-echo ~- # An alias for OLDPWD
-#1629886438
-echo ~+ # An alias for $PWD
-#1629886438
-for vv; do echo -en "\033[${vv};30m${vv}|"; done  # Variation
-#1629886438
-for vv; do echo -en "\033[${vv};0m${vv}|"; done  # Variation
-#1629886438
-echo {z..a}  # You can do this backwards also
-#1629886438
-echo {01..109} # If you add a leading 0, all results have the same width
-#1629886438
-echo {a..z..3} # Expand from a to z skipping 3 chars
-#1629886438
-cd /home/lmatheson4/bin # to bin // 0
-#1629886438
-echo \${1..10} # Creates $1 $2 $3...
-#1629886438
-echo \${1..10}  # Creates $1 $2 $3...
-#1629886438
-set -- {1..10}  # positional args
-#1629886438
-echo {1..10} # You forgot all about sequence expansion: here's 10 digits
-#1629886438
-vcol=( col{red,green,blue} )  # Example of non-file brace expansion
-#1629886438
-echo myfile.{py,c,o}  # Remember brace expansion?  It doesn't have to refer to files
-#1629886438
-var=( $* ) # TIL you can init an array like this
-#1629886438
-var=( $* )  # TIL you can init an array like this
-#1629886438
-var[2]=world # TIL you can just make up array vars on the fly if you use brackets!
-#1629886438
-set -- "${var[@]}" # Expand var into multiple args
-#1629886438
-set -- "${var[*]}" # Expand var into $1
-#1629886438
-gpa Improves ELT-class-setup.md #
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord # to landlo
-#1629886438
-cd bin # to bin
-#1629886438
-cd /c/Projects/guts.workspace # to guts
-#1629886438
-localhist-catalog.sh # t1
-#1629886438
-chmod +x ~/bin/localhist-catalog.sh # Let's have a way to catalog the .localhist content
-#1629886438
-cd /home/lmatheson4/bin # to bin 0 //
-#1629886438
-cd /home/lmatheson4/bin # to bin //
-#1629886438
-cd /c/Projects/progress-metrics.workspace/pm_reportserv/pm_reportserv/templates/auto_heatmap # to prog
-#1629886438
-grep -Ev '^#[0-9]+' $HISTFILE | wc -l
-#1629886438
-grep -Ev '^#\d+' $HISTFILE | wc -l
-#1629886438
-grep -Ev '^#' $HISTFILE | wc -l
-#1629886438
-grep -Ev '^#' $HISTFILE
-#1629886438
-HISTFILE=/home/lmatheson4/.bash_history  # Switching from ^c^Projects^bedtime-bound^bash_history
-#1629886438
-echo "# Working the shell parameter expansion examples in https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion"
-#1629886438
-va=(1 2 3 4 5 6 7 8 9 a b c d e f g h) # make an array 'va'
-#1629886438
-cd /c/Projects/explore # to explo
-#1629886438
-set -- 1 2 3 4 5 6 7 8 9 a b c d e f g h # lots of positional params
-#1629886438
-set -- "hello world"  # Set positional args
-#1629886438
-echo $#
-#1629886438
-sudo apt install groff # install groff so we can use "man -Tpdf".  The default installation was just groff-base"
-#1629886438
-sudo apt install groff # install groff so we can use "man -Tpdf"
-#1629886438
-HISTFILE=/c/Projects/dmp.workspace/bash_history # Switching from /home/lmatheson4/.bash_history
-#1629886438
-HISTFILE=/home/lmatheson4/.bash_history  # Switching from /c/Projects/progress-metrics.workspace/pm_reportserv/bash_history
-#1629886438
-HISTFILE=/home/lmatheson4/.bash_history # Switching from /c/Projects/progress-metrics.workspace/pm_reportserv/bash_history
-#1629886438
-HISTFILE=/home/lmatheson4/.bash_history # Switching from /home/lmatheson4/.bash_history
-#1629886438
-cd /c/Projects/unix.workspace # to unix
-#1629886438
-lc -i roster remove aug9-roster # Use roster file to load trainee idents
-#1629886438
-lc -i roster remove tmp/aug9-roster # Use roster file to load trainee idents
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to landlo
-#1629886438
-lc -i trainee add - # Paste column of trainee data into trainee-add
-#1629886438
-cat | xargs landcli roster add $toms_class # Paste column of trainee data into roster-add
-#1629886438
-cd /c/Projects/tmp1/heather # to tmp
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to landl
-#1629886438
-cd /home/lmatheson4/tmp # to tmp
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to libex
-#1629886438
-vim rosters.taskrc # Add Tom's new Aug 9 class
-#1629886438
-cd /home/lmatheson4/journal # to jour
-#1629886438
-curl http://artprod.dev.bloomberg.com/artifactory/bb-public-bucket-local/tdoc/landlord/v0.6.2/setup-landlord.sh | sh - # Setup landlord v0.6.2
-#1629886438
-cd /c/Projects/middleware.workspace/trnma.middleware-overview/labs/kafkachat # to kaf
-#1629886438
-cd /c/Projects/middleware.workspace/kafka # to kaf
-#1629886438
-cd /c/Projects/middleware.workspace/kafka.docker/kafka # to kafk
-#1629886438
-git reset --hard jun28/master # middleware teach prep
-#1629886438
-cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middl
-#1629886438
-cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middle
-#1629886438
-cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middl //
-#1629886438
-dc exec trndmpsv basclient -x trndmpsv.xsd --uuid 1 requests/add-city-lu.json # Test lab7 add-city
-#1629886438
-cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher-advanced/7-bas-dmp/solution # to 7
-#1629886438
-cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to dmp //
-#1629886438
-/c/Projects/guts.workspace/guts-flow-gist # This is for having the guts network team help with presentation Aug 3
-#1629886438
-cd /c/Projects/guts.workspace/trnma.metrics # to metr //
-#1629886438
-cd /c/Projects/progress-metrics.workspace/landlord # to metrics
-#1629886438
-./training_repos_copier.py create rosters/jun28.cfg dmp # Rebuild dmp repo for jun28
-#1629886438
-/c/Projects/training_repos_copier_workspace/trna.training_repos_copier/training_repos_copier.py makeconfig > rosters/jun28.cfg # Create a dummy cfg for abids class
-#1629886438
-./training_repos_copier.py create rosters/jun28.cfg # Rebuild dmp repo for jun28
-#1629886438
-echo ./training_repos_copier.py rosters/jun28.cfg remove dmp # Drop the old dmp
-#1629886438
-echo /c/Projects/training_repos_copier_workspace/trna.training_repos_copier/training_repos_copier.py makeconfig > rosters/jun28.cfg # Create a dummy cfg for abids class
-#1629886438
-cd /home/lmatheson4/journal # to jour lc --down exec bash ls -al wsl -l -v wsl.exe -l -v exit cd /mnt/c ls pwd cd ls -a ls -al ls .bashrc ls -al .bashrc exec bash ls -al .profile .bash_profile uname uname -a source .bashrc source ~/.bashrc pwd -P ls -al .bashrc source bin/bashrc-common cd bin cd /c/Projects ls -al exit
-#1629886438
-echo ${DIRSTACK[@]} # This is "how to extract the value of an array variable"
-#1629886438
-mkdir i-want-this-dir-to-exist # this is how we create dirs
-#1629886438
-mv something-else i-meant-to-say-this # This is how we rename or move a file or dir
-#1629886438
-cp -r trnfolsv something-else # this is how we copy a whole dir
-#1629886438
-pushd ~ # Change to this dir, and "push" the current dir onto a stack
-#1629886438
-push ~ # Change to this dir, and "push" the current dir onto a stack
-#1629886438
-brew install tree # This is how we install software on mac
-#1629886438
-sudo apt-get install tree # This is how we install software on wsl
-#1629886438
-man bash # the man command runs man(uals) for a given command
-#1629886438
-which kafkacat # Find kafkacat
-#1629886438
-< taskrc.md tr '#' '_' # This is how we can redirect the input to a program (tr in this case)
-#1629886438
-< taskrc.md tr '#' '_'
-#1629886438
-tr '#' '_'
-#1629886438
-( cd foonot ; echo hello ) &>/dev/null # Output both error and standard in one command
-#1629886438
-( cd foonot ; echo hello 1>/dev/null ) # Output both error and standard in one command
-#1629886438
-( cd foonot 2>/dev/null; echo hello ) # Output both error and standard in one command
-#1629886438
-( cd foonot ; echo hello ) # Output both error and standard in one command
-#1629886438
-myfunc() { local arg1=$1; local arg2=$2; shift 2; local arg_remaining="$@"; echo "arg1=$arg1"; echo "arg2=$arg2"; echo "args_remaining=$@"; } # Defining a function which takes arguments
-#1629886438
-uname -a # What kind of unix is this?
-#1629886438
-uname # What kind of unix is this?
-#1629886438
-echo $mystuff # Now we can see what the subshell said
-#1629886438
-mystuff=$( cd /; ls ) # Capture that dir list as a variable named mystuff
-#1629886438
-( cd / ; ls ) # Do that same looking at root files without changing current dir
-#1629886438
-echo $$; bash # Launch subshell
-#1629886438
-cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to pub
-#1629886438
-.3 # Go up 3 levels
-#1629886438
-cd - # Return to previous dir
-#1629886438
-pwd -P # What dir am I in?
-#1629886438
-autocommit_run.sh -p 10 # sync unix github bash_history
-#1629886438
-./autocommit_run.sh -p 10 # sync unix github bash_history
-#1629886438
-echo Wednesday morning #
 #1629886438
 type -a help # What sort of thing is 'help'
 #1629886438
@@ -712,3 +228,333 @@ lha_test # www
 ln -sf /c/Projects/zap_container/bash_history ./^c^Projects^zap_container^bash_history #
 #1632918157
 make -f /c/Projects/localhist/bin/lh_archive.mk #
+#1632918157
+make -f /c/Projects/localhist/bin/lh_archive.mk #
+#1632934512
+h
+#1632934512
+h
+#1632934569
+lh grep \#
+#1632934575
+hg \#
+#1632934606
+h
+#1632934610
+exit
+#1632934772
+clear
+#1632934784
+cd ../publish/
+#1632934784
+lr
+#1632934790
+./publish-via-github-release.sh 
+#1632934793
+.1
+#1632934793
+gs
+#1632934811
+gdf
+#1632934830
+cd bin
+#1632934832
+./setup.sh 
+#1632934836
+exec bash
+#1632934841
+echo $LH_ARCHIVE
+#1632934851
+echo $HOST
+#1632934860
+echo $HOSTNAME
+#1632941697
+exec bash
+#1632941723
+echo $LH_ARCHIVE
+#1632941733
+unset  LH_ARCHIVE
+#1632941743
+lh arc
+#1632941749
+lh arch
+#1632941802
+./setup.sh 
+#1632941811
+exec bash
+#1632941816
+unset  LH_ARCHIVE #
+#1632941819
+lh arch
+#1632941905
+./setup.sh 
+#1632941909
+unset  LH_ARCHIVE #
+#1632941912
+lh arch
+#1632942015
+./setup.sh 
+#1632942017
+unset  LH_ARCHIVE #
+#1632942020
+lh arch
+#1632942174
+./setup.sh 
+#1632942203
+./setup.sh; unset  LH_ARCHIVE ; lh arch; #
+#1632942253
+exec bash
+#1632942259
+./setup.sh; lh arch; #
+#1632942268
+echo $LH_ARCHIVE 
+#1632942335
+./setup.sh; exec bash; lh arch; #
+#1632942342
+exec bash
+#1632942345
+lh arch #
+#1632942367
+echo $HOSTNAME
+#1632942408
+./setup.sh; lh arch; #
+#1632942493
+cd ~/journal/lh_archive/pf140XGZ/
+#1632942494
+lr
+#1632942508
+gs
+#1632942534
+cd /c/Projects/localhist/bin
+#1632942576
+cd /home/lmatheson4/journal/lh_archive/pf140XGZ
+#1632942577
+lr
+#1632942579
+gs
+#1632942580
+.1
+#1632942581
+gs
+#1632942590
+rm *
+#1632946670
+cdb2sql --help
+#1632996114
+clear
+#1632996218
+h
+#1632996244
+cd /home/lmatheson4/journal/lh_archive/pf140XGZ #
+#1632996273
+e
+#1632996276
+h
+#1632996298
+hc
+#1632996372
+exec bash
+#1632996373
+hg
+#1632996395
+exec bash
+#1632996397
+hg
+#1632996407
+history_grep '#'
+#1632996423
+exec bash
+exec bash
+exec bash
+#1632996475
+exec bash
+#1632996477
+hg
+#1632996480
+type -a hg
+#1632996489
+hc
+#1632996493
+type -a hc
+#1632996512
+type -a history_grep
+#1632996551
+exec bash
+#1632996552
+hc
+#1632996793
+exec bash
+#1632996794
+hc
+#1632996821
+# TODO: stop cdpp from logging all cd changes with hash
+#1632996851
+# TODO: lh annotate should loop until user exit
+#1632996909
+lh e
+#1632997029
+cd localhi
+#1632997033
+cd localhi //
+#1632997036
+h
+#1632997043
+cd localhist/
+#1632997045
+lr
+#1632997050
+cd bin
+#1632997055
+source localhist
+#1632997059
+lh a
+#1632997070
+type -a localhist_annotate
+#1632997073
+type -a lha
+#1632997084
+lh
+#1632997102
+type -a localhist_annotate_inner 
+#1632997105
+lh a
+#1632997131
+source ./localhist
+#1632997133
+lh a
+#1632997145
+source ./localhist
+#1632997147
+lh a
+#1632997160
+type -a lh
+#1632997168
+localhist annotate
+#1632997201
+source ./localhist
+#1632997205
+lh a
+#1632997209
+exit
+#1632997209
+exit
+#1632997220
+lh a
+#1632997235
+source localhist
+#1632997238
+cd bin
+#1632997242
+source ./localhist
+#1632997243
+lh a
+#1632997274
+source ./localhist
+#1632997276
+lh a
+#1632997311
+source ./localhist
+#1632997322
+set +x
+#1632997323
+lh a
+#1632997343
+source ./localhist; lh a
+#1632997474
+source ./localhist #
+#1632997493
+type -a localhist_annotate_inner #
+#1632997497
+gs
+#1632997502
+lh arch
+#1632997528
+cd lh_arch
+#1632997535
+cd journal/lh_archive/
+#1632997535
+lr
+#1632997538
+cd pf140XGZ/
+#1632997539
+gs
+#1632997541
+ga .
+#1632997542
+gs
+#1632997546
+gpa
+#1632997565
+lh arch
+#1632997567
+gs
+#1632997842
+cd /c/Projects/localhist/bin
+#1632997851
+./localhist-grep.sh -a foo
+#1632997859
+./localhist-grep.sh --archive foo
+#1632997863
+./localhist-grep.sh foo
+#1632997885
+./localhist-grep.sh --archive foo
+#1632998113
+cat > localhist-dump.sh
+#1632998308
+lr
+#1632998359
+chmod +x localhist-dump.sh 
+#1632998362
+./localhist-dump.sh 
+#1632998462
+loop ./localhist-dump.sh 
+#1632998602
+loop ./localhist-dump.sh  -c
+#1632998613
+loop ./localhist-dump.sh  --commented
+#1632999022
+source ./localhist
+#1632999024
+lh d
+#1632999031
+./setup.sh 
+#1632999035
+lh d
+#1632999044
+lh d -c
+#1632999084
+source ./localhist; lh d -c
+#1632999170
+source ./localhist
+#1632999174
+type -a lh
+#1632999179
+lh d -c
+#1632999247
+source ./localhist
+#1632999250
+lh d -c
+#1632999302
+set +x
+#1632999304
+lh d -c
+#1632999315
+source ./localhist
+#1632999318
+set +x
+#1632999321
+lh d -c
+#1632999325
+lh d 
+#1632999330
+lh d -c
+#1632999476
+source ./localhist
+#1632999480
+lh d -c
+#1632999482
+gs
+#1632999484
+ga .
+#1632999484
+gs
