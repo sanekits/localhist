@@ -5,11 +5,12 @@ die() {
 }
 
 colorcomments() {
+    local line2
     while read line; do
-        if [[ $line != *#* ]]; then
-            continue
+        if [[ $line =~ .*# ]]; then
+            line2=$(echo "$line" | sed 's^#^\\033[;32m#^')
+            echo -e "${line2}\033[;0m"
         fi
-
     done
 }
 
@@ -32,7 +33,8 @@ done
 HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
 history -r
 if [[ -n $filter ]]; then
-    builtin history | command grep -E "$filter"
+    #builtin history | command grep -E "$filter"
+    builtin history | colorcomments
 else
     history
 fi
