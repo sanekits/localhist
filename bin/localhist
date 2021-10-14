@@ -47,9 +47,12 @@ localhist_join() {
     local orgDir=$PWD
     while true; do
         if [[ -f bash_history ]]; then
-            [[ $HISTFILE == ${PWD}/bash_history ]] && { echo "No join needed: HISTFILE is already $HISTFILE"; return; }
+            localhist_register ${PWD}/bash_history
+            [[ $HISTFILE == ${PWD}/bash_history ]] && { 
+                echo "No join needed: HISTFILE is already $HISTFILE"; 
+                return; 
+            }
             localhist_set $PWD/bash_history
-            localhist_register $HISTFILE
             echo "Ok I found and set HISTFILE to $HISTFILE"
             cd $orgDir
             return
