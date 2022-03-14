@@ -17,17 +17,18 @@ SEARCHDIR=$HOME/.localhist
 echo "Searching $SEARCHDIR for pattern [$@]:" >&2
 
 builtin cd $SEARCHDIR
-for xf in *; do
+for xf in $(find); do
     xf=$(command readlink -f ${xf} 2>/dev/null)
     (
-        [[ -z ${xf} ]] && continue
-        builtin cd $(command dirname -- ${xf}) 2>/dev/null || continue;
+        [[ -z ${xf} ]] && exit 0
+        builtin cd $(command dirname -- ${xf}) 2>/dev/null || exit 0;
         set -o history
         builtin history -c
         HISTTIMEFORMAT="%F %H:%M "
         HISTFILE=$(command basename -- ${xf}) 
         builtin history -r
         builtin echo -e "\033[;33m${xf}:\033[;0m"
-        builtin history | command grep -E "$@" 2>/dev/null | command sed 's/^/  /'
+        builtin history | command grep -E ".*$@.*" 2>/dev/null | command sed 's/^/  /'
     )
 done
+
