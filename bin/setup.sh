@@ -45,37 +45,58 @@ path_fixup() {
 shrc_fixup() {
     # We must ensure that .bashrc sources our localhist script
     local tgt_dir="$1"
-    [[ $(type -t localhist) == 'function' ]] && return
 
     (
-        echo '[[ -n $PS1 && ' "-f ${tgt_dir}/localhist/localhist" ' ]] && source ' "${tgt_dir}/localhist/localhist" ' # Added by localhist setup.sh'
+        if command grep -E '[^#]* source .*localhist\/localhist' ~/.bashrc &>/dev/null; then
+            echo "localhist already installed in ~/.bashrc: Ok" >&2
+            exit 0
+        fi
+        echo '[[ -n $PS1 && -f ${HOME}/.local/bin/localhist/localhist ]] && source ${HOME}/.local/bin/localhist/localhist # Added by localhist setup.sh'
         echo '[[ -n $PS1 && -f ${HOME}/.bash_completion.d/localhist-completion.bash ]] && source ${HOME}/.bash_completion.d/localhist-completion.bash # Added by localhist setup.sh'
+        echo "Your .bashrc has been updated." >&2
         echo
     ) >> ${HOME}/.bashrc
-    echo "Your .bashrc has been updated." >&2
     reload_reqd=true
 }
 
-make_aliases() {
-    # Create/update ~/.localhist-aliases
-    [[ -f ${HOME}/.localhist-aliases ]] || {
-        (
-            echo "# Added by localhist setup.sh: you can disable or update these, and we won't overwrite them."
-            echo
-            echo "alias lh=localhist"
-            echo "alias h=history"
-            echo "shopt -s histappend  # Append to history rather than overwrite"
-            echo "shopt -s histverify  # When recalling an event from history, let the user check before running"
-            echo "PROMPT_COMMAND='history -a'  # Save history at each shell prompt"
-            echo "HISTTIMEFORMAT=\"%F %H:%M \" # we want date/time stamps"
-            echo "HISTCONTROL=ignoredups:ignorespace "
-            echo "HISTSIZE=3000 # Size of in-memory hist buffer"
-            echo "HISTFILESIZE=5000 # Size of a history file"
-            echo
-        ) > ${HOME}/.localhist-aliases
-        echo "Created ~/.localhist-aliases: you can modify this file safely." >&2
+localhistrc_text() {
+    cat <<-EOF
+# Added by localhist-setup.sh: you can disable or update these, and we won't overwrite them.
+
+$(cat ./localhist/localhist_add)
+
+alias lh=localhist
+alias h=history
+alias lha=localhist_add
+alias lhac='localhist_add -c'
+alias hisg='set -f; history_grep' # Short form of history_grep, disable globbinb
+alias hg='set -f; history_grep'   # Short form of history_grep, disable globbing
+alias hc=$'history | grep -E "#"' # Just show history records with hashes
+shopt -s histappend  # Append to history rather than overwrite
+shopt -s histverify  # When recalling an event from history, let the user check before running
+export LH_ARCHIVE=${HOME}/.localhist-archive
+PROMPT_COMMAND='history -a'  # Save history at each shell prompt
+HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
+HISTCONTROL=ignoredups:ignorespace
+HISTSIZE=3000 # Size of in-memory hist buffer
+HISTFILESIZE=5000 # Size of a history file
+if [[ -n \$HISTFILE_PRESERVE ]]; then
+    export HISTFILE=\$HISTFILE_PRESERVE
+fi
+EOF
+}
+
+
+
+make_localhistrc() {
+    # Create/update ~/.localhistrc
+    [[ -f ${HOME}/.localhistrc ]] || {
+        localhistrc_text > ${HOME}/.localhistrc
+        echo "Created ~/.localhistrc: you can modify this file safely." >&2
         reload_reqd=true
+        return
     }
+    echo "~/.localhistrc already exists, I didn't touch it.  Ok" >&2
 }
 
 completion_fixup() {
@@ -99,9 +120,9 @@ main() {
     cd .. # Now we're in .local/bin
     ln -sf localhist/localhist-*.sh ./  # We need these on the PATH
     path_fixup "$PWD" || die "102"
-    shrc_fixup "$PWD" || die "104"
+    shrc_fixup "$PWD" 
     completion_fixup "$PWD" || die  "103"
-    make_aliases "$PWD" || die "105"
+    make_localhistrc "$PWD" || die "105"
     $reload_reqd && echo "Shell reload required ('bash -l')" >&2
 }
 

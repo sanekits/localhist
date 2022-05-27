@@ -2,27 +2,48 @@
 #  Catalogue the ~/.localhist tree
 
 die() {
-    echo "ERROR: $@" >&2
+    builtin echo "ERROR: $@" >&2
     exit 1
 }
 
 histevent_count() {
-    ( grep -vE '^#[0-9]+' ${1} 2>/dev/null || :) | wc -l
+    ( command grep -vE '^#[0-9]+' ${1} 2>/dev/null || :) | command wc -l
 }
 
-cd ~/.localhist || die '~/.localhist not found'
+builtin cd ~/.localhist || die '~/.localhist not found'
+
+do_cleanup=false # -c|--cleanup
+
+for arg; do
+    case $arg in
+        -c|--cleanup)
+            do_cleanup=true
+            ;;
+        *)
+            echo "WARNING: unknown arg \"$arg\"" >&2
+            ;;
+    esac
+done
 
 set -- `ls`
 
 for xf; do
     [[ -h ${xf} ]] || continue
     (
-        xf=$(readlink -f $xf)
-        fn1=$(basename $xf)
-        dn1=$(dirname ${xf})
-        cd ${dn1} || die "Can't cd to $dn1"
-        lastmod=$(stat -c %y ${fn1})
-        echo "${dn1} mod: ${lastmod:0:16} events: $(histevent_count ${fn1})"
+        xr=$(readlink -f "$xf")
+        [[ -f "$xr" ]] || { 
+            if ! $do_cleanup; then
+                echo "  Skipping non-file $xf; use --cleanup to purge dead links." >&2 ; 
+            else
+                rm ${xf} && echo  "  Removed non-file $xf" >&2
+            fi
+            continue; 
+        }
+        fn1=$(command basename -- "$xr")
+        dn1=$(command dirname -- "${xr}")
+        builtin cd ${dn1} || die "  Can't cd to $dn1"
+        lastmod=$(command stat -c %y ${fn1})
+        builtin echo "${dn1} mod: ${lastmod:0:16} events: $(histevent_count ${fn1})"
     )
 done
 

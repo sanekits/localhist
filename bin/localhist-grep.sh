@@ -6,19 +6,29 @@ die() {
     exit 1
 }
 
-[[ -d ~/.localhist ]] || die No ~/.localhist dir exists
+# If first arg is -a or --archive, we will search $LH_ARCHIVE/$(hostname), otherwise
+# the more expansive ~/.localhist search applies
+SEARCHDIR=$HOME/.localhist
 
-cd ~/.localhist
-for xf in *; do
-    xf=$(readlink -f ${xf})
+[[ $1 =~ ^(-a)|(--archive)$ ]] && { SEARCHDIR="$LH_ARCHIVE/$(hostname)"; shift; }
+
+[[ -d $SEARCHDIR ]] || die No \$SEARCHDIR exists
+
+echo "Searching $SEARCHDIR for pattern [$@]:" >&2
+
+builtin cd $SEARCHDIR
+for xf in $(find); do
+    xf=$(command readlink -f ${xf} 2>/dev/null)
     (
-        cd $(dirname ${xf});
+        [[ -z ${xf} ]] && exit 0
+        builtin cd $(command dirname -- ${xf}) 2>/dev/null || exit 0;
         set -o history
-        history -c
+        builtin history -c
         HISTTIMEFORMAT="%F %H:%M "
-        HISTFILE=$PWD/bash_history
-        history -r
-        echo -e "\033[;33mcd $(pwd -P)\033[;0m"
-        history | grep -E "$@" 2>/dev/null | sed 's/^/  /'
+        HISTFILE=$(command basename -- ${xf}) 
+        builtin history -r
+        builtin echo -e "\033[;33m${xf}:\033[;0m"
+        builtin history | command grep -E ".*$@.*" 2>/dev/null | command sed 's/^/  /'
     )
 done
+
