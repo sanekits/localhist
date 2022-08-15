@@ -15,7 +15,7 @@
 		}
 	},
     "mounts": [
-        "source=${localEnv:HOME},target=/home/host,type=bind,readonly"
+        "source=${localEnv:HOME},target=/host_home,type=bind,readonly"
     ],
 
 	// Set *default* container specific settings.json values on container create.
