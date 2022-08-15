@@ -2,7 +2,7 @@
 
 # Running localhist-version.sh is the correct way to
 # get the home path for localhist and its tools.
-LocalhistVer=0.9.9
+LocalhistVer=1.0.0
 
 set -e
 
