@@ -11,5 +11,5 @@ Scriptdir=$(dirname -- "$Script")
 
 
 if [ -z "$sourceMe" ]; then
-    printf "%s\t%s" ${Scriptdir}/localhist ${LocalhistVer}
+    printf "%s\t%s" ${Scriptdir} ${LocalhistVer}
 fi
