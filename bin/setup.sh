@@ -34,7 +34,8 @@ die() {
 main() {
     Script=${scriptName} main_base "$@"
     builtin cd ${HOME}/.local/bin || die 208
-    # TODO: kit-specific steps can be added here
+
+    mkdir -p ~/.localhist
 
 
 

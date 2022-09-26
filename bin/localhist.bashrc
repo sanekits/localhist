@@ -326,9 +326,11 @@ localhist() {
     done
 }
 
-[[ -z $LocalhistHome ]] && {
-    export LocalhistHome=${HOME}/.local/bin/localhist
-}
+export LocalhistHome=${HOME}/.local/bin/localhist
+
+[[ -f ${LocalhistHome}/prompt-command-wrap.bashrc ]]  \
+    && source ${LocalhistHome}/prompt-command-wrap.bashrc
+
 [[ -f ${HOME}/.localhistrc ]] && source ${HOME}/.localhistrc
 
 
