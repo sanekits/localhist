@@ -75,7 +75,10 @@ alias hc=$'history | grep -E "#"' # Just show history records with hashes
 shopt -s histappend  # Append to history rather than overwrite
 shopt -s histverify  # When recalling an event from history, let the user check before running
 export LH_ARCHIVE=${HOME}/.localhist-archive
-PROMPT_COMMAND='history -a'  # Save history at each shell prompt
+__localhist_prompt_command() {
+    'history -a'
+}
+PROMPT_COMMAND=__localhist_prompt_command
 HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=3000 # Size of in-memory hist buffer
@@ -120,7 +123,7 @@ main() {
     cd .. # Now we're in .local/bin
     ln -sf localhist/localhist-*.sh ./  # We need these on the PATH
     path_fixup "$PWD" || die "102"
-    shrc_fixup "$PWD" 
+    shrc_fixup "$PWD"
     completion_fixup "$PWD" || die  "103"
     make_localhistrc "$PWD" || die "105"
     $reload_reqd && echo "Shell reload required ('bash -l')" >&2
