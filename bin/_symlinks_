@@ -11,3 +11,8 @@
 #   my-script.sh #help@ ${SHELLKIT_HELP_SYMBOL} --help
 #
 localhist.sh
+localhist-archive.sh
+localhist-cleanup.sh
+localhist-dump.sh
+localhist-merge.sh
+
