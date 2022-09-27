@@ -377,7 +377,12 @@ function history_grep {
 }
 
 function localhist_prompt_command() {
+    # Append to history file.  If we're using a local hist file,
+    # cc: the entry to ~/.bash_history also
     history -a
+    [[ $HISTFILE == ~/.bash_history ]] && return
+    local lastEntry="$(history 1 | cut -d' ' -f 7-)"
+    HISTFILE=~/.bash_history history -s "${lastEntry}"
 }
 
 
