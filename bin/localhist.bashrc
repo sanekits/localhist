@@ -381,8 +381,7 @@ function localhist_prompt_command() {
     # cc: the entry to ~/.bash_history also
     builtin history -a
     [[ $HISTFILE == ~/.bash_history ]] && return
-    local lastEntry="$(builtin history 1 | command cut -d' ' -f 7-)"
-    ( HISTFILE=~/.bash_history ; builtin history -s "${lastEntry}"; builtin history -a; )
+    command tail -n 2 $HISTFILE >> ~/.bash_history
 }
 
 
