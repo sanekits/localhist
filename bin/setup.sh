@@ -42,6 +42,13 @@ install_localhistrc() {
     }
 }
 
+completion_fixup() {
+    # Setup ~/.bash_completion.d/localhist-completion.bash.  The
+    # completion logic in bash searches this dir.
+    mkdir -p $HOME/.bash_completion.d
+    ln -sf ${HOME}/.local/bin/${Kitname}/localhist-completion.bash $HOME/.bash_completion.d/
+}
+
 main() {
     Script=${scriptName} main_base "$@"
     builtin cd ${HOME}/.local/bin || die 208
@@ -49,6 +56,7 @@ main() {
     mkdir -p ~/.localhist
 
     install_localhistrc
+    completion_fixup
 
     # FINALIZE: perms on ~/.local/bin/localhist.  We want others/group to be
     # able to traverse dirs and exec scripts, so that a source installation can

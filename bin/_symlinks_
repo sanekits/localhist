@@ -15,4 +15,3 @@ localhist-archive.sh
 localhist-cleanup.sh
 localhist-dump.sh
 localhist-merge.sh
-
