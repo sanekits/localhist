@@ -1,0 +1,17 @@
+# List of paths in .local/bin/localhist/ which get symlinked to
+# .local/bin on setup
+#
+# TODO: list your scripts which need to be on the PATH, one per line
+#
+#   -  e.g.:
+#   foo-script.sh #help Prints 'foo' on demand
+#
+#   -  Or you can run a shell command to output the help text.  Optional
+#   - (${SHELLKIT_HELP_SYMBOL} expands to the script name to avoid repetition.)
+#   my-script.sh #help@ ${SHELLKIT_HELP_SYMBOL} --help
+#
+localhist.sh
+localhist-archive.sh
+localhist-cleanup.sh
+localhist-dump.sh
+localhist-merge.sh

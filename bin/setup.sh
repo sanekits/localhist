@@ -1,129 +1,72 @@
 #!/bin/bash
 # setup.sh for localhist
-
-die() {
-    echo "ERROR: $@" >&2
-    exit 1
-}
+#  This script is run from a temp dir after the self-install code has
+# extracted the install files.   The default behavior is provided
+# by the main_base() call, but after that you can add your own logic
+# and installation steps.
 
 canonpath() {
-    ( cd -L -- "$(dirname -- $0)"; echo "$(pwd -P)/$(basename -- $0)" )
-}
-
-Script=$(canonpath "$0")
-Scriptdir=$(dirname -- "$Script")
-inode() {
-    ( command ls -i "$1" | command awk '{print $1}') 2>/dev/null
-}
-
-is_on_path() {
-    local tgt_dir="$1"
-    [[ -z $tgt_dir ]] && { true; return; }
-    local vv=( $(echo "${PATH}" | tr ':' '\n') )
-    for v in ${vv[@]}; do
-        if [[ $tgt_dir == $v ]]; then
-            return
-        fi
-    done
-    false
-}
-
-path_fixup() {
-    # Add ~/.local/bin to the PATH if it's not already.  Modify
-    # either .bash_profile or .profile honoring bash startup rules.
-    local tgt_dir="$1"
-    if is_on_path "${tgt_dir}"; then
-        return
-    fi
-    local profile=$HOME/.bash_profile
-    [[ -f $profile ]] || profile=$HOME/.profile
-    echo 'export PATH=$HOME/.local/bin:$PATH # Added by localhist setup.sh' >> ${profile} || die 202
-    echo "~/.local/bin added to your PATH." >&2
-    reload_reqd=true
-}
-
-shrc_fixup() {
-    # We must ensure that .bashrc sources our localhist script
-    local tgt_dir="$1"
-
-    (
-        if command grep -E '[^#]* source .*localhist\/localhist' ~/.bashrc &>/dev/null; then
-            echo "localhist already installed in ~/.bashrc: Ok" >&2
-            exit 0
-        fi
-        echo '[[ -n $PS1 && -f ${HOME}/.local/bin/localhist/localhist ]] && source ${HOME}/.local/bin/localhist/localhist # Added by localhist setup.sh'
-        echo '[[ -n $PS1 && -f ${HOME}/.bash_completion.d/localhist-completion.bash ]] && source ${HOME}/.bash_completion.d/localhist-completion.bash # Added by localhist setup.sh'
-        echo "Your .bashrc has been updated." >&2
-        echo
-    ) >> ${HOME}/.bashrc
-    reload_reqd=true
-}
-
-localhistrc_text() {
-    cat <<-EOF
-# Added by localhist-setup.sh: you can disable or update these, and we won't overwrite them.
-
-$(cat ./localhist/localhist_add)
-
-alias lh=localhist
-alias h=history
-alias lha=localhist_add
-alias lhac='localhist_add -c'
-alias hisg='set -f; history_grep' # Short form of history_grep, disable globbinb
-alias hg='set -f; history_grep'   # Short form of history_grep, disable globbing
-alias hc=$'history | grep -E "#"' # Just show history records with hashes
-shopt -s histappend  # Append to history rather than overwrite
-shopt -s histverify  # When recalling an event from history, let the user check before running
-export LH_ARCHIVE=${HOME}/.localhist-archive
-PROMPT_COMMAND='history -a'  # Save history at each shell prompt
-HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
-HISTCONTROL=ignoredups:ignorespace
-HISTSIZE=3000 # Size of in-memory hist buffer
-HISTFILESIZE=5000 # Size of a history file
-if [[ -n \$HISTFILE_PRESERVE ]]; then
-    export HISTFILE=\$HISTFILE_PRESERVE
-fi
-EOF
-}
-
-
-
-make_localhistrc() {
-    # Create/update ~/.localhistrc
-    [[ -f ${HOME}/.localhistrc ]] || {
-        localhistrc_text > ${HOME}/.localhistrc
-        echo "Created ~/.localhistrc: you can modify this file safely." >&2
-        reload_reqd=true
+    builtin type -t realpath.sh &>/dev/null && {
+        realpath.sh -f "$@"
         return
     }
-    echo "~/.localhistrc already exists, I didn't touch it.  Ok" >&2
+    builtin type -t readlink &>/dev/null && {
+        command readlink -f "$@"
+        return
+    }
+    # Fallback: Ok for rough work only, does not handle some corner cases:
+    ( builtin cd -L -- "$(command dirname -- $0)"; builtin echo "$(command pwd -P)/$(command basename -- $0)" )
+}
+
+stub() {
+   builtin echo "  <<< STUB[$*] >>> " >&2
+}
+scriptName="$(canonpath  $0)"
+scriptDir=$(command dirname -- "${scriptName}")
+
+source ${scriptDir}/shellkit/setup-base.sh
+
+die() {
+    builtin echo "ERROR(setup.sh): $*" >&2
+    builtin exit 1
+}
+
+install_localhistrc() {
+    [[ -f ~/.localhistrc ]] && {
+        diff ~/.localhistrc ${Kitname}/localhistrc.template &>/dev/null || {
+            cp ${Kitname}/localhistrc.template ~/.localhistrc.proposed
+            echo "WARNING: your ~/.localhistrc differs from the packaged version.  You should compare it with ~/.localhistrc.proposed to get the latest changes." >&2
+        }
+    } || {
+        cp ${Kitname}/localhistrc.template ~/.localhistrc
+    }
 }
 
 completion_fixup() {
     # Setup ~/.bash_completion.d/localhist-completion.bash.  The
     # completion logic in bash searches this dir.
-    [[ -d $HOME/.bash_completion.d ]] ||  mkdir -p $HOME/.bash_completion.d
-    ln -sf ${HOME}/.local/bin/localhist/localhist-completion.bash $HOME/.bash_completion.d/
+    mkdir -p $HOME/.bash_completion.d
+    ln -sf ${HOME}/.local/bin/${Kitname}/localhist-completion.bash $HOME/.bash_completion.d/
 }
 
 main() {
-    reload_reqd=false
-    if [[ ! -d $HOME/.local/bin/localhist ]]; then
-        mkdir -p $HOME/.local/bin/localhist || die "Failed creating $HOME/.local/bin/localhist"
-    fi
-    if [[ $(inode $Script) -eq $(inode ${HOME}/.local/bin/localhist/setup.sh) ]]; then
-        die "cannot run setup.sh from ${HOME}/.local/bin"
-    fi
-    cd ${HOME}/.local/bin/localhist || die "101"
-    rm -rf ./* || die "102"
-    cp -r ${Scriptdir}/* ./ || die "failed copying from ${Scriptdir} to $PWD"
-    cd .. # Now we're in .local/bin
-    ln -sf localhist/localhist-*.sh ./  # We need these on the PATH
-    path_fixup "$PWD" || die "102"
-    shrc_fixup "$PWD" 
-    completion_fixup "$PWD" || die  "103"
-    make_localhistrc "$PWD" || die "105"
-    $reload_reqd && echo "Shell reload required ('bash -l')" >&2
+    Script=${scriptName} main_base "$@"
+    builtin cd ${HOME}/.local/bin || die 208
+
+    mkdir -p ~/.localhist
+
+    install_localhistrc
+    completion_fixup
+
+    # FINALIZE: perms on ~/.local/bin/localhist.  We want others/group to be
+    # able to traverse dirs and exec scripts, so that a source installation can
+    # be replicated to a dest from the same file system (e.g. docker containers,
+    # nfs-mounted home nets, etc)
+    command chmod og+rX ${HOME}/.local/bin/${Kitname} -R;
 }
 
-[[ -z $sourceMe ]] && main "$@"
+[[ -z ${sourceMe} ]] && {
+    main "$@"
+    builtin exit
+}
+command true

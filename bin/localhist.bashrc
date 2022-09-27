@@ -1,4 +1,12 @@
 # vim: filetype=sh
+# localhist.bashrc - shell init file for localhist sourced from ~/.bashrc
+
+localhist-semaphore() {
+    [[ 1 -eq  1 ]]
+}
+
+export LocalhistHome=${HOME}/.local/bin/localhist
+
 # localhist
 #
 #   localhist -v|--version
@@ -48,9 +56,9 @@ localhist_join() {
     while true; do
         if [[ -f bash_history ]]; then
             localhist_register ${PWD}/bash_history
-            [[ $HISTFILE == ${PWD}/bash_history ]] && { 
-                echo "No join needed: HISTFILE is already $HISTFILE"; 
-                return; 
+            [[ $HISTFILE == ${PWD}/bash_history ]] && {
+                echo "No join needed: HISTFILE is already $HISTFILE";
+                return;
             }
             localhist_set $PWD/bash_history
             echo "Ok I found and set HISTFILE to $HISTFILE"
@@ -153,7 +161,7 @@ localhist_help() {
     [[ -r $LocalhistHelpRendered ]] && { echo -ne "$(<${LocalhistHelpRendered})"; echo; return; }
     LocalhistHelpRendered=$(mktemp) # This rendering is noticeably slower the first time thru, thus
                                     # the tmpfile cache...
-    egrep '^#   l' ${LocalhistHome}/localhist | cut -c 3- | help_highlight | tee ${LocalhistHelpRendered}
+    egrep '^#   l' ${LocalhistHome}/localhist.bashrc | cut -c 3- | help_highlight | tee ${LocalhistHelpRendered}
 }
 
 
@@ -282,7 +290,7 @@ localhist() {
                 echo "HISTFILE=$HISTFILE: $(histevent_count $HISTFILE ) events, memory: $HISTCMD events"
             ;;
             d|dump)
-                ${LocalhistHome}/localhist-dump.sh $2 --file $HISTFILE 
+                ${LocalhistHome}/localhist-dump.sh $2 --file $HISTFILE
                 shift
             ;;
             m|compare)
@@ -320,8 +328,68 @@ localhist() {
     done
 }
 
-[[ -z $LocalhistHome ]] && {
-    export LocalhistHome=${HOME}/.local/bin/localhist
+localhist_add() { # Append a text entry to HISTFILE
+    local text_source=stdin  # Use -- to supply text from command line
+    local prepend
+    local text
+    while [[ -n $1 ]]; do
+        case $1 in
+            -h|--help)
+                builtin echo "localhist_add [--comment|-c] [--file|-f <path>] [-- args as text]"
+                return
+            ;;
+            -c|--comment)  # Add text after a '#' comment indicator
+                prepend="# "
+            ;;
+            -f|--file)  # Get text from specified file
+                text_source="${2}"; shift
+            ;;
+            --)  # Anything following is the text itself
+                text_source=args
+                shift
+                break
+            ;;
+        esac
+        shift
+    done
+    case $text_source in
+        stdin)
+            if [[ -t 2  && -t 0 ]]; then
+                builtin read -p "Enter text for new history event: " text
+            else
+                builtin read text
+            fi
+            ;;
+        args)
+            text="$@"
+            ;;
+        *)
+            [[ -r ${text_source} ]] || { builtin echo "ERROR: can't read text from file \"${text_source}\" " >&2; false; return; }
+            text=$(command cat ${text_source} | command tr '\n' ';' )
+            ;;
+    esac
+    builtin history -s "${prepend}${text}"
 }
+
+function history_grep {
+    builtin history | command grep -E "$@"
+    set +f
+}
+
+function localhist_prompt_command() {
+    # Append to history file.  If we're using a local hist file,
+    # cc: the entry to ~/.bash_history also
+    builtin history -a
+    [[ $HISTFILE == ~/.bash_history ]] && return
+    command tail -n 2 $HISTFILE >> ~/.bash_history
+}
+
+
+
+[[ -f ${LocalhistHome}/prompt-command-wrap.bashrc ]]  \
+    && source ${LocalhistHome}/prompt-command-wrap.bashrc
+
 [[ -f ${HOME}/.localhistrc ]] && source ${HOME}/.localhistrc
+
+__pcwrap_register  localhist_prompt_command
 

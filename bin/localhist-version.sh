@@ -1,15 +1,26 @@
 #!/bin/bash
 
 # Running localhist-version.sh is the correct way to
-# get the home path for localhist and its tools.
-LocalhistVer=1.0.0
+# get the home install path for the tool
+KitVersion=2.0.1
 
-set -e
+canonpath() {
+    builtin type -t realpath.sh &>/dev/null && {
+        realpath.sh -f "$@"
+        return
+    }
+    builtin type -t readlink &>/dev/null && {
+        command readlink -f "$@"
+        return
+    }
+    # Fallback: Ok for rough work only, does not handle some corner cases:
+    ( builtin cd -L -- "$(command dirname -- $0)"; builtin echo "$(command pwd -P)/$(command basename -- $0)" )
+}
 
-Script=$(readlink -f "$0")
+Script=$(canonpath "$0")
 Scriptdir=$(dirname -- "$Script")
 
 
-if [ -z "$sourceMe" ]; then
-    printf "%s\t%s" ${Scriptdir}/localhist ${LocalhistVer}
+if [[ -z "$sourceMe" ]]; then
+    builtin printf "%s\t%s\n" ${Scriptdir} $KitVersion
 fi
