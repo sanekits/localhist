@@ -5,6 +5,8 @@ localhist-semaphore() {
     [[ 1 -eq  1 ]]
 }
 
+export LocalhistHome=${HOME}/.local/bin/localhist
+
 # localhist
 #
 #   localhist -v|--version
@@ -326,11 +328,64 @@ localhist() {
     done
 }
 
-export LocalhistHome=${HOME}/.local/bin/localhist
+localhist_add() { # Append a text entry to HISTFILE
+    local text_source=stdin  # Use -- to supply text from command line
+    local prepend
+    local text
+    while [[ -n $1 ]]; do
+        case $1 in
+            -h|--help)
+                builtin echo "localhist_add [--comment|-c] [--file|-f <path>] [-- args as text]"
+                return
+            ;;
+            -c|--comment)  # Add text after a '#' comment indicator
+                prepend="# "
+            ;;
+            -f|--file)  # Get text from specified file
+                text_source="${2}"; shift
+            ;;
+            --)  # Anything following is the text itself
+                text_source=args
+                shift
+                break
+            ;;
+        esac
+        shift
+    done
+    case $text_source in
+        stdin)
+            if [[ -t 2  && -t 0 ]]; then
+                builtin read -p "Enter text for new history event: " text
+            else
+                builtin read text
+            fi
+            ;;
+        args)
+            text="$@"
+            ;;
+        *)
+            [[ -r ${text_source} ]] || { builtin echo "ERROR: can't read text from file \"${text_source}\" " >&2; false; return; }
+            text=$(command cat ${text_source} | command tr '\n' ';' )
+            ;;
+    esac
+    builtin history -s "${prepend}${text}"
+}
+
+function history_grep {
+    builtin history | command grep -E "$@"
+    set +f
+}
+
+function localhist_prompt_command() {
+    history -a
+}
+
+
 
 [[ -f ${LocalhistHome}/prompt-command-wrap.bashrc ]]  \
     && source ${LocalhistHome}/prompt-command-wrap.bashrc
 
 [[ -f ${HOME}/.localhistrc ]] && source ${HOME}/.localhistrc
 
+__pcwrap_register  localhist_prompt_command
 

@@ -31,14 +31,24 @@ die() {
     builtin exit 1
 }
 
+install_localhistrc() {
+    [[ -f ~/.localhistrc ]] && {
+        diff ~/.localhistrc ${Kitname}/localhistrc.template &>/dev/null || {
+            cp ${Kitname}/localhistrc.template ~/.localhistrc.proposed
+            echo "WARNING: your ~/.localhistrc differs from the packaged version.  You should compare it with ~/.localhistrc.proposed to get the latest changes." >&2
+        }
+    } || {
+        cp ${Kitname}/localhistrc.template ~/.localhistrc
+    }
+}
+
 main() {
     Script=${scriptName} main_base "$@"
     builtin cd ${HOME}/.local/bin || die 208
 
     mkdir -p ~/.localhist
 
-
-
+    install_localhistrc
 
     # FINALIZE: perms on ~/.local/bin/localhist.  We want others/group to be
     # able to traverse dirs and exec scripts, so that a source installation can
