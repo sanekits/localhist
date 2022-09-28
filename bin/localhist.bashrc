@@ -384,6 +384,11 @@ function localhist_prompt_command() {
     command tail -n 2 $HISTFILE >> ~/.bash_history
 }
 
+localhist_login_hook() {
+    shopt -q login_shell && {
+        ${LocalhistHome}/localhist-archive.sh --login
+    }
+}
 
 
 [[ -f ${LocalhistHome}/prompt-command-wrap.bashrc ]]  \
@@ -393,3 +398,4 @@ function localhist_prompt_command() {
 
 __pcwrap_register  localhist_prompt_command
 
+localhist_login_hook
