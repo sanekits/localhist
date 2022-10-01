@@ -20,6 +20,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         git \
         python3.8 \
         python3.8-pip \
-        vim
+        vim \
+        tree
 
 RUN /opt/bb/bin/python3.8 -m pip install black pytest

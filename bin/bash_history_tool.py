@@ -28,6 +28,7 @@ from collections import OrderedDict
 import re
 from datetime import datetime
 from io import TextIOWrapper
+from pathlib import Path
 
 RE_TIMESTAMP = re.compile("^#\d+\s*$")
 
@@ -69,6 +70,10 @@ class Bucket:
         of the event records """
         self.events: List[LogEvent] = []
 
+    def reset(self):
+        """Remove events"""
+        self.events = []
+
 
 class BucketFarm:
     """A set of buckets with distinct ordered names"""
@@ -109,11 +114,39 @@ class BucketFarm:
         return result[0]
 
 
-def load_bucket(bucket: Bucket, event_iter) -> Bucket:
-    """Load a bucket from an event stream, and order events by time"""
+def load_bucket(bucket: Bucket, event_iter, ensure_order=True) -> Bucket:
+    """Load a bucket from an event stream, and order events by time if ensure_order is set"""
     bucket.events += [e for e in event_iter]
-    bucket.events = sorted(bucket.events, key=lambda ev: ev.timestamp)
+    if ensure_order:
+        bucket.events = sorted(bucket.events, key=lambda ev: ev.timestamp)
     return bucket
+
+
+# Match strings like 2022-11:
+RE_MONTHSTAMP = re.compile(r"^2[0-9][0-9][0-9]-[01][0-9]$")
+
+
+def reload_bucket_farm(farm: BucketFarm, farm_root_dir: str) -> None:
+    """For each date-named dir in farm_root_dir, if there's a bash_history
+    file, create or rebuild a corresponding bucket in 'farm'.  Any old buckets with matching names will be reset to empty and reloaded from the file
+    content."""
+
+    def qualify_dir(dir: Path):
+        if os.path.isfile(dir / "bash_history"):
+            if RE_MONTHSTAMP.match(dir.name):
+                return True
+        return False
+
+    farm_root = Path(farm_root_dir)
+    subdirs_iter = (d for d in farm_root.glob("*") if qualify_dir(d))
+    for dir in subdirs_iter:
+        bucket = farm.get_bucket(dir.name)
+        if len(bucket.events):
+            bucket.reset()
+        with open(farm_root / dir.name / "bash_history") as ff:
+            # When we're reloading a bucket farm from disk, we expect that
+            # the events are already clean and ordered, thus ensure_order is False
+            load_bucket(bucket, load_raw_log(ff), ensure_order=False)
 
 
 class Command:

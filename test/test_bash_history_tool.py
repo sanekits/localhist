@@ -1,4 +1,5 @@
 # test_bash_history_tool.py
+from imp import reload
 import sys
 from datetime import datetime
 import os
@@ -65,7 +66,15 @@ def test_BucketFarm_add():
         assert res[2] == should_add
 
 
+def test_BucketFarm_reload():
+    farm = BucketFarm()
+    reload_bucket_farm(farm, f"{LH_ROOT}/test/home1/archive-tree-1")
+
+    assert farm
+
+
 if __name__ == "__main__":
+    test_BucketFarm_reload()
     test_BucketFarm_add()
     test_load_bucket()
     test_fake_90days()
