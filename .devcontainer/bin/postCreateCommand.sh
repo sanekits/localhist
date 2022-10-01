@@ -34,7 +34,7 @@ main() {
     )
 
     (
-        for xx in bashrc cdpprc tox-index; do
+        for xx in bashrc cdpprc tox-index inputrc; do
             [[ -f /vdata/home/.${xx} ]] && ln -sf /vdata/home/.${xx} ~/
         done
 
