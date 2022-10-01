@@ -86,7 +86,8 @@ def test_coalesce_events():
     context.input_files = [f"{testdata_dir}/{f}" for f in os.listdir(testdata_dir)[0:5]]
 
     coalesce_events(context, farm)
-    assert True
+    for i, n in enumerate([221, 352, 117, 24, 15]):
+        assert len(farm._buckets[i].events) == n
 
 
 if __name__ == "__main__":

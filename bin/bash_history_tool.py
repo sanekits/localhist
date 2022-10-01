@@ -20,7 +20,8 @@
 
 
 from audioop import add
-from bisect import bisect_left
+from bisect import bisect_right, bisect_left
+from distutils.log import Log
 from genericpath import isfile
 import sys
 import os
@@ -61,6 +62,12 @@ class LogEvent:
     def __str__(self):
         return f"#{int(self.timestamp.timestamp())}\n{self.msg}"
 
+    def __lt__(self, other):
+        return self.timestamp < other.timestamp
+
+    def __eq__(self, other):
+        return self.timestamp == other.timestamp and self.msg == other.msg
+
     def get_bucket_name(self) -> str:
         """Returns YYYY-MM bucket name derived from timestamp"""
         return f"{self.timestamp.year}-{self.timestamp.month:02}"
@@ -76,23 +83,62 @@ class Bucket:
         of the event records """
 
         self.events: List[LogEvent] = []
-        """ The events in the bucket, usually timestamp-ordered """
+        """ The events in the bucket, timestamp-ordered """
 
-        self.index: Dict[str, List[int]] = None
-        """ Optional event index maps the msg text to the list of records matching that msg, by offset """
+        self.index: Dict[str, datetime] = None
+        """ Optional event index maps the msg text to the list of latest timestamp of matching event """
 
     def reset(self):
         """Remove events"""
         self.events = []
 
+    def find_event(self, event) -> int:
+        """Locate index of event in self.events.  Raise IndexError if
+        not found."""
+        base_ix = bisect_right(self.events, event)
+        while base_ix >= 0:
+            if self.events[base_ix] == event:
+                return base_ix
+            if self.events[base_ix] < event:
+                raise IndexError
+            base_ix -= 1
+        raise IndexError
+
+    def add_unique(self, event: LogEvent) -> bool:
+        """Add event to the bucket.  If an identical event exists, keep
+        only the latest. Returns True if collection was changed."""
+        msg = event.msg
+        existing_ev = self.index.get(msg)
+        if existing_ev:
+            # Is the new event newer?  If not we discard it.  Otherwise we
+            # replace the previous event:
+            if existing_ev < event:
+                try:
+                    ix = self.find_event(existing_ev)
+                    del self.events[ix]
+                except IndexError:
+                    pass
+                newix = bisect_right(self.events, event)
+                self.events.insert(newix, event)
+                self.index[msg] = event
+            else:
+                return False
+        else:
+            # This record is not in the index, so we presume it's not in the events either.
+            #  (The caller is responsible for ensuring that the bucket was indexed on load,
+            #  we're just doing maintenance)
+            insert_ix = bisect_right(self.events, event)
+            self.events.insert(insert_ix, event)
+            self.index[msg] = event
+        return True
+
     def add_index(self) -> None:
         """Re-index events by msg text"""
         self.index = {}
-        for i, r in enumerate(self.events):
-            if r.msg in self.index:
-                self.index[r.msg].append(i)
-            else:
-                self.index[r.msg] = [i]
+        for i in reversed(range(len(self.events))):
+            r = self.events[i]
+            if not r.msg in self.index:
+                self.index[r.msg] = r
 
 
 class BucketStat:
@@ -233,13 +279,14 @@ def coalesce_events(context: Context, bucket_farm: BucketFarm) -> bool:
     bucket_cache = {}
 
     def bucket_from_cache(bucket_name) -> Bucket:
+        """Cache-load buckets on demand"""
         try:
             return bucket_cache[bucket_name]
         except KeyError:
             pass
         bucket_stat = bucket_farm._add_bucket(bucket_name)
-        # If the bucket object isn't in memory , let's try to load its archived content:
         if bucket_stat.isNew:
+            # If the bucket object isn't in memory , let's try to load its archived content:
             bucket_source = Path(context.archive_dir) / bucket_name / "bash_history"
             if os.path.isfile(bucket_source):
                 with open(bucket_source, "r") as ff:
@@ -249,14 +296,17 @@ def coalesce_events(context: Context, bucket_farm: BucketFarm) -> bool:
                         ensure_order=False,
                         add_index=True,
                     )
+            else:
+                bucket_stat.bucket.add_index()
         bucket_cache[bucket_name] = bucket_stat.bucket
+        return bucket_stat.bucket
 
     for log_filename in context.input_files:
         with open(log_filename, "r") as instream:
             for event in load_filtered_log(instream, dumb_logs_filter):
                 bucket_name = event.get_bucket_name()
                 bucket = bucket_from_cache(bucket_name)
-                pass
+                bucket.add_unique(event)
 
 
 def parse_args(argv: List[str]) -> Context:
