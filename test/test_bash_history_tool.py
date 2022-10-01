@@ -94,7 +94,7 @@ def test_coalesce_events():
     context.input_files = testfiles[0:5]
 
     coalesce_events(context, farm)
-    for i, n in enumerate([221, 352, 117, 24, 15]):
+    for i, n in enumerate([235, 353, 145, 35, 42]):
         assert len(farm._buckets[i].events) == n
 
     write_farm(context.archive_dir, farm)

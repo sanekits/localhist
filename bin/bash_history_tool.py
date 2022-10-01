@@ -34,7 +34,7 @@ from datetime import datetime
 from io import TextIOWrapper
 from pathlib import Path
 
-RE_TIMESTAMP = re.compile("^#\d+\s*$")
+RE_TIMESTAMP = re.compile(r"^#\d+\s*$")
 
 
 def do_help():
