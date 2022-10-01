@@ -82,11 +82,16 @@ def test_coalesce_events():
     testdata_dir = f"{LH_ROOT}/test/home2/pf140XGZ"
     context.archive_dir = testdata_dir + "/buckets"
 
+    testfiles = [
+        df
+        for df in (f"{testdata_dir}/{f}" for f in os.listdir(testdata_dir))
+        if os.path.isfile(df)
+    ]
     # F i l e   G r o u p  1
     #
     # We'll build our bucket farm from a subset of the data, leaving the rest
     # for merge validation
-    context.input_files = [f"{testdata_dir}/{f}" for f in os.listdir(testdata_dir)[0:5]]
+    context.input_files = testfiles[0:5]
 
     coalesce_events(context, farm)
     for i, n in enumerate([221, 352, 117, 24, 15]):
@@ -97,8 +102,11 @@ def test_coalesce_events():
     # F i l e   G r o u p  2
     #
     # When we merge in the remaining test files, what happens?
-    context.input_files = [f"{testdata_dir}/{f}" for f in os.listdir(testdata_dir)[5:]]
-    coalesce_events(context, farm)
+    farm_2 = BucketFarm()
+    context.input_files = testfiles[5:]
+    coalesce_events(context, farm_2)
+
+    write_farm(context.archive_dir, farm_2)
 
     pass
 
