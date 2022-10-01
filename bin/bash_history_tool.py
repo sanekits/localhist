@@ -37,6 +37,15 @@ from pathlib import Path
 RE_TIMESTAMP = re.compile("^#\d+\s*$")
 
 
+def do_help():
+    txt = r"""
+bash_history_tool.py  --mode coalesce --input <file> --input <file> --output <dir>
+  Read one or more input files, clean, re-order, de-dupe, and sort into monthly buckets under --output dir
+    """
+    print(txt)
+    return 1
+
+
 class Context:
     def __init__(self):
         self.input_files: List[str] = []
@@ -50,6 +59,8 @@ class Context:
         self.event_filters: List[Callable] = []
         """ An event filter takes a single event arg and returns True if
         it passes the filter criteria """
+
+        self.mode: str = None
 
 
 class LogEvent:
@@ -360,29 +371,39 @@ def write_farm(archive_dir: str, farm: BucketFarm) -> int:
 
 def parse_args(argv: List[str]) -> Context:
     ctx = Context()
-    mode = "undefined"
     try:
         for ndx, arg in enumerate(argv):
+            if arg == "--help":
+                sys.exit(do_help())
+
             if arg == "--input":
                 ctx.input_files.append(argv[ndx + 1])
             elif arg == "--output":
-                ctx.output_dir = argv[ndx + 1]
+                ctx.archive_dir = argv[ndx + 1]
             elif arg == "--mode":
-                mode = argv[ndx + 1]
+                ctx.mode = argv[ndx + 1]
 
-        if not mode:
+        if not ctx.mode:
             raise RuntimeError("No --mode specified")
-        if not mode in ["coalesce"]:
-            raise RuntimeError(f"Unknown --mode {mode}")
+        if not ctx.mode in ["coalesce"]:
+            raise RuntimeError(f"Unknown --mode {ctx.mode}")
         if not ctx.input_files:
             ctx.input_files.append("/dev/stdin")
-        if not ctx.output_dir:
-            ctx.output_dir = f"{os.environ.get('HOME','/')}/.localhist-archive"
+        if not ctx.archive_dir:
+            ctx.archive_dir = f"{os.environ.get('HOME','/')}/.localhist-archive"
 
     except Exception as ex:
         raise RuntimeError(f"Can't parse command line {argv}: {ex}")
 
+    return ctx
+
 
 if __name__ == "__main__":
-    context = parse_args(sys.argv)
+    ctx = parse_args(sys.argv)
+
+    if ctx.mode == "coalesce":
+        farm = BucketFarm()
+        coalesce_events(ctx, farm)
+        write_farm(ctx.archive_dir, farm)
+
     sys.exit(0)
