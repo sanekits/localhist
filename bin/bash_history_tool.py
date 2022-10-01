@@ -52,8 +52,8 @@ class CoalesceState:
 
 class LogEvent:
     def __init__(self, timestamp: datetime = None, msg: str = None):
-        self.msg: string = msg
-        self.timestamp: datetime = timestamp
+        self.msg = msg
+        self.timestamp = timestamp
 
     def __repr__(self):
         return f"#{int(self.timestamp.timestamp())}\n{self.msg}"
@@ -74,19 +74,19 @@ class BucketFarm:
     """A set of buckets with distinct ordered names"""
 
     def __init__(self):
-        self._buckets:List[Bucket] = []
+        self._buckets: List[Bucket] = []
         """ _buckets is ordered by .bucket_name at all times """
-        self._bucket_names:List[int] = []
+        self._bucket_names: List[int] = []
         """ _bucket_names is an ordered list of bucket names, so we're optimized for
         search with this data duplication. """
 
-    def _add_bucket(self, bucket_name: str) -> Tuple[Bucket,int, bool]:
-        """ Add a bucket with the given name if it doesn't exist.
+    def _add_bucket(self, bucket_name: str) -> Tuple[Bucket, int, bool]:
+        """Add a bucket with the given name if it doesn't exist.
         New bucket will be ordered by bucket_name.  Returns bucket and
         index at which bucket can be found in the ._buckets list, whether
         or not a new bucket was created. Last member of result tuple is
-        a bool indicating whether bucket was newly created. """
-        index = bisect_left(self._bucket_names, bucket_name )
+        a bool indicating whether bucket was newly created."""
+        index = bisect_left(self._bucket_names, bucket_name)
         added = False
         if index >= len(self._bucket_names):
             # Add to the end:
@@ -98,15 +98,16 @@ class BucketFarm:
             pass
         else:
             # Need to insert new bucket at index
-            self._bucket_names.insert(index,bucket_name)
-            self._buckets.insert(index,Bucket(bucket_name))
+            self._bucket_names.insert(index, bucket_name)
+            self._buckets.insert(index, Bucket(bucket_name))
             added = True
-        return self._buckets[index],index,added
+        return self._buckets[index], index, added
 
     def get_bucket(self, bucket_name: str) -> Bucket:
         """Returns bucket with given name.  Creates it if not found"""
         result = self._add_bucket(bucket_name)
         return result[0]
+
 
 def load_bucket(bucket: Bucket, event_iter) -> Bucket:
     """Load a bucket from an event stream, and order events by time"""
@@ -225,7 +226,7 @@ def parse_args(argv: List[str]) -> Context:
         if not ctx.output_dir:
             ctx.output_dir = f"{os.environ.get('HOME','/')}/.localhist-archive"
 
-    except ex as Exception:
+    except Exception as ex:
         raise RuntimeError(f"Can't parse command line {argv}: {ex}")
 
 
