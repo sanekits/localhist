@@ -26,6 +26,7 @@ from genericpath import isfile
 import sys
 import os
 from textwrap import indent
+from random import randint
 from typing import Iterable, OrderedDict, Dict, List, Callable, TextIO, Tuple
 from collections import OrderedDict
 import re
@@ -263,18 +264,32 @@ def load_filtered_log(instream: TextIOWrapper, filter: Callable) -> LogEvent:
 
 
 def dumb_logs_filter(event: LogEvent) -> bool:
-    return True
+    """Strip out common kinds of noise"""
+    msg = event.msg
+    if len(msg) > 20:
+        return True
+    if "#" in msg:
+        return True
+    if msg.startswith("cd "):
+        return False
+    if msg in ["exec bash", "bash -l"]:
+        return False
+    if len(msg) > 7:
+        return True
+    return False
 
 
 def coalesce_events(context: Context, bucket_farm: BucketFarm) -> bool:
     """Read events from context.input_files.  Input file order is unimportant.
-    Within each file it is assumed that the timestamp precedes the correlated log record.  If
-    with no timestamp occurs for a record, we just re-apply the most recent timestamp seen.
+    Within each file it is assumed that the timestamp precedes the correlated log record,
+    but no other ordering is expected.  Duplicates and junk data may be present. If an event timestamp
+    is missing for a record, we just re-apply the most recent timestamp seen.
 
     For each timestamped event, significance filters are applied to remove "junk" records,
     and then the event is allocated into a yyyy-mm bucket and merged with previously-stored bucket
     contents from archive.
 
+    In case of duplication within a bucket, only the event with the latest timestamp is stored.
     """
     bucket_cache = {}
 
@@ -307,6 +322,40 @@ def coalesce_events(context: Context, bucket_farm: BucketFarm) -> bool:
                 bucket_name = event.get_bucket_name()
                 bucket = bucket_from_cache(bucket_name)
                 bucket.add_unique(event)
+
+
+def write_bucket(dest_file: str, bucket: Bucket) -> int:
+    """Write out the contents of a bucket to disk.  Data is
+    written to dest_file, overwriting any existing file.
+
+    Returns number of records written."""
+
+    xdir = os.path.dirname(dest_file)
+    os.makedirs(xdir, exist_ok=True)
+    tmpname = f"{dest_file}.{randint(100,999)}"
+    with open(tmpname, "w") as ff:
+        for event in bucket.events:
+            ff.write(str(event))
+            ff.write("\n")
+
+    os.rename(tmpname, dest_file)
+    return len(bucket.events)
+
+
+def write_farm(archive_dir: str, farm: BucketFarm) -> int:
+    """Write out the contents of a BucketFarm to disk.   Archive dir
+    must be a directory.  Any existing /<bucket-name>/bash_history files
+    will be overwritten.
+
+    returns the number of events written.
+    """
+    result = 0
+    for bucket in farm._buckets:
+        result += write_bucket(
+            str(Path(archive_dir) / bucket.bucket_name / "bash_history"), bucket
+        )
+
+    return result
 
 
 def parse_args(argv: List[str]) -> Context:
