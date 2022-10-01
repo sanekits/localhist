@@ -38,7 +38,7 @@ main() {
         esac
         shift
     done
-    curDate=startDate
+    curDate=${startDate}
     eventNum=0
     while (( eventNum < numEvents  )); do
         echo "#${curDate}"
