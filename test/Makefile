@@ -35,6 +35,26 @@ fake-90days:
 		printf "#$${epo}\necho This message is $$age_days days old # $$dpo\n"; \
 	done;
 
+.flag/.gitignore:
+	mkdir -p .flag
+	echo '*' > .flag/.gitignore
+
+.PHONY: home2-sources
+home2-sources:
+    # List of source files used in home2/ test data
+	@srcdir=/host_home/journal/lh_archive/pf140XGZ ; \
+	ls -Sr $$srcdir | tail -n 10 | sed -e "s|^|$$srcdir/|"
+
+.flag/home2-data:
+    # We ignore home2 because it has data we don't want to source control with localhist
+	@mkdir -p home2/pf140XGZ ; \
+	echo  '*' > home2/.gitignore ; \
+	cp $$( $(MAKE) -s home2-sources ) home2/pf140XGZ/ ; \
+	touch .flag/home2-data
+
+.PHONY: home2-data
+home2-data: .flag/.gitignore .flag/home2-data
+
 .PHONY: unit-test
 unit-test:
 	export LH_ROOT=$(realpath $(absdir)/..); \
@@ -49,3 +69,4 @@ test: test-home1
 .PHONY: clean
 clean:
 	rm -rf home1/.localhist-archive
+	rm .flag/*

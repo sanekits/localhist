@@ -70,10 +70,20 @@ def test_BucketFarm_reload():
     farm = BucketFarm()
     reload_bucket_farm(farm, f"{LH_ROOT}/test/home1/archive-tree-1")
 
-    assert farm
+    for item in ((8, "2018-07"), (29, "2020-11")):
+        check_event_msg = farm.get_bucket(item[1]).events[item[0]].msg
+        assert check_event_msg.startswith(f"Event {item[0]}") == True
+
+
+def test_coalesce_events():
+    farm = BucketFarm()
+    context = Context()
+    coalesce_events(context, farm)
+    assert True
 
 
 if __name__ == "__main__":
+    test_coalesce_events()
     test_BucketFarm_reload()
     test_BucketFarm_add()
     test_load_bucket()

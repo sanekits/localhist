@@ -33,22 +33,17 @@ from pathlib import Path
 RE_TIMESTAMP = re.compile("^#\d+\s*$")
 
 
-def get_events_reversed(text: str) -> str:
-    """Yield one event at a time in reverse order."""
-    for line in reversed(text.splitlines()):
-        if line:
-            yield line
-
-
 class Context:
     def __init__(self):
         self.input_files: List[str] = []
-        self.output_dir: str = None
-
-
-class CoalesceState:
-    def __init__(self):
-        self.buckets = {}
+        """ Input files are "raw" shell history -- typically timestamp-interleaved
+        events captured at the shell prompt """
+        self.archive_dir: str = None
+        """ The archive dir is the parent of the per-month bucket dirs, e.g.
+        in /my_host/2020-12, /my_host is the archive dir """
+        self.event_filters: List[Callable] = []
+        """ An event filter takes a single event arg and returns True if
+        it passes the filter criteria """
 
 
 class LogEvent:
@@ -57,6 +52,9 @@ class LogEvent:
         self.timestamp = timestamp
 
     def __repr__(self):
+        return self.__str__().replace("\n", "\t")
+
+    def __str__(self):
         return f"#{int(self.timestamp.timestamp())}\n{self.msg}"
 
 
@@ -68,7 +66,9 @@ class Bucket:
         """ A bucket_name can be anything, but the archived buckets
         will have names like "YYYY-MM" representing the year and month
         of the event records """
+
         self.events: List[LogEvent] = []
+        """ The events in the bucket, usually timestamp-ordered """
 
     def reset(self):
         """Remove events"""
@@ -149,20 +149,6 @@ def reload_bucket_farm(farm: BucketFarm, farm_root_dir: str) -> None:
             load_bucket(bucket, load_raw_log(ff), ensure_order=False)
 
 
-class Command:
-    def __init__(self, command_text: str, timestamp: int = 0):
-        self.command_text = command_text
-        self.timestamp = timestamp
-
-    def __hash__(self):
-        return self.command_text.__hash__()
-
-    def __str__(self):
-        if self.timestamp:
-            return "\n".join((f"#{self.timestamp}", self.command_text))
-        return self.command_text
-
-
 def is_timestamp(line: str) -> bool:
     if RE_TIMESTAMP.match(line):
         return True
@@ -185,57 +171,17 @@ def load_raw_log(instream: TextIOWrapper) -> LogEvent:
             yield LogEvent(curDate, line.rstrip())
 
 
-def condense_bash_history(
-    event_stream: Iterable, cache: OrderedDict = None
-) -> OrderedDict:
-    if not cache:
-        cache = OrderedDict()
-    for event in event_stream:
-        if is_timestamp(event):
-            timestamp = int(event[1:])
-            try:
-                last_command = next(reversed(cache))
-            except StopIteration:
-                continue
+def coalesce_events(context: Context, bucket_farm: BucketFarm) -> bool:
+    """Read events from context.input_files.  Input file order is unimportant.
+    Within each file it is assumed that the timestamp precedes the correlated log record.  If
+    with no timestamp occurs for a record, we just re-apply the most recent timestamp seen.
 
-            if cache[last_command].timestamp == 0:
-                cache[last_command].timestamp = timestamp
-        else:
-            if not "#" in event:
-                continue
-            command = Command(event)
-            if command.command_text in cache:
-                continue
-            cache[event] = command
-    time_ordered = sorted(cache.values(), key=lambda x: x.timestamp)
-    return time_ordered
+    For each timestamped event, significance filters are applied to remove "junk" records,
+    and then the event is allocated into a yyyy-mm bucket and merged with previously-stored bucket
+    contents from archive.
 
-
-def coalesce_events(context: Context, state: CoalesceState()) -> bool:
-    """Read events from event_stream.  Input order is unimportant, except
-    that we assume the timestamp precedes the correlated log record.  If
-    we encounter log records with no timestamp, we just re-apply the most
-    recent timestamp we have seen.
-
-    Once we have a timestamp, we translate it into a yyyy-mm bucket name,
-    and load (or fetch from cache) the corresponding previously-stored
-    data for that bucket so the new record can be merged in with its
-    peers.
-
-    In the end, any modified buckets are written back out in time-order.  Thus
-    the new data is
-
-    Returns: cache in reverse-timestamp order without duplicates
     """
     pass
-
-
-# def cleanup_stream(instream,outstream):
-#     """ obsolete function """
-#     ''' Reorder, remove dupes and uncommented, ensure uniqueness '''
-#     for event in condense_bash_history(get_events_reversed(instream.read())):
-#         outstream.write(str(event))
-#         outstream.write('\n')
 
 
 def parse_args(argv: List[str]) -> Context:
