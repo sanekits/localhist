@@ -11,7 +11,7 @@ ENV ContainerUser=vscode
 ENV http_proxy=http://proxy.bloomberg.com:81
 ENV https_proxy=http://proxy.bloomberg.com:81
 ENV no_proxy=.bcs.bloomberg.com,.dev.bloomberg.com,10.0.0.0/8,100.0.0.0/8
-ENV NODE_EXTRA_CA_CERTS=/host_home/bb-cert/bloomberg-root-ca.crt
+ENV NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/source/anchors/bloomberg_rootca_v2.crt
 
 RUN [ -d /home/vscode ] || adduser --uid 1000 vscode
 
@@ -23,5 +23,3 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         vim
 
 RUN /opt/bb/bin/python3.8 -m pip install black pytest
-
-
