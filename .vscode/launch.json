@@ -10,6 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/test/test_bash_history_tool.py",
             "env": {
+                "LH_ROOT": "${workspaceFolder}",
                 "PYTHONPATH":"${workspaceFolder}/bin"
             },
             "console": "integratedTerminal",

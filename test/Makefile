@@ -27,9 +27,18 @@ home1/.localhist-archive/current/bash_history: home1/.bash_history $(ArchiverDep
 	rm $${LH_ARCHIVE}/.dailymaint || : ; \
 	$(LH_BIN)/localhist-archive.sh --login
 
+.PHONY: fake-90days
+fake-90days:
+	@for age_days in {90..1}; do \
+		epo=$$(date -d "-$${age_days} days" +%s); \
+		dpo=$$(date -d "@$$epo"); \
+		printf "#$${epo}\necho This message is $$age_days days old # $$dpo\n"; \
+	done;
+
 .PHONY: unit-test
 unit-test:
-	PYTHONPATH=../bin $(Python3) -m pytest ./
+	export LH_ROOT=$(realpath $(absdir)/..); \
+	PYTHONPATH=$${LH_ROOT}/bin $(Python3) -m pytest ./
 
 .PHONY: test-home1
 test-home1: home1/.localhist-archive/current/bash_history

@@ -1,5 +1,4 @@
 {
-
     "workbench.colorCustomizations": {
         "terminal.ansiBlack": "#090300",
         "terminal.ansiBlue": "#01A0E4",
@@ -28,4 +27,11 @@
         "titleBar.activeForeground": "#FAFBFF"
     },
     "python.formatting.provider": "black",
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/bin"
+    ],
+    "editor.formatOnSave": true,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/bin"
+    ]
 }
