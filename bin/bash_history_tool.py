@@ -21,9 +21,11 @@
 
 from audioop import add
 from bisect import bisect_left
+from genericpath import isfile
 import sys
 import os
-from typing import Iterable, OrderedDict, List, Callable, Tuple
+from textwrap import indent
+from typing import Iterable, OrderedDict, Dict, List, Callable, TextIO, Tuple
 from collections import OrderedDict
 import re
 from datetime import datetime
@@ -38,9 +40,11 @@ class Context:
         self.input_files: List[str] = []
         """ Input files are "raw" shell history -- typically timestamp-interleaved
         events captured at the shell prompt """
+
         self.archive_dir: str = None
         """ The archive dir is the parent of the per-month bucket dirs, e.g.
         in /my_host/2020-12, /my_host is the archive dir """
+
         self.event_filters: List[Callable] = []
         """ An event filter takes a single event arg and returns True if
         it passes the filter criteria """
@@ -48,14 +52,18 @@ class Context:
 
 class LogEvent:
     def __init__(self, timestamp: datetime = None, msg: str = None):
-        self.msg = msg
-        self.timestamp = timestamp
+        self.msg: str = msg
+        self.timestamp: datetime = timestamp
 
     def __repr__(self):
         return self.__str__().replace("\n", "\t")
 
     def __str__(self):
         return f"#{int(self.timestamp.timestamp())}\n{self.msg}"
+
+    def get_bucket_name(self) -> str:
+        """Returns YYYY-MM bucket name derived from timestamp"""
+        return f"{self.timestamp.year}-{self.timestamp.month:02}"
 
 
 class Bucket:
@@ -70,9 +78,28 @@ class Bucket:
         self.events: List[LogEvent] = []
         """ The events in the bucket, usually timestamp-ordered """
 
+        self.index: Dict[str, List[int]] = None
+        """ Optional event index maps the msg text to the list of records matching that msg, by offset """
+
     def reset(self):
         """Remove events"""
         self.events = []
+
+    def add_index(self) -> None:
+        """Re-index events by msg text"""
+        self.index = {}
+        for i, r in enumerate(self.events):
+            if r.msg in self.index:
+                self.index[r.msg].append(i)
+            else:
+                self.index[r.msg] = [i]
+
+
+class BucketStat:
+    def __init__(self, bucket, index, isNew):
+        self.bucket: Bucket = bucket
+        self.index: int = index
+        self.isNew: bool = isNew
 
 
 class BucketFarm:
@@ -81,11 +108,12 @@ class BucketFarm:
     def __init__(self):
         self._buckets: List[Bucket] = []
         """ _buckets is ordered by .bucket_name at all times """
+
         self._bucket_names: List[int] = []
         """ _bucket_names is an ordered list of bucket names, so we're optimized for
         search with this data duplication. """
 
-    def _add_bucket(self, bucket_name: str) -> Tuple[Bucket, int, bool]:
+    def _add_bucket(self, bucket_name: str) -> BucketStat:
         """Add a bucket with the given name if it doesn't exist.
         New bucket will be ordered by bucket_name.  Returns bucket and
         index at which bucket can be found in the ._buckets list, whether
@@ -106,19 +134,23 @@ class BucketFarm:
             self._bucket_names.insert(index, bucket_name)
             self._buckets.insert(index, Bucket(bucket_name))
             added = True
-        return self._buckets[index], index, added
+        return BucketStat(self._buckets[index], index, added)
 
     def get_bucket(self, bucket_name: str) -> Bucket:
         """Returns bucket with given name.  Creates it if not found"""
-        result = self._add_bucket(bucket_name)
-        return result[0]
+        stat = self._add_bucket(bucket_name)
+        return stat.bucket
 
 
-def load_bucket(bucket: Bucket, event_iter, ensure_order=True) -> Bucket:
+def load_bucket(
+    bucket: Bucket, event_iter, ensure_order=True, add_index=False
+) -> Bucket:
     """Load a bucket from an event stream, and order events by time if ensure_order is set"""
     bucket.events += [e for e in event_iter]
     if ensure_order:
         bucket.events = sorted(bucket.events, key=lambda ev: ev.timestamp)
+    if add_index:
+        bucket.add_index()
     return bucket
 
 
@@ -126,14 +158,20 @@ def load_bucket(bucket: Bucket, event_iter, ensure_order=True) -> Bucket:
 RE_MONTHSTAMP = re.compile(r"^2[0-9][0-9][0-9]-[01][0-9]$")
 
 
-def reload_bucket_farm(farm: BucketFarm, farm_root_dir: str) -> None:
-    """For each date-named dir in farm_root_dir, if there's a bash_history
-    file, create or rebuild a corresponding bucket in 'farm'.  Any old buckets with matching names will be reset to empty and reloaded from the file
-    content."""
+def reload_bucket_farm(
+    farm: BucketFarm, farm_root_dir: str, bucket_filter: Callable = None
+) -> None:
+    """For each date-named dir in farm_root_dir, if there's a bash_history file,
+    create or rebuild a corresponding bucket in 'farm'.  Any old buckets with
+    matching names will be reset to empty and reloaded from the file content.
+
+    Caller can provide a bucket-name filter which overrules loading a bucket."""
 
     def qualify_dir(dir: Path):
         if os.path.isfile(dir / "bash_history"):
             if RE_MONTHSTAMP.match(dir.name):
+                if bucket_filter:
+                    return bucket_filter(dir.name)
                 return True
         return False
 
@@ -171,6 +209,17 @@ def load_raw_log(instream: TextIOWrapper) -> LogEvent:
             yield LogEvent(curDate, line.rstrip())
 
 
+def load_filtered_log(instream: TextIOWrapper, filter: Callable) -> LogEvent:
+    """Load a log stream, applying caller's filter to events"""
+    for ev in load_raw_log(instream):
+        if filter(ev):
+            yield ev
+
+
+def dumb_logs_filter(event: LogEvent) -> bool:
+    return True
+
+
 def coalesce_events(context: Context, bucket_farm: BucketFarm) -> bool:
     """Read events from context.input_files.  Input file order is unimportant.
     Within each file it is assumed that the timestamp precedes the correlated log record.  If
@@ -181,7 +230,33 @@ def coalesce_events(context: Context, bucket_farm: BucketFarm) -> bool:
     contents from archive.
 
     """
-    pass
+    bucket_cache = {}
+
+    def bucket_from_cache(bucket_name) -> Bucket:
+        try:
+            return bucket_cache[bucket_name]
+        except KeyError:
+            pass
+        bucket_stat = bucket_farm._add_bucket(bucket_name)
+        # If the bucket object isn't in memory , let's try to load its archived content:
+        if bucket_stat.isNew:
+            bucket_source = Path(context.archive_dir) / bucket_name / "bash_history"
+            if os.path.isfile(bucket_source):
+                with open(bucket_source, "r") as ff:
+                    load_bucket(
+                        bucket_stat.bucket,
+                        load_raw_log(ff),
+                        ensure_order=False,
+                        add_index=True,
+                    )
+        bucket_cache[bucket_name] = bucket_stat.bucket
+
+    for log_filename in context.input_files:
+        with open(log_filename, "r") as instream:
+            for event in load_filtered_log(instream, dumb_logs_filter):
+                bucket_name = event.get_bucket_name()
+                bucket = bucket_from_cache(bucket_name)
+                pass
 
 
 def parse_args(argv: List[str]) -> Context:
@@ -211,5 +286,4 @@ def parse_args(argv: List[str]) -> Context:
 
 if __name__ == "__main__":
     context = parse_args(sys.argv)
-    state = CoalesceState()
     sys.exit(0)

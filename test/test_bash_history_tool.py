@@ -60,10 +60,10 @@ def test_BucketFarm_add():
         ("2018-07", 2, False),
         ("2020-11", 3, True),
     ):
-        res = farm._add_bucket(name)
-        assert res[0].bucket_name == name
-        assert res[1] == ix
-        assert res[2] == should_add
+        stat = farm._add_bucket(name)
+        assert stat.bucket.bucket_name == name
+        assert stat.index == ix
+        assert stat.isNew == should_add
 
 
 def test_BucketFarm_reload():
@@ -78,6 +78,13 @@ def test_BucketFarm_reload():
 def test_coalesce_events():
     farm = BucketFarm()
     context = Context()
+    # This test data was created with "make home2-data":
+    testdata_dir = f"{LH_ROOT}/test/home2/pf140XGZ"
+    context.archive_dir = testdata_dir + "/buckets"
+    # We'll build our bucket farm from a subset of the data, leaving the rest
+    # for merge validation
+    context.input_files = [f"{testdata_dir}/{f}" for f in os.listdir(testdata_dir)[0:5]]
+
     coalesce_events(context, farm)
     assert True
 
