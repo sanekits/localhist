@@ -28,3 +28,9 @@ prompt-command-wrap:
 	cp ../prompt-command-wrap/tmp/prompt-command-wrap.bashrc bin/
 
 build: prompt-command-wrap
+
+.PHONY: test
+test:
+	@cd test \
+	&& $(MAKE) unit-test
+

@@ -3,18 +3,19 @@
 
 # lh_archive.mk: this expects to run with cwd=~/.localhist (or wherever the lh cache is)
 
-SHELL=/bin/bash
-HOST=$(shell hostname)
-LH_BIN=$(HOME)/.local/bin/localhist
+SHELL := /bin/bash
+HOST := $(shell uname -n)
+LH_BIN := $(HOME)/.local/bin/localhist
+LH_ARCHIVE := $(HOME)/.localhist-archive
 HISTFILES = $(filter-out root, $(wildcard *))
 TGTFILES = $(patsubst %, $(LH_ARCHIVE)/$(HOST)/%, $(HISTFILES))
-#$(info HISTFILES=$(HISTFILES))
-#$(info TGTFILES=$(TGTFILES))
-#$(info HOST=$(HOST))
 
 .PHONY: all
 
-all: $(TGTFILES)
+all: $(LH_ARCHIVE)/$(LH_HOST) $(TGTFILES)
+
+$(LH_ARCHIVE)/$(LH_HOST):
+	mkdir -p $(LH_ARCHIVE)/$(LH_HOST)
 
 $(TGTFILES): $(LH_ARCHIVE)/$(HOST)/% : %
 	@[[ -n $$LH_ARCHIVE ]] || { echo "Error: LH_ARCHIVE not defined"; exit 1; }

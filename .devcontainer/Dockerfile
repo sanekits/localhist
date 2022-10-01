@@ -8,13 +8,20 @@ FROM localhist-image-base:latest as localhist-image-vscode
 
 ENV ContainerUser=vscode
 
+ENV http_proxy=http://proxy.bloomberg.com:81
+ENV https_proxy=http://proxy.bloomberg.com:81
+ENV no_proxy=.bcs.bloomberg.com,.dev.bloomberg.com,10.0.0.0/8,100.0.0.0/8
+ENV NODE_EXTRA_CA_CERTS=/host_home/bb-cert/bloomberg-root-ca.crt
+
 RUN [ -d /home/vscode ] || adduser --uid 1000 vscode
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && apt-get -y install --no-install-recommends \
         git \
         python3.8 \
-        vim \
+        python3.8-pip \
+        vim
 
+RUN /opt/bb/bin/python3.8 -m pip install black pytest
 
 

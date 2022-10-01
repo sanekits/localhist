@@ -13,7 +13,7 @@ stub() {
 Script=$(readlink -f $0)
 Scriptdir=$(dirname $Script)
 
-Python=$(which python3.9 python3.8 python3.7 python3.6 python3.5 2>/dev/null | head -n 1)
+Python=$(which python3.11 python3.10 python3.9 python3.8 python3.7 python3.6 python3.5 2>/dev/null | head -n 1)
 
 use_python_cleaner=true
 

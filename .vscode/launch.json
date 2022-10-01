@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug test_bash_history_tool",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/test_bash_history_tool.py",
+            "env": {
+                "PYTHONPATH":"${workspaceFolder}/bin"
+            },
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python history coalesce test1",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/bash_history_tool.py",
+            "args": [
+                "--mode",
+                "coalesce",
+                "--input",
+                "${workspaceFolder}/test/home1/.bash_history",
+                "--output",
+                "${workspaceFolder}/test/home1/.localhist-archive",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+    ]
+}

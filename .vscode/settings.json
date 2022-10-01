@@ -1,4 +1,5 @@
 {
+
     "workbench.colorCustomizations": {
         "terminal.ansiBlack": "#090300",
         "terminal.ansiBlue": "#01A0E4",
@@ -25,5 +26,6 @@
         "activityBar.background": "#091690",
         "titleBar.activeBackground": "#0D1FCA",
         "titleBar.activeForeground": "#FAFBFF"
-    }
+    },
+    "python.formatting.provider": "black",
 }
