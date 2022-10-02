@@ -4,8 +4,11 @@
 
 scriptName="$(readlink -f "$0")"
 scriptDir=$(command dirname -- "${scriptName}")
+script=$(basename $scriptName)
 
 XHOME=${XHOME:-${HOME}}
+
+force=false
 
 die() {
     builtin echo "ERROR($(basename ${scriptName})): $*" >&2
@@ -24,58 +27,74 @@ stub() {
     echo " >>> " >&2
 }
 
+do_help() {
+    cat <<-EOF
+localhist-archive.sh [--login] [--force]
+    Archive current bash history into monthly "buckets", filtering out
+low-value events (duplication, short commands, etc.).  Then the
+history file is rewritten.  May be followed by "history -c; history -r"
+or similar reload of in-memory events.
+EOF
+}
+
 update_lh_archive() {
     # For each entry in ~/.localhist, we want to maintain a cleaned copy in $LH_ARCHIVE/$(hostname).
     make -C ~/.localhist -f ${scriptDir}/lh_archive.mk LH_ARCHIVE=${LH_ARCHIVE}
 }
 
 do_daily_maint() {
-    echo "localhist daily maintenance start" >&2
     ${scriptDir}/python3-select.sh \
         ${scriptDir}/bash_history_tool.py \
         --mode coalesce  \
         --input ${XHOME}/.bash_history \
-        --output ${XHOME}/.localhist-archive || die
+        --output ${LH_ARCHIVE} || die
+    echo "localhist coalesce completed" >&2
 }
 
 on_login() {
     # We only auto-run once per day:
     local force=false
-    [[ $1 == --force ]] && {
-        force=true; shift;
+    [[ $* == *--force* ]] && {
+        force=true;
+        shift;
     }
+    $force || {
+        [[ -d ${LH_ARCHIVE} ]] || die 'No ${LH_ARCHIVE} dir exists'
 
-    set -x
-    if ! $force; then
-        local lastRunTicks=$( date -r ${XHOME}/.localhist/.dailymaint +%s 2>/dev/null )
+        local lastRunTicks=$( date -r ${LH_ARCHIVE}/.dailymaint +%s 2>/dev/null )
         [[ -n $lastRunTicks ]] || lastRunTicks=0
         local nowTicks=$( date +%s 2>/dev/null )
-        (( ( $nowTicks - $lastRunTicks ) > 86400 )) || { false; return; }
+        (( ( $nowTicks - $lastRunTicks ) > 86400 )) || {
+            false;
+            return;
+        }
+    }
 
-        [[ -d ${LH_ARCHIVE} ]] || die 'No ~/.localhist-archive dir exists'
-    fi
-
-    ( do_daily_maint >&2 )
+    (
+        do_daily_maint >&2
+    )
     local result=$?
     touch ${LH_ARCHIVE}/.dailymaint
     return $result
 }
 
 main() {
-    [[ $# -eq 0 ]] && {
-        update_lh_archive
-        exit
+    (( $# > 0 )) || {
+        set -- --login
     }
-    set -x
+    local do_login=false
+    local inner_opts=
     while [[ -n $1 ]]; do
         case $1 in
             -h|--help)
-                die "--help not implemented"
+                do_help
+                exit
                 ;;
             --login)
-                shift
-                on_login "$@"
-                exit
+                do_login=true
+                ;;
+            --force)
+                inner_opts="--force $inner_opts"
                 ;;
             *)
                 unknown_args="$unknown_args $1"
@@ -83,7 +102,12 @@ main() {
         esac
         shift
     done
-    set +x
+    $do_login && {
+       on_login $inner_opts
+       exit
+    }
+    echo "$script: no command specified" >&2
+    exit 1
 }
 
 [[ -z ${sourceMe} ]] && {

@@ -241,10 +241,6 @@ localhist() {
                     echo "Ok: I set HISTFILE to ~/.bash_history"
                 fi
             ;;
-            w|write)
-                builtin history -w
-                echo "Ok: I wrote buffer to $HISTFILE"
-            ;;
             x|export)
                 shift
                 localhist_export_help "$@"
@@ -259,13 +255,16 @@ localhist() {
                 ${LocalhistHome}/localhist-cleanup.sh $HISTFILE || return;
                 echo "Ok: cleaned $HISTFILE"
             ;;
+            p|append)
+                builtin history -a
+                echo "Ok: buffered events appended to $HISTFILE"
+            ;;
             mem|memclean)
                 localhist_memclean
             ;;
             ar|arch|archive)
-                ${LocalhistHome}/localhist-archive.sh || return;
+                ${LocalhistHome}/localhist-archive.sh --login --force || return;
             ;;
-
             r|read)
                 builtin history -r
                 echo "Ok: I read buffer from $HISTFILE"
