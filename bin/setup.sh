@@ -53,7 +53,8 @@ main() {
     Script=${scriptName} main_base "$@"
     builtin cd ${HOME}/.local/bin || die 208
 
-    mkdir -p ~/.localhist
+    mkdir -p ~/.localhist ~/.localhist-archive
+    touch ~/.bash_history
 
     install_localhistrc
     completion_fixup

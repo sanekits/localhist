@@ -5,7 +5,7 @@
 scriptName="$(readlink -f "$0")"
 scriptDir=$(command dirname -- "${scriptName}")
 
-XHOME=${XHOME:-$HOME}
+XHOME=${XHOME:-${HOME}}
 
 die() {
     builtin echo "ERROR($(basename ${scriptName})): $*" >&2
@@ -40,13 +40,20 @@ do_daily_maint() {
 
 on_login() {
     # We only auto-run once per day:
-    set -x
-    local lastRunTicks=$( date -r ${XHOME}/.localhist/.dailymaint +%s 2>/dev/null )
-    [[ -n $lastRunTicks ]] || lastRunTicks=0
-    local nowTicks=$( date +%s 2>/dev/null )
-    (( ( $nowTicks - $lastRunTicks ) > 86400 )) || { false; return; }
+    local force=false
+    [[ $1 == --force ]] && {
+        force=true; shift;
+    }
 
-    [[ -d ${LH_ARCHIVE} ]] || die 'No ~/.localhist-archive dir exists'
+    set -x
+    if ! $force; then
+        local lastRunTicks=$( date -r ${XHOME}/.localhist/.dailymaint +%s 2>/dev/null )
+        [[ -n $lastRunTicks ]] || lastRunTicks=0
+        local nowTicks=$( date +%s 2>/dev/null )
+        (( ( $nowTicks - $lastRunTicks ) > 86400 )) || { false; return; }
+
+        [[ -d ${LH_ARCHIVE} ]] || die 'No ~/.localhist-archive dir exists'
+    fi
 
     ( do_daily_maint >&2 )
     local result=$?
@@ -59,6 +66,7 @@ main() {
         update_lh_archive
         exit
     }
+    set -x
     while [[ -n $1 ]]; do
         case $1 in
             -h|--help)
@@ -75,6 +83,7 @@ main() {
         esac
         shift
     done
+    set +x
 }
 
 [[ -z ${sourceMe} ]] && {
@@ -82,6 +91,3 @@ main() {
     builtin exit
 }
 command true
-
-
-
