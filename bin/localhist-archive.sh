@@ -119,7 +119,12 @@ on_login() {
         rewrite=true
     }
     $force || {
-        [[ -d ${LH_ARCHIVE} ]] || die 'No ${LH_ARCHIVE} dir exists'
+        [[ -d ${LH_ARCHIVE} ]] || {
+            command mkdir -p ${LH_ARCHIVE}
+            [[ -d ${LH_ARCHIVE} ]] || {
+                die "Failed creating LH_ARCHIVE ($LH_ARCHIVE)"
+            }
+        }
 
         local lastRunTicks=$( date -r ${LH_ARCHIVE}/.dailymaint +%s 2>/dev/null )
         [[ -n $lastRunTicks ]] || lastRunTicks=0
