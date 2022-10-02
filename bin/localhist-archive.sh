@@ -48,15 +48,75 @@ do_daily_maint() {
         --mode coalesce  \
         --input ${XHOME}/.bash_history \
         --output ${LH_ARCHIVE} || die
+    if $rewrite; then
+        do_rewrite
+        echo "localhist coalesce+rewrite completed" >&2
+        exit
+    fi
     echo "localhist coalesce completed" >&2
+}
+
+stubbash() {
+    bash --rcfile <( cat ~/.bashrc; echo "LH_ARCHIVE=$LH_ARCHIVE; Ps1Tail=stubbash;")
+}
+
+do_rewrite() {
+    # A rewrite involves building a fresh .bash_history from the tail
+    # of the current file plus enough archived data to hit the
+    # limit specified in $HISTFILESIZE
+
+    local workDir=$(command mktemp -d )
+    [[ -d $workDir ]] || die do_rewrite.501
+    (
+        builtin cd $workDir || die
+        [[ -n $HISTFILESIZE ]] || HISTFILESIZE=10000
+        # "Why export?"  It's for debugging when we drop into stubbash
+        export remainder=$HISTFILESIZE
+        export filenum=0
+        command tail -n 200 ${XHOME}/.bash_history > history.new
+        (( remainder = remainder - 100 ))
+        (( filenum++ ))
+        command ln -sf $LH_ARCHIVE ./archive
+        export archives=$(  \
+            command ls -d ./archive/*  \
+            | command grep -E '2[0-9].*-'  \
+            | sort -r ; \
+        )
+        set -- $archives
+        export archive
+        for archive in $@; do
+            export event_count=0
+            export linecnt=$(wc -l ${archive}/bash_history | awk '{print $1}')
+            (( event_count = linecnt / 2 ))
+            (( event_count > 0 )) && {
+                ln -sf ${archive}/bash_history ./history.$(builtin printf "%03d" $filenum)
+                (( filenum++  ))
+                (( remainder = remainder - event_count ))
+                if (( remainder < 0 )); then
+                    break
+                fi
+            }
+            shift
+        done
+        command cat $(command ls -Sr history.[0-9]*) history.new > history.rewrite
+        command cp ${XHOME}/.bash_history ${LH_ARCHIVE}/.bash_history-BAK.$$
+        command mv history.rewrite ${XHOME}/.bash_history && echo "history rewritten for ${XHOME}/.bash_history.  Use \"history -c; history -r\" to reload."
+
+        #stubbash
+
+    ) || die do_rewrite.500
+
 }
 
 on_login() {
     # We only auto-run once per day:
     local force=false
+    local rewrite=false
     [[ $* == *--force* ]] && {
         force=true;
-        shift;
+    }
+    [[ $* == *--rewrite* ]] && {
+        rewrite=true
     }
     $force || {
         [[ -d ${LH_ARCHIVE} ]] || die 'No ${LH_ARCHIVE} dir exists'
@@ -71,7 +131,7 @@ on_login() {
     }
 
     (
-        do_daily_maint >&2
+        rewrite=$rewrite do_daily_maint >&2
     )
     local result=$?
     touch ${LH_ARCHIVE}/.dailymaint
@@ -83,7 +143,7 @@ main() {
         set -- --login
     }
     local do_login=false
-    local inner_opts=
+    local inner_opts="--rewrite"
     while [[ -n $1 ]]; do
         case $1 in
             -h|--help)
