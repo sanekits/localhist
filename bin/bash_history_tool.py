@@ -21,7 +21,6 @@
 
 from audioop import add
 from bisect import bisect_right, bisect_left
-from distutils.log import Log
 from genericpath import isfile
 import sys
 import os
