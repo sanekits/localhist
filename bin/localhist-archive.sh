@@ -46,7 +46,7 @@ do_daily_maint() {
     ${scriptDir}/python3-select.sh \
         ${scriptDir}/bash_history_tool.py \
         --mode coalesce  \
-        --input ${XHOME}/.bash_history \
+        --input ${DEFAULT_HISTFILE} \
         --output ${LH_ARCHIVE} || die
     if $rewrite; then
         do_rewrite
@@ -64,7 +64,6 @@ do_rewrite() {
     # A rewrite involves building a fresh .bash_history from the tail
     # of the current file plus enough archived data to hit the
     # limit specified in $HISTFILESIZE
-
     local workDir=$(command mktemp -d )
     [[ -d $workDir ]] || die do_rewrite.501
     (
@@ -73,12 +72,12 @@ do_rewrite() {
         # "Why export?"  It's for debugging when we drop into stubbash
         export remainder=$HISTFILESIZE
         export filenum=0
-        command tail -n 200 ${XHOME}/.bash_history > history.new
+        [[ -f ${DEFAULT_HISTFILE} ]] && command tail -n 200 ${DEFAULT_HISTFILE} > history.new
         (( remainder = remainder - 100 ))
         (( filenum++ ))
         command ln -sf $LH_ARCHIVE ./archive
         export archives=$(  \
-            command ls -d ./archive/*  \
+            command ls -d ./archive/* /dev/null  \
             | command grep -E '2[0-9].*-'  \
             | sort -r ; \
         )
@@ -99,13 +98,13 @@ do_rewrite() {
             shift
         done
         command cat $(command ls -Sr history.[0-9]*) history.new > history.rewrite
-        command cp ${XHOME}/.bash_history ${LH_ARCHIVE}/.bash_history-BAK.$$
-        command mv history.rewrite ${XHOME}/.bash_history && echo "history rewritten for ${XHOME}/.bash_history.  Use \"history -c; history -r\" to reload."
+        [[ -n ${DEFAULT_HISTFILE} ]] && {
+            command cp ${DEFAULT_HISTFILE} ${LH_ARCHIVE}/.bash_history-BAK.$$
+            command mv history.rewrite ${DEFAULT_HISTFILE} && echo "history rewritten for ${DEFAULT_HISTFILE}.  Use \"history -c; history -r\" to reload."
+        }
 
-        #stubbash
 
     ) || die do_rewrite.500
-
 }
 
 on_login() {
@@ -118,6 +117,8 @@ on_login() {
     [[ $* == *--rewrite* ]] && {
         rewrite=true
     }
+    [[ -f ~/.localhistrc ]] || die "Can't find ~/.localhistrc"
+    source ~/.localhistrc
     $force || {
         [[ -d ${LH_ARCHIVE} ]] || {
             command mkdir -p ${LH_ARCHIVE}
@@ -135,6 +136,7 @@ on_login() {
         }
     }
 
+    [[ -d ${LH_ARCHIVE} ]] || die "No such dir: ${LH_ARCHIVE}"
     (
         rewrite=$rewrite do_daily_maint >&2
     )

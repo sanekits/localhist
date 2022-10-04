@@ -80,9 +80,10 @@ localhist_set() {
     if [[ $1 != $HISTFILE ]]; then
         export HISTFILE_PREV=$HISTFILE
         (
-            HISTFILE=$HOME/.bash_history;
+            #HISTFILE=$HOME/.bash_history;
+            HISTFILE=( bash --rcfile $HOME/.localhistrc -c 'echo $HISTFILE')
             builtin history -s "HISTFILE=$1  # Switching from $HISTFILE_PREV";
-            builtin history -w
+            builtin history -a
         )
         HISTFILE=$1
     fi
@@ -233,12 +234,12 @@ localhist() {
                     } || builtin echo "HISTFILE not set" >&2
             ;;
             f|off)
-                if [[ $HISTFILE == ~/.bash_history ]]; then
+                if [[ $HISTFILE == $DEFAULT_HISTFILE ]]; then
                     echo Already off
                     localhist show
                 else
-                    localhist_set ~/.bash_history
-                    echo "Ok: I set HISTFILE to ~/.bash_history"
+                    localhist_set $DEFAULT_HISTFILE
+                    echo "Ok: I set HISTFILE to $DEFAULT_HISTFILE"
                 fi
             ;;
             x|export)
@@ -293,17 +294,17 @@ localhist() {
                 shift
             ;;
             m|compare)
-                if [[ $HISTFILE == ~/.bash_history ]]; then
+                if [[ $HISTFILE == $DEFAULT_HISTFILE ]]; then
                     echo "ERROR: nothing to compare, we're on $HISTFILE" >&2
                     false
                     return
-                elif diff $HISTFILE ~/.bash_history &>/dev/null; then
-                    echo "$HISTFILE is not different from ~/.bash_history"
+                elif diff $HISTFILE $DEFAULT_HISTFILE &>/dev/null; then
+                    echo "$HISTFILE is not different from $DEFAULT_HISTORY"
                     false
                     return
                 fi
-                echo "Comparing ~/.bash_history and $HISTFILE:"
-                vimdiff ~/.bash_history $HISTFILE
+                echo "Comparing $DEFAULT_HISTFILE and $HISTFILE:"
+                vimdiff $DEFAULT_HISTFILE $HISTFILE
             ;;
             g|grep)
                 shift
@@ -378,9 +379,12 @@ function history_grep {
 function localhist_prompt_command() {
     # Append to history file.  If we're using a local hist file,
     # cc: the entry to ~/.bash_history also
+    [[ -f ${HOME}/.localhistrc ]] && source ${HOME}/.localhistrc
     builtin history -a
-    [[ $HISTFILE == ~/.bash_history ]] && return
-    command tail -n 2 $HISTFILE >> ~/.bash_history
+    [[ $HISTFILE == $DEFAULT_HISTFILE ]] && return
+    [[ -n $DEFAULT_HISTFILE && -n $HISTFILE ]] &&  {
+        command tail -n 2 $HISTFILE >> $DEFAULT_HISTFILE
+    }
 }
 
 localhist_login_hook() {
@@ -394,6 +398,15 @@ localhist_login_hook() {
     && source ${LocalhistHome}/prompt-command-wrap.bashrc
 
 [[ -f ${HOME}/.localhistrc ]] && source ${HOME}/.localhistrc
+[[ -n $DEFAULT_HISTFILE ]] && [[ $DEFAULT_HISTFILE != ~/.bash_history ]] && [[ $HISTFILE == ~/.bash_history ]] && {
+    # User wants a different default histfile than bash, so we force it:
+    HISTFILE=$DEFAULT_HISTFILE
+}
+
+[[ -n $LH_ARCHIVE ]] && [[ ! -d $LH_ARCHIVE ]] && {
+    command mkdir -p "$LH_ARCHIVE"
+}
+
 
 __pcwrap_register  localhist_prompt_command
 
