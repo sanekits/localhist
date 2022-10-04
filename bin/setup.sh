@@ -37,6 +37,7 @@ install_localhistrc() {
             cp ${Kitname}/localhistrc.template ~/.localhistrc.proposed
             echo "WARNING: your ~/.localhistrc differs from the packaged version.  You should compare it with ~/.localhistrc.proposed to get the latest changes." >&2
         }
+        true
     } || {
         cp ${Kitname}/localhistrc.template ~/.localhistrc
     }
