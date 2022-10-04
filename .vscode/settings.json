@@ -25,5 +25,13 @@
         "activityBar.background": "#091690",
         "titleBar.activeBackground": "#0D1FCA",
         "titleBar.activeForeground": "#FAFBFF"
-    }
+    },
+    "python.formatting.provider": "black",
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/bin"
+    ],
+    "editor.formatOnSave": true,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/bin"
+    ]
 }

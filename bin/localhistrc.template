@@ -9,11 +9,18 @@ alias hg='set -f; history_grep'   # Short form of history_grep, disable globbing
 alias hc=$'history | grep -E "#"' # Just show history records with hashes
 shopt -s histappend  # Append to history rather than overwrite
 shopt -s histverify  # When recalling an event from history, let the user check before running
-export LH_ARCHIVE=${HOME}/.localhist-archive
+
+# You can replace the definition of HOSTNAME if you don't want the auto-detected
+# name.  (e.g. Docker container names are often meaningless ).  This value
+# is used to create the history archive dir name.
+export LH_HOSTNAME=$(
+    { [[ -n $HOSTNAME ]] && builtin echo $HOSTNAME ; }  \
+    || command hostname 2>/dev/null \
+    || builtin echo unk-host )
+
+export LH_ARCHIVE=${HOME}/.localhist-archive/${LH_HOSTNAME}
 HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=3000 # Size of in-memory hist buffer
 HISTFILESIZE=10000 # Size of a history file
-if [[ -n $HISTFILE_PRESERVE ]]; then
-    export HISTFILE=$HISTFILE_PRESERVE
-fi
+DEFAULT_HISTFILE=${HOME}/.bash_history

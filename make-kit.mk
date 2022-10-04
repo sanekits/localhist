@@ -13,6 +13,7 @@ kit_depends := \
 
 .PHONY: publish
 
+pre-publish: test
 
 publish: pre-publish publish-common release-draft-upload release-list
 
@@ -28,3 +29,9 @@ prompt-command-wrap:
 	cp ../prompt-command-wrap/tmp/prompt-command-wrap.bashrc bin/
 
 build: prompt-command-wrap
+
+.PHONY: test
+test:
+	@cd test \
+	&& $(MAKE) unit-test
+

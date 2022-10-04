@@ -1,0 +1,33 @@
+# taskrc for archive-tree-1
+# vim: filetype=sh :
+
+# If someone does a raw "source taskrc", we ensure that $taskrc_dir gets defined anyway
+[[ -z $taskrc_dir && -f ./taskrc ]] && export taskrc_dir=$PWD
+
+type -t localhist_set >/dev/null && {
+    alias tkr-lh="localhist_set ${taskrc_dir}/bash_history"
+    #Help: tkr-lh sets localhist to ${taskrc_dir}
+}
+
+tmk() {
+    #Help: help -- list targets; tmk -e -- edit taskrc.mk
+    case $1 in
+        -e|--edit)
+            shift
+            vim ${taskrc_dir}/taskrc.mk "$@"
+            return
+            ;;
+        -h|--help)
+            shift
+            command make -s -C ${taskrc_dir} -f ${taskrc_dir}/taskrc.mk help "$@"
+            return
+            ;;
+    esac
+    command make -s -C ${taskrc_dir} -f ${taskrc_dir}/taskrc.mk "$@"
+}
+
+# Use taskrc -h for help on built-in taskrc functions.
+# To provide help for definitions in this file, add #Help tags, e.g.:
+# function my_func {
+    #Help: my_func is my first and only function...
+# }

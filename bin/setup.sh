@@ -37,9 +37,19 @@ install_localhistrc() {
             cp ${Kitname}/localhistrc.template ~/.localhistrc.proposed
             echo "WARNING: your ~/.localhistrc differs from the packaged version.  You should compare it with ~/.localhistrc.proposed to get the latest changes." >&2
         }
+        true
     } || {
         cp ${Kitname}/localhistrc.template ~/.localhistrc
     }
+    (
+        source ~/.localhistrc
+        [[ -n $DEFAULT_HISTFILE ]] && {
+            touch $DEFAULT_HISTFILE
+        } || die "DEFAULT_HISTFILE is not set in ~/.localhistrc"
+        [[ -n $LH_ARCHIVE ]] && {
+            mkdir -p $LH_ARCHIVE
+        } || echo "WARNING: LH_ARCHIVE is not defined in ~/.localhistrc"
+    ) || die
 }
 
 completion_fixup() {
@@ -49,11 +59,16 @@ completion_fixup() {
     ln -sf ${HOME}/.local/bin/${Kitname}/localhist-completion.bash $HOME/.bash_completion.d/
 }
 
+
+get_HISTFILE_default() {
+    # Whatever .localhistrc says is authoritative about the default histfile
+    DEFAULT_HISTFILE=$( bash --rcfile $HOME/.localhistrc -c 'echo $HISTFILE')
+    echo $DEFAULT_HISTFILE
+}
+
 main() {
     Script=${scriptName} main_base "$@"
     builtin cd ${HOME}/.local/bin || die 208
-
-    mkdir -p ~/.localhist
 
     install_localhistrc
     completion_fixup
@@ -62,7 +77,8 @@ main() {
     # able to traverse dirs and exec scripts, so that a source installation can
     # be replicated to a dest from the same file system (e.g. docker containers,
     # nfs-mounted home nets, etc)
-    command chmod og+rX ${HOME}/.local/bin/${Kitname} -R;
+    command chmod og+rX ${HOME}/.local/bin/${Kitname} -R
+    command chmod og+rX ${HOME}/.local ${HOME}/.local/bin
 }
 
 [[ -z ${sourceMe} ]] && {
