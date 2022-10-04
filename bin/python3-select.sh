@@ -24,12 +24,12 @@ python3_select() {
 
 python3() {
     [[ -n ${BEST_PY3} ]] || {
-        python3_select >/dev/null || exit 1
+        python3_select >/dev/null || { false; return; }
     }
     [[ $1 == "--detect" ]] && {
         echo "$BEST_PY3"
         [[ -n $BEST_PY3 ]]
-        exit
+        return
     }
     "$BEST_PY3" "$@"
 }
