@@ -344,7 +344,7 @@ def write_bucket(dest_file: str, bucket: Bucket) -> int:
             ff.write(str(event))
             ff.write("\n")
 
-    os.rename(tmpname, dest_file)
+    os.replace(tmpname, dest_file)
     return len(bucket.events)
 
 
