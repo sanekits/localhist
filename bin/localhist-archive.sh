@@ -27,13 +27,25 @@ stub() {
     echo " >>> " >&2
 }
 
+format_seg() {
+    local width=$(( $(tput cols) - 8 ))
+    #echo "$@" | fold -s -w $width
+    echo "$@" | fold -s -w $width | sed -e 's|^[^@]|     &|' -e 's|^@|-|'
+}
+
 do_help() {
     cat <<-EOF
+----------------------------------------
 localhist-archive.sh [--login] [--force]
-    Archive current bash history into monthly "buckets", filtering out
-low-value events (duplication, short commands, etc.).  Then the
-history file is rewritten.  May be followed by "history -c; history -r"
-or similar reload of in-memory events.
+
+    $(format_seg '@ Run default mode:  archive current bash history into monthly "buckets", filtering out low-value events (duplication, short commands, etc.).  Then the history file is rewritten.  May be followed by "history -c; history -r" or similar reload of in-memory events.'
+    )
+
+------------------------------------
+localhist-archive.sh archive-gitsync
+                     arcgs (shortname)
+
+    $(format_seg '@ Synchronize the git repo containing $LH_ARCHIVE with suitable push/pull operations.')
 EOF
 }
 
@@ -162,6 +174,11 @@ main() {
                 ;;
             --force)
                 inner_opts="--force $inner_opts"
+                ;;
+            archive-gitsync|arcgs)
+                shift
+                ${scriptDir}/gitsync-lh.sh "$@"
+                exit
                 ;;
             *)
                 unknown_args="$unknown_args $1"

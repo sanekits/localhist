@@ -24,7 +24,8 @@ export LocalhistHome=${HOME}/.local/bin/localhist
 #   localhist [c]lear    # Clear buffer only
 #   localhist c[l]ean    # Clean current HISTFILE, removing unworthy stuff
 #   localhist [mem]clean # Clean current memory buffer removing unworthy stuff
-#   localhist [arch]ive  # Copy and clean all ~/.localhist into $LH_ARCHIVE/..
+#   localhist [arch]ive  # Archive and clean $HISTFILE
+#   localhist git[sync]  # Run git sync on wc root of $LH_ARCHIVE
 #   localhist co[m]pare  # Compare current HISTFILE with ~/.bash_history
 #   localhist [z]merge   # Merge one or more file args into HISTFILE
 #   localhist [g]rep     # Search all ~/.localhist/* registered files
@@ -265,6 +266,9 @@ localhist() {
             ;;
             ar|arch|archive)
                 ${LocalhistHome}/localhist-archive.sh --login --force || return;
+            ;;
+            gitsync|sync)
+                ${LocalhistHome}/localhist-archive.sh archive-gitsync || return;
             ;;
             r|read)
                 builtin history -r
