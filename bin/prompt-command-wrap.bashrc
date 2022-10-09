@@ -16,7 +16,7 @@
 #
 __do_define_pcwrap=false
 type -t __pcwrap_ver >/dev/null && {
-    [[ $(__pcwrap_ver) -lt 1 ]] && {
+    [[ $(__pcwrap_ver) -lt 2 ]] && {
         __do_define_pcwrap=true
     }
 } || {
@@ -26,7 +26,7 @@ type -t __pcwrap_ver >/dev/null && {
 
 $__do_define_pcwrap && {
     __pcwrap_ver() {
-        builtin echo 1
+        builtin echo 2
     }
     [[ -z ${__pcwrap_items+x} ]] && {
         # __pcwrap_items is not yet defined
@@ -73,13 +73,15 @@ $__do_define_pcwrap && {
         echo "PROMPT_COMMAND=[$PROMPT_COMMAND]" >&2
     }
     __pcwrap_run() {
+        local origResultCode=$?  # We want inner commands to know the original command status
         local item
         for item in ${__pcwrap_items[@]}; do
             [[ "$(type -t $item)" == function ]] && {
-                $item
+                [[ $origResultCode -eq 0 ]];
+                $item;
             }
-            true
         done
+        [[ $origResultCode -eq 0 ]];
     }
     __pcwrap_clear() {
         unset __pcwrap_items;
