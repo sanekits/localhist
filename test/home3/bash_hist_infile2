@@ -1,0 +1,712 @@
+#1665575488
+gco -b scaffolding
+#1665575495
+git push -u mine scaffolding
+#1665575504
+gco main
+#1665575531
+tmk scaffold
+#1665575606
+ga dev_dataset.ts
+#1665575616
+echo prod_dataset.ts >> .gitignore
+#1665575645
+git push mine main:scaffolding
+#1665575726
+touch bus-routes.ts
+#1665575735
+code bus-routes.ts
+#1665575863
+code taskrc.mk
+#1665575938
+tmk urls
+#1665576005
+Done setting up for map-filter-reduce lab, theres a ref PR in lmatheson4/map-filter-reduce
+git branch -u sep19/lmatheson4-sep19-prep
+#1665574751
+gs
+#1665574754
+lr
+#1665574760
+gitg me
+#1665574766
+ls
+#1665574767
+cd labs
+#1665574768
+lr
+#1665574771
+cd essentials/
+#1665574771
+lr
+#1665574776
+cd pay-calculator/
+#1665574777
+lr
+#1665574778
+cd me
+#1665574779
+toa
+#1665574781
+.2
+#1665574784
+.1
+#1665574788
+find -type d | grep me
+#1665574798
+cd essentials/map-reduce-filter-lab/me/
+#1665574799
+lr
+#1665574808
+gs
+#1665574815
+grv
+#1665574821
+gba
+#1665574829
+git push mine lmatheson4-sep19-prep
+#1665574855
+Prepping to do a typescript-centric map-filter-reduce-lab in /home/lmatheson4/projects/javascript.workspace/trnma.javascript/labs/essentials/map-reduce-filter-lab/me
+#1665574856
+lr
+#1665574857
+h
+#1665574864
+code .
+#1665574897
+lr
+#1665574899
+.1
+#1665574899
+lr
+#1665574905
+cd template
+#1665574905
+lr
+#1665574927
+code .1
+#1665574934
+.1
+#1665574934
+lr
+#1665574936
+code README.md
+#1665574947
+cd me
+#1665574948
+lr
+#1665574952
+ln -sf ../README.md
+#1665575136
+lr
+#1665575140
+tkr
+#1665575142
+tmk
+#1665575161
+tmk scaffold
+#1665575176
+tmk
+#1665575185
+gs
+#1665575198
+ls .flag
+#1665575206
+tmk scaffold
+#1665575212
+lr
+#1665575239
+gs
+#1665575283
+git checkout bbgithub:lmatheson4/map-filter-reduce tmp1
+#1665575289
+bbg
+#1665575291
+bbg mine
+#1665575368
+lr
+#1665575377
+ghe repo create
+#1665575386
+git init
+#1665575391
+ghe repo create
+#1665575420
+gs
+#1665575423
+lr
+#1665575426
+gs
+#1665575441
+echo '*.zip' >> .gitignore
+#1665575442
+gs
+#1665575455
+echo .flag >> .gitignore
+#1665575459
+gs
+#1665575470
+ga .
+#1665575470
+gs
+#1665575471
+gpa
+#1665575478
+git push -u mine main
+#1665575488
+gco -b scaffolding
+#1665575495
+git push -u mine scaffolding
+#1665575504
+gco main
+#1665575523
+lr
+#1665575525
+tmk
+#1665575531
+tmk scaffold
+#1665575537
+npm i
+#1665575596
+gs
+#1665575599
+lr
+#1665575606
+ga dev_dataset.ts
+#1665575607
+gs
+#1665575616
+echo prod_dataset.ts >> .gitignore
+#1665575616
+gs
+#1665575620
+lr
+#1665575622
+gs
+#1665575624
+ga .
+#1665575632
+gpa
+#1665575645
+git push mine main:scaffolding
+#1665575653
+gurl
+#1665575676
+gs
+#1665575677
+lr
+#1665575726
+touch bus-routes.ts
+#1665575735
+code bus-routes.ts
+#1665575782
+gs
+#1665575784
+ga .
+#1665575785
+gs
+#1665575789
+gpa
+#1665575863
+code taskrc.mk
+#1665575915
+tmk
+#1665575918
+tmk prs
+#1665575938
+tmk urls
+#1665576005
+Done setting up for map-filter-reduce lab, theres a ref PR in lmatheson4/map-filter-reduce
+
+#1665576007
+h
+#1665576034
+lh arhc
+#1665576037
+lh arch
+#1665576041
+lh gitsync
+#1665576069
+dev 0
+#1665576075
+dev --quit; dev 0
+#1665576219
+clear
+#1665576220
+lr
+#1665577949
+code tsconfig.json
+#1665577955
+lr
+#1665577956
+gs
+#1665577957
+lr
+#1665578136
+find * | grep bus-rout
+#1665578715
+gs
+#1665578719
+ga .
+#1665578720
+gpa
+#1665578843
+lr
+#1665578846
+tsc bus-routes.ts
+#1665578848
+lr
+#1665578854
+code bus-routes.js
+#1665578954
+It looks like the toolchain does not produce a .js file on disk when working in typescript - in the debugger, the 'Loaded scripts' panel shows no hidden location for the compiled code.   But one can simply do 'tsc bus-routes.ts' to render a local bus-routes.js.
+#1665578955
+h
+#1665579027
+gs
+#1665579039
+lh o
+#1665579043
+lr
+#1665579077
+tail -n 200 ~/.bash_history >> bash_history
+#1665579084
+code bash_history
+#1665579114
+lh o
+#1665579114
+lh o
+#1665579117
+h
+#1665579132
+type -a gs
+#1665579132
+type -a gs
+#1665579132
+type -a gs
+#1665579132
+type -a gs
+#1665579148
+h
+#1665579148
+h
+#1665579148
+h
+#1665579148
+h
+#1665579371
+.2
+#1665579372
+.1
+#1665579372
+.1
+#1665579374
+lr
+#1665579379
+.1
+#1665579380
+lr
+#1665579387
+cd sep19
+#1665579390
+lr
+#1665579406
+cd /c/Projects/javascript.workspace/
+#1665579406
+lr
+#1665579461
+cd java
+#1665579469
+lr
+#1665579470
+.1
+#1665579470
+lr
+#1665579474
+mkdir sep19
+#1665579475
+cd sep19
+#1665579476
+toa
+#1665579514
+lr
+#1665579519
+ls
+#1665579526
+lr
+#1665579528
+ls -al
+#1665579545
+cat trainee-pay-calculator-urls
+#1665579550
+cat > trainee-pay-calculator-urls
+#1665579569
+lr
+#1665579574
+code trainee-pay-calculator-urls
+#1665579638
+gs
+#1665579639
+lr
+#1665579649
+lh f
+#1665579654
+lh f
+#1665579671
+exit
+#1665579673
+exit
+#1665574311
+git-bash
+#1665579691
+cd sep19
+#1665579696
+lr
+#1665579697
+gs
+#1665579701
+.1
+#1665579701
+gs
+#1665579709
+echo pay-calculator >> .gitignore
+#1665579709
+gs
+#1665579713
+rm -rf foo/
+#1665579715
+ga .
+#1665579715
+gs
+#1665579720
+gpa
+#1665579753
+cd sep19/
+#1665579753
+lr
+#1665579773
+Examining trainee pay-calculator PRs in /home/lmatheson4/projects/javascript.workspace/sep19 for debrief at 2pm
+#1665579774
+h
+#1665579784
+code -n .
+#1665581786
+dev sundev1
+#1665584836
+cd
+#1665584839
+cat .bbgithub
+#1665585076
+cd java
+#1665585081
+lr
+#1665585097
+cd
+#1665585101
+cd -
+#1665585102
+lr
+#1665585104
+cd notebooks/
+#1665585104
+lr
+#1665585106
+cd me
+#1665585106
+gs
+#1665585113
+lr
+#1665585116
+cd typescript
+#1665585116
+lr
+#1665585599
+gs
+#1665585608
+cd ../
+#1665585609
+lr
+#1665585627
+cd trnma.javascript/labs/essentials/pay-calculator/solution/
+#1665585629
+code -a .
+#1665588875
+lr
+#1665588879
+ls
+#1665588895
+cat trainee-map-filter-reduce-urls
+#1665588898
+cat > trainee-map-filter-reduce-urls
+#1665588917
+code trainee-map-filter-reduce-urls
+#1665591000
+gs
+#1665591012
+ga .
+#1665591012
+gpa
+#1665591017
+gs
+#1665591020
+tig
+#1665591026
+gs
+#1665591030
+git push
+#1665591063
+lr
+#1665591065
+gs
+#1665591070
+cat bash
+#1665591073
+rm bash
+#1665591074
+lr
+#1665591080
+gs
+#1665591489
+ga .
+#1665591489
+gs
+#1665591490
+gpa
+#1665592091
+gs
+#1665592094
+grv
+#1665592101
+cd me
+#1665592112
+.2
+#1665592113
+lr
+#1665592118
+.1
+#1665592120
+lr
+#1665592128
+mkdir me
+#1665592131
+cd me
+#1665592149
+code wsl-node-setup-instructions.md
+#1665593018
+gs
+#1665593027
+ls
+#1665593030
+ga wsl-node-setup-instructions.md
+#1665593030
+gs
+#1665593044
+gc -m "Add wsl node setup instructions"
+#1665593045
+gs
+#1665593083
+I added wsl node setup instructions for javascript typescript debugging in /home/lmatheson4/projects/javascript.workspace/trnma.javascript/me which is mapped to javascript trainer-prep branch
+#1665593097
+I added wsl node setup instructions for javascript typescript debugging in /home/lmatheson4/projects/javascript.workspace/trnma.javascript/me which is mapped to $sep19 javascript trainer-prep branch
+#1665593100
+h
+#1665593117
+I added wsl node setup instructions for javascript typescript debugging in /home/lmatheson4/projects/javascript.workspace/trnma.javascript/me which is mapped to NHT-2022-09-19-ELT-NY javascript trainer-prep branch
+#1665593118
+h
+#1665593211
+gs
+#1665593213
+git push
+#1665593220
+.1
+#1665593220
+gs
+#1665593226
+ga .
+#1665593227
+gs
+#1665593228
+gpa
+#1665593228
+gpa
+#1665593792
+node wsl setup instructions https://bbgithub.dev.bloomberg.com/NHT-2022-09-19-ELT-NY/javascript/blob/lmatheson4-sep19-prep/me/wsl-node-setup-instructions.md
+#1665593793
+h
+#1665593977
+lr
+#1665593979
+npm start
+#1665594162
+gs
+#1665594163
+ga .
+#1665594164
+gpa
+#1665594172
+gs
+#1665594183
+grv
+#1665594194
+pwd
+#1665594206
+gurl
+#1665594213
+gurl | xclip
+#1665594326
+grv
+#1665594330
+grv
+#1665594332
+gurl
+#1665594333
+gs
+#1665594336
+.1
+#1665594337
+gs
+#1665594344
+ga .
+#1665594344
+gs
+#1665594345
+gpa
+#1665594354
+gs
+#1665594355
+lr
+#1665599093
+npm start
+#1665599140
+npm start
+#1665599146
+cd me
+#1665599150
+npm start
+#1665574015
+tw js
+#1665605762
+landlord --reset
+#1665605785
+ls
+#1665605790
+cd /vdata
+#1665605791
+ls
+#1665605799
+cd /
+#1665605799
+lr
+#1665605800
+ls
+#1665605810
+cd
+#1665605811
+ls
+#1665605812
+ll
+#1665605819
+ls
+#1665610062
+dc
+#1665610066
+cd landlo
+#1665610076
+docker p
+#1665610078
+docker ps
+#1665622448
+gs
+#1665610231
+rosters -e
+#1665622515
+exit
+#1665622511
+tw
+#1665585123
+vim fiddle.ts
+#1665622523
+exit
+#1665584555
+dev 0
+#1665622530
+tw
+#1665622536
+exit
+#1665622545
+exit
+#1665622549
+cd localhis
+#1665622554
+exec bash
+#1665622560
+cd local
+#1665622570
+pwd
+#1665622571
+cd
+#1665622574
+cd localhist
+#1665622575
+lr
+#1665622576
+gs
+#1665622577
+lr
+#1665622581
+code .
+#1665622597
+pyenv shell 3.9.5
+#1665622610
+git pull
+#1665622613
+lr
+#1665622613
+gs
+#1665622614
+clear
+#1665622615
+lr
+#1665623159
+pyenv shell 3.9.5
+#1665623159
+/home/lmatheson4/.pyenv/versions/3.9.5/bin/python -m pip --proxy http://proxy.bloomberg.com:81 install -U black
+#1665623201
+env | grep no_proxy
+#1665623282
+/home/lmatheson4/.pyenv/versions/3.9.5/bin/python -m pip install -U black
+#1665623314
+/home/lmatheson4/.pyenv/versions/3.9.5/bin/python -m pip install --upgrade pip
+#1665623324
+exit
+#1665623815
+lr
+#1665623817
+h
+#1665623825
+cd test/home3/
+#1665623850
+echo $HISTFILE > bash_hist_infile
+#1665623852
+cat bash_hist_infile
+#1664572672
+tmk trainee-prs > trainee-pr-urls
+#1664572685
+code trainee-pr-urls
+#1664572795
+cat > bas-fxc-pr-urls
+#1664577956
+pyenv shell 3.9.5
+#1664578278
+cat ~/.bash_history
+#1664578654
+ls .devcontainer/
+#1664578658
+vim .devcontainer/Dockerfile
+#1664578741
+docker build .
+#1664585206
+code --diff python3-select.sh ~/bin/python3-select.sh -n
+#1664585257
+python3-select.sh --detect
