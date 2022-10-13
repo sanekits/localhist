@@ -383,7 +383,7 @@ def output_farm(outs: TextIOWrapper, farm: BucketFarm) -> int:
 
 def clean_file(file: str) -> int:
     """Clean a file and return number of events
-    written to stdout """
+    written to stdout"""
 
     with TemporaryDirectory() as tmpdir:
         farm = BucketFarm()
@@ -391,7 +391,7 @@ def clean_file(file: str) -> int:
         ctx.input_files = [file]
         ctx.archive_dir = str(tmpdir)
         coalesce_events(ctx, farm)
-        return output_farm(sys.stdout,farm)
+        return output_farm(sys.stdout, farm)
 
 
 def clean_files(ctx: Context) -> int:
@@ -402,6 +402,7 @@ def clean_files(ctx: Context) -> int:
     for file in ctx.input_files:
         ev_count += clean_file(file)
     return ev_count
+
 
 def parse_args(argv: List[str]) -> Context:
     ctx = Context()
@@ -419,18 +420,17 @@ def parse_args(argv: List[str]) -> Context:
 
         if not ctx.mode:
             raise RuntimeError("No --mode specified")
-        if not ctx.mode in ["coalesce"]:
+        if not ctx.mode in ["coalesce", "clean"]:
             raise RuntimeError(f"Unknown --mode {ctx.mode}")
         if not ctx.input_files:
             ctx.input_files.append("/dev/stdin")
-        if not ctx.archive_dir:
+        if ctx.mode == "coalesce" and not ctx.archive_dir:
             ctx.archive_dir = f"{os.environ.get('HOME','/')}/.localhist-archive"
 
     except Exception as ex:
         raise RuntimeError(f"Can't parse command line {argv}: {ex}")
 
     return ctx
-
 
 
 if __name__ == "__main__":
