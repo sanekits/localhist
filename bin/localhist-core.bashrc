@@ -255,7 +255,7 @@ localhist() {
             ;;
             l|clean)
                 localhist_clean_files $HISTFILE
-                echo "Ok: cleaned $HISTFILE"
+                echo "Ok: cleaned $HISTFILE.  do 'lh c r' to re-read it into memory."
             ;;
             p|append)
                 builtin history -a
