@@ -4,6 +4,7 @@ import sys
 from datetime import datetime
 import os
 import random
+import contextlib
 
 
 LH_ROOT = os.environ["LH_ROOT"]  # Should point to the localhist/ dir
@@ -111,7 +112,22 @@ def test_coalesce_events():
     pass
 
 
+def test_clean_files():
+    out = io.StringIO()
+    testdata_dir = LH_ROOT + "/test/home3/"
+    with contextlib.redirect_stdout(out):
+        ctx = Context()
+        ctx.input_files = [
+            testdata_dir + f for f in ("bash_hist_infile", "bash_hist_infile2")
+        ]
+        ev_count = clean_files(ctx)
+    print(out.getvalue())
+    assert ev_count == 120
+    assert len(out.getvalue()) == 5903
+
+
 if __name__ == "__main__":
+    test_clean_files()
     test_coalesce_events()
     test_BucketFarm_reload()
     test_BucketFarm_add()

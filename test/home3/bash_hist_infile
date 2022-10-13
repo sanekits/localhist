@@ -1,0 +1,126 @@
+#1665605800
+ls
+#1665605810
+cd
+#1665605811
+ls
+#1665605812
+ll
+#1665605819
+ls
+#1665610062
+dc
+#1665610066
+cd landlo
+#1665610076
+docker p
+#1665610078
+docker ps
+#1665622448
+gs
+#1665610231
+rosters -e
+#1665622515
+exit
+#1665622511
+tw
+#1665585123
+vim fiddle.ts
+#1665622523
+exit
+#1665584555
+dev 0
+#1665622530
+tw
+#1665622536
+exit
+#1665622545
+exit
+#1665622549
+cd localhis
+#1665622554
+exec bash
+#1665622560
+cd local
+#1665622570
+pwd
+#1665622571
+cd
+#1665622574
+cd localhist
+#1665622575
+lr
+#1665622576
+gs
+#1665622577
+lr
+#1665622581
+code .
+#1665622597
+pyenv shell 3.9.5
+#1665622610
+git pull
+#1665622613
+lr
+#1665622613
+gs
+#1665622614
+clear
+#1665622615
+lr
+#1665623159
+pyenv shell 3.9.5
+#1665623159
+/home/lmatheson4/.pyenv/versions/3.9.5/bin/python -m pip --proxy http://proxy.bloomberg.com:81 install -U black
+#1665623201
+env | grep no_proxy
+#1665623282
+/home/lmatheson4/.pyenv/versions/3.9.5/bin/python -m pip install -U black
+#1665623314
+/home/lmatheson4/.pyenv/versions/3.9.5/bin/python -m pip install --upgrade pip
+#1665623324
+exit
+#1665623815
+lr
+#1665623817
+h
+#1665623825
+cd test/home3/
+#1665623850
+echo $HISTFILE > bash_hist_infile
+#1665623852
+cat bash_hist_infile
+#1663168204
+echo This is an ordinary test # and here's something else
+#1663168428
+# So now we need to turn that into a loop for automation
+#1663168433
+tac .bash_history | ssh gnrld-pw-705 bash -c 'cat > public_html/histecho/bash_history.txt'  # How to cat .bash_history to public_html
+#1663173585
+ls -al whatever # is there a whatever
+#1663173597
+ls -al whatever || : # is there a whatever
+#1663406862
+bash -ls
+#1663431464
+git clone gh:sanekits/shellkit
+#1663431500
+git tag 0.7.6
+#1663431502
+ls publish/publish-via-github-release.sh
+#1663431505
+publish/publish-via-github-release.sh
+#1663431641
+git merge update-shellkit
+#1663431652
+git fetch
+#1663431660
+git merge origin/update-shellkit
+#1663431806
+echo 0.8.1 > version
+#1663431817
+gpa Bump to 0.8.1
+#1663431842
+ln -sf ../../shellkit/realpath.sh
+#1663431856
+gpa Add realpath.sh

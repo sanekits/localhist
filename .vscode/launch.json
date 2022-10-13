@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/test/test_bash_history_tool.py",
             "env": {
                 "LH_ROOT": "${workspaceFolder}",
-                "PYTHONPATH":"${workspaceFolder}/bin"
+                "PYTHONPATH": "${workspaceFolder}/bin"
             },
             "console": "integratedTerminal",
             "justMyCode": true
@@ -28,6 +28,22 @@
                 "${workspaceFolder}/test/home1/.bash_history",
                 "--output",
                 "${workspaceFolder}/test/home1/.localhist-archive",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python history clean test1",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/bash_history_tool.py",
+            "args": [
+                "--mode",
+                "clean",
+                "--input",
+                "${workspaceFolder}/test/home3/bash_hist_infile",
+                "--input",
+                "${workspaceFolder}/test/home3/bash_hist_infile2",
             ],
             "console": "integratedTerminal",
             "justMyCode": true

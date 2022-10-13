@@ -49,11 +49,6 @@ localhist-archive.sh archive-gitsync
 EOF
 }
 
-update_lh_archive() {
-    # For each entry in ~/.localhist, we want to maintain a cleaned copy in $LH_ARCHIVE/$(hostname).
-    make -C ~/.localhist -f ${scriptDir}/lh_archive.mk LH_ARCHIVE=${LH_ARCHIVE}
-}
-
 do_daily_maint() {
     ${scriptDir}/python3-select.sh \
         ${scriptDir}/bash_history_tool.py \

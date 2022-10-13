@@ -1,5 +1,6 @@
 #!/bin/bash
-# Remove unwanted junk from given histfile
+# Remove unwanted junk from given histfiles
+#
 
 die() {
     echo "ERROR: $@" >&2
@@ -7,65 +8,72 @@ die() {
 }
 
 stub() {
-    echo "stub[$@]" >&2
+    # Print debug output to stderr.  Call like this:
+    #   stub "${FUNCNAME[0]}.${LINENO}" "$@" "<Put your message here>"
+    #
+    [[ -n $NoStubs ]] && return
+    builtin echo -n "  <<< STUB" >&2
+    for arg in "$@"; do
+        echo -n "[${arg}] " >&2
+    done
+    echo " >>> " >&2
 }
 
 Script=$(readlink -f $0)
 Scriptdir=$(dirname $Script)
+Scriptname=$(basename $Script)
 
-Python=$(which python3.11 python3.10 python3.9 python3.8 python3.7 python3.6 python3.5 2>/dev/null | head -n 1)
-
-use_python_cleaner=true
-
-histevent_count() {
-    ( grep -vE '^#[0-9]+' ${1} 2>/dev/null || :) | wc -l
+Python() {
+    ${Scriptdir}/python3-select.sh "$@"
 }
 
-cleanup_histfile() {
-    local file=$1
-    local tmpf=$(mktemp)
-    local old_event_count=$(histevent_count ${file})
-    trap "rm ${tmpf} &>/dev/null" exit
-    if $use_python_cleaner && [[ -n $Python ]] && [[ -r ${Scriptdir}/bash_history_tool.py ]]; then
-        $Python ${Scriptdir}/bash_history_tool.py <${file} >${tmpf} || die "Failed cleaning in bash_history_tool.py"
-    else
-        cleanup_histstream <${file} >${tmpf}
-    fi
-    cat ${tmpf} > ${file}
-    local new_event_count=$(histevent_count ${file})
-    echo "Done cleaning $file: ${old_event_count} -> ${new_event_count} events"
+do_help() {
+    cat <<-EOF
+$Scriptname [filename [...filenames]]
+
+- Remove low-value and duplicate history and order each file by timestamp.
+- Does not merge the time-ordering between multiple input files.
+- Outputs to stdout
+
+Examples:
+
+    1: $Scriptname \$HISTFILE my-other-histfile
+
+    2: cat \$HISTFILE | $Scriptname - > /tmp/clean-history.txt
+
+EOF
 }
 
-cleanup_histstream() {
-    local timestamp="#$(date +%s)"
-    local prev_line
-    while read line; do
-        #stub "raw:$line"
-        # Is this a timestamp?
-        if [[ $line =~ ^#[[:digit:]]+$ ]]; then
-            timestamp=$line
-            #stub "<timestamp>"
-            continue
-        fi
-        if [[ ${line} == ${prev_line} ]]; then
-            continue  # Simplistic dupe removal
-        # We're not interested in lines less than this long:
-        elif ! [[ $line =~ .+\# ]]; then
-            continue
-        fi
-        prev_line=${line}
-        echo "$timestamp"
-        echo -E $line
-    done
-}
+
 
 parseArgs() {
-    [[ -z $1 ]] && die Filename expected as \$1
-    [[ -f $1 ]] || die Can\'t find $1
-    target_file=$1
+    [[ $# -le 0 ]] && die "Expected at least one filename to clean"
+
+    local cleanup_list=()
+    while [[ -n $1 ]]; do
+        case $1 in
+            -h|--help)
+                shift
+                do_help "$@"
+                exit
+                ;;
+            -)
+                cleanup_list+=("--input /dev/stdin")
+                ;;
+            *)
+                [[ -f $1 ]] || {
+                    echo "ERROR: Can't find file $1" >&2
+                    shift
+                    continue
+                }
+                cleanup_list+=("--input $1")
+                ;;
+        esac
+        shift
+    done
+    Python ${Scriptdir}/bash_history_tool.py --mode clean ${cleanup_list[@]}
 }
 
 if [[ -z $sourceMe ]]; then
     parseArgs "$@"
-    cleanup_histfile $target_file
 fi

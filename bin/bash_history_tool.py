@@ -28,6 +28,7 @@ import re
 from datetime import datetime
 from io import TextIOWrapper
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 RE_TIMESTAMP = re.compile(r"^#\d+\s*$")
 
@@ -340,11 +341,18 @@ def write_bucket(dest_file: str, bucket: Bucket) -> int:
     os.makedirs(xdir, exist_ok=True)
     tmpname = f"{dest_file}.{randint(100,999)}"
     with open(tmpname, "w") as ff:
-        for event in bucket.events:
-            ff.write(str(event))
-            ff.write("\n")
+        output_bucket(ff, bucket)
 
     os.replace(tmpname, dest_file)
+    return len(bucket.events)
+
+
+def output_bucket(outs: TextIOWrapper, bucket: Bucket) -> int:
+    """Stream out the contents of bucket, return number of
+    records written."""
+    for event in bucket.events:
+        outs.write(str(event))
+        outs.write("\n")
     return len(bucket.events)
 
 
@@ -364,6 +372,38 @@ def write_farm(archive_dir: str, farm: BucketFarm) -> int:
     return result
 
 
+def output_farm(outs: TextIOWrapper, farm: BucketFarm) -> int:
+    """Write out stream of BucketFarm events.  Returns
+    the number of events written."""
+    ev_count = 0
+    for bucket in farm._buckets:
+        ev_count += output_bucket(outs, bucket)
+    return ev_count
+
+
+def clean_file(file: str) -> int:
+    """Clean a file and return number of events
+    written to stdout"""
+
+    with TemporaryDirectory() as tmpdir:
+        farm = BucketFarm()
+        ctx = Context()
+        ctx.input_files = [file]
+        ctx.archive_dir = str(tmpdir)
+        coalesce_events(ctx, farm)
+        return output_farm(sys.stdout, farm)
+
+
+def clean_files(ctx: Context) -> int:
+    """Clean each file in ctx.input_files:  de-duplication and
+    dumb record filters are applied, then the ordered content is streamed
+    to stdout"""
+    ev_count = 0
+    for file in ctx.input_files:
+        ev_count += clean_file(file)
+    return ev_count
+
+
 def parse_args(argv: List[str]) -> Context:
     ctx = Context()
     try:
@@ -380,11 +420,11 @@ def parse_args(argv: List[str]) -> Context:
 
         if not ctx.mode:
             raise RuntimeError("No --mode specified")
-        if not ctx.mode in ["coalesce"]:
+        if not ctx.mode in ["coalesce", "clean"]:
             raise RuntimeError(f"Unknown --mode {ctx.mode}")
         if not ctx.input_files:
             ctx.input_files.append("/dev/stdin")
-        if not ctx.archive_dir:
+        if ctx.mode == "coalesce" and not ctx.archive_dir:
             ctx.archive_dir = f"{os.environ.get('HOME','/')}/.localhist-archive"
 
     except Exception as ex:
@@ -400,5 +440,8 @@ if __name__ == "__main__":
         farm = BucketFarm()
         coalesce_events(ctx, farm)
         write_farm(ctx.archive_dir, farm)
+
+    elif ctx.mode == "clean":
+        clean_files(ctx)
 
     sys.exit(0)
