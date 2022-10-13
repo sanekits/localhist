@@ -133,6 +133,15 @@ localhist_memclean() {
     echo "Ok: I cleaned history in buffer"
 }
 
+localhist_clean_files() {
+    local fn out_fn
+    for fn in "$@"; do
+        out_fn=$(mktemp)
+        ${LocalhistHome}/localhist-cleanup.sh "$fn" > ${out_fn}
+        [[ -f $out_fn ]] && command cat $out_fn > "${fn}"
+    done
+}
+
 localhist_import_files() {
     # Import files in $@.  If empty, default to current dir bash_history
     [[ $# == 0 ]] && set -- ./bash_history
@@ -154,7 +163,7 @@ localhist_help() {
     [[ -r $LocalhistHelpRendered ]] && { echo -ne "$(<${LocalhistHelpRendered})"; echo; return; }
     LocalhistHelpRendered=$(mktemp) # This rendering is noticeably slower the first time thru, thus
                                     # the tmpfile cache...
-    egrep '^#   l' ${LocalhistHome}/localhist.bashrc | cut -c 3- | help_highlight | tee ${LocalhistHelpRendered}
+    egrep '^#   l' ${LocalhistHome}/localhist-core.bashrc | cut -c 3- | help_highlight | tee ${LocalhistHelpRendered}
 }
 
 
@@ -245,7 +254,7 @@ localhist() {
                 set --
             ;;
             l|clean)
-                ${LocalhistHome}/localhist-cleanup.sh $HISTFILE || return;
+                localhist_clean_files $HISTFILE
                 echo "Ok: cleaned $HISTFILE"
             ;;
             p|append)
