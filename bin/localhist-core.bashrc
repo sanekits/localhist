@@ -138,7 +138,10 @@ localhist_clean_files() {
     for fn in "$@"; do
         out_fn=$(mktemp)
         ${LocalhistHome}/localhist-cleanup.sh "$fn" > ${out_fn}
-        [[ -f $out_fn ]] && command cat $out_fn > "${fn}"
+        [[ -f $out_fn ]] && {
+            command cat $out_fn > "${fn}"
+            rm $out_fn
+        }
     done
 }
 
