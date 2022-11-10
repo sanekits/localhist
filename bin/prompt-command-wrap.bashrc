@@ -16,7 +16,7 @@
 #
 __do_define_pcwrap=false
 type -t __pcwrap_ver >/dev/null && {
-    [[ $(__pcwrap_ver) -lt 2 ]] && {
+    [[ $(__pcwrap_ver) -lt 3 ]] && {
         __do_define_pcwrap=true
     }
 } || {
@@ -26,11 +26,11 @@ type -t __pcwrap_ver >/dev/null && {
 
 $__do_define_pcwrap && {
     __pcwrap_ver() {
-        builtin echo 2
+        builtin echo 3
     }
     [[ -z ${__pcwrap_items+x} ]] && {
         # __pcwrap_items is not yet defined
-        builtin declare -a __pcwrap_items
+        builtin declare -g -a __pcwrap_items
     }
     __pcwrap_is_registered() {
         # Return fail if $1 is not registered in __pcwrap_items
@@ -85,7 +85,7 @@ $__do_define_pcwrap && {
     }
     __pcwrap_clear() {
         unset __pcwrap_items;
-        declare -a __pcwrap_items;
+        declare -g -a __pcwrap_items;
         COMMAND_PROMPT=""
     }
     __pcwrap_register
