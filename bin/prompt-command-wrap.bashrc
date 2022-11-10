@@ -25,6 +25,7 @@ type -t __pcwrap_ver >/dev/null && {
 }
 
 $__do_define_pcwrap && {
+    unset __do_define_pcwrap
     __pcwrap_ver() {
         builtin echo 3
     }
