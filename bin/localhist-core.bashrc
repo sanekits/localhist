@@ -400,6 +400,7 @@ localhist_login_hook() {
             LocalhistHome=${HOME}/.local/bin/localhist
             ${LocalhistHome}/python3-select.sh --version &>/dev/null && {
                 ${LocalhistHome}/localhist-archive.sh --login
+                true
             } || echo "localhist: no usable python3 found" >&2
         )
     }

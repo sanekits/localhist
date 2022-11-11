@@ -54,7 +54,7 @@ do_daily_maint() {
         ${scriptDir}/bash_history_tool.py \
         --mode coalesce  \
         --input ${DEFAULT_HISTFILE} \
-        --output ${LH_ARCHIVE} || die
+        --output ${LH_ARCHIVE} || die "Failed running bash_history_tool.py"
     if $rewrite; then
         do_rewrite
         echo "localhist coalesce+rewrite completed" >&2
