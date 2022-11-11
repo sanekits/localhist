@@ -22,6 +22,8 @@ source ${LocalhistHome}/localhist-core.bashrc
     command mkdir -p "$LH_ARCHIVE"
 }
 
+[[ -f ${HOME}/.bash_completion.d/localhist-completion.bash ]] && source ${HOME}/.bash_completion.d/localhist-completion.bash
+
 __pcwrap_register  localhist_prompt_command
 
 localhist_login_hook
