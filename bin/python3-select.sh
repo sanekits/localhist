@@ -1,11 +1,15 @@
 #!/bin/bash
 
+PS4='\033[0;33m+(${BASH_SOURCE}:${LINENO}):\033[0m ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+set -x
+
 export BEST_PY3
 
 python3_select() {
     local cand;
     for cand in python3.{11,10,9,8,7,6,5} python3 python; do
         local py_cand="$( command which ${cand} 2>/dev/null)"
+        [[ -n $py_cand ]] || continue
 	    [[ -n $MSYS ]] && {
             "$py_cand" -c 'import sys; sys.exit(0)' &>/dev/null || continue
         } || {
