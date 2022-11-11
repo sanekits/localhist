@@ -396,7 +396,9 @@ function localhist_prompt_command() {
 
 localhist_login_hook() {
     shopt -q login_shell && {
-        ${LocalhistHome}/localhist-archive.sh --login
+        ${LoadhistHome}/python3-select.sh --version &>/dev/null && {
+            ${LocalhistHome}/localhist-archive.sh --login
+        } || echo "localhist: no usable python3 found" >&2
     }
 }
 

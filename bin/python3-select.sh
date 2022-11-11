@@ -13,6 +13,11 @@ python3_select() {
             "$py_cand" -c 'import termios' &>/dev/null || \
 		    continue  # We don't want a dos/windows version
         }
+        [[ $py_cand == *python ]] && {
+            # We can't use v2:
+            local xver=$( python --version 2>/dev/null)
+            [[ "$xver" == Python\ 3* ]] || continue
+        }
         BEST_PY3="${py_cand}"
         break
     done

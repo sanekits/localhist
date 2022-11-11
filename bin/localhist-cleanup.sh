@@ -24,7 +24,7 @@ Scriptdir=$(dirname $Script)
 Scriptname=$(basename $Script)
 
 Python() {
-    ${Scriptdir}/python3-select.sh "$@"
+    local py=$( ${Scriptdir}/python3-select.sh ) "$@"
 }
 
 do_help() {

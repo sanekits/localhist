@@ -25,3 +25,4 @@ source ${LocalhistHome}/localhist-core.bashrc
 __pcwrap_register  localhist_prompt_command
 
 localhist_login_hook
+true
