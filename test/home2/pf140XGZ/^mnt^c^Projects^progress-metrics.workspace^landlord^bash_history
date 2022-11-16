@@ -1,0 +1,703 @@
+cd /c/Projects/progress-metrics.workspace/tmp/test.tmp # to test.tm
+#1626188372
+gpa Cleanup .gitignore # repo-copier commit
+#1626200830
+type -a hello_loop # what sort of command is 'hello_loop'?
+#1626200830
+type -a ls # What sort of command is 'ls'
+#1626200830
+exec bash # reload my new changeshello_loop "how are you today?"
+#1626200830
+vi .bashrc # Create new .bashrc
+#1626259296
+cd /home/lmatheson4/tmp/unix-jul12-autogist # to jul //
+#1626266167
+cat bash_history_snapshot.txt | grep -v '^#'
+#1626266179
+cat bash_history_snapshot.txt | grep -v '^#' > tmp1
+#1626266239
+cat tmp1 | grep # > bash_history_snapshot.txt
+#1626348802
+ls | grep dock # find all docker-named things
+#1626348985
+cd /c/Projects/training_repos_copier_workspace/trna.training_repos_copier # to copi
+#1626349523
+git merge trnma/master -X ours # Update jul12/master from trnma/master for local-dev WC
+#1626352374
+cd /c/Projects/row-cohort.workspace # to coho //
+#1626433733
+lc roster list $abids_class --full # Show full roster of Abid's class to filter by given name
+#1626433775
+lc roster list $abids_class --full | tr 't' ' ' # Use spaces in output for better matching
+#1626437067
+[[ #12445254 =~ ^#[[:digit:]]+$ ]]; echo 130 # This regex works to match timestamps
+#1626437572
+vv="#12445254 asdf"
+#1626437582
+vv="#12445254"
+#1626437600
+[[ $vv =~ ^#.* ]]; echo $?
+#1626437605
+[[ $vv =~ ^#x.* ]]; echo $?
+#1626437615
+[[ $vv =~ ^#d+ ]]; echo $?
+#1626437676
+[[ $vv =~ ^#[[:digit:]]+ ]]; echo $?
+#1626437685
+[[ $vv =~ ^#[[:digit:]]+ $]]; echo $?
+#1626437694
+[[ $vv =~ ^#[[:digit:]]+$ ]]; echo $?
+#1626437711
+[[ $vv =~ ^#[[:digit:]]+$ ]]; echo $? # This regex works to match timestamps
+#1626437749
+echo "[[ $vv =~ ^#[[:digit:]]+$ ]]; echo $? # This regex works to match timestamps" >> bash_history
+#1626437971
+echo ${#lx}
+#1626437977
+echo ${#PATH}
+#1626439219
+sourceMeRun ~/bin/histfile-cleanup.sh cleanup_histstream # Testing histfile-cleanup.sh
+#1626440221
+lc roster list $abids_class --full | tr 't' ' ' | grep -iF ./ib-header # Match abid's class against ib-header row trainee list
+#1626440296
+lc roster list $abids_class --full | tr 't' ' ' | ./full-names # (works) match roster vs full names of cohort
+#1626469135
+cd /home/lmatheson4/tmp/unix-jul12-autogist # to jul
+#1626469140
+cd /c/Projects/row-cohort.workspace/jun28 # to jun
+#1626613701
+python3.8 -i explore_itertools.py # Experiment with itertools
+#1626625386
+ls / # this is hist
+#1626625426
+cat ~/.bash_history # testing
+#1626627180
+lh s # show hist
+#1626627236
+lh s # foo2
+#1626627604
+whoami # foo
+#1626627706
+echo $foo | tr 't' 'x' # foo
+#1626627994
+Something in the way she # moves
+#1626643917
+ls #
+#1626644083
+ls / #
+#1626688130
+cd /c/Projects/progress-metrics.workspace/pm_reportserv/test/test_bigsheet.d # to shee
+#1626689029
+cd test/test_indivreport.d # to indiv
+#1626714333
+cd /c/Projects/progress-metrics.workspace/pm_reportserv/test/test_full.d # to full
+#1626714455
+code --diff test_full_db-out.html new-report-db.html #
+#1626715570
+code pm_reportserv/version #
+#1626715621
+cd /c/Projects/progress-metrics.workspace/pm_reportserv/pm_reportserv/pmsys_common # to sys
+#1626715631
+cd /c/Projects/progress-metrics.workspace/pm_sys # to pm_sys //
+#1626723792
+upload_bb_pypi #
+#1626724068
+ln -sf .config/bb-artifactory/bb-artifactory-upload.config ./ # configure bb artifactory upload
+#1626730011
+upload_bb_pypi # upload v0.7.1
+#1626777846
+code ~/bin/localhist #1626777850
+#1626779044
+echo Resolving local-dev issues from july 12 delivery #
+#1626784680
+git show trnma/master:./README.md >README.md # revert repo-copier effects
+#1626784729
+ff=Makefile; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626784890
+ff=local-development-overview.md; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626784956
+ff=objectives; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626785013
+ff=introduction.md; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626785037
+ff=index.md; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626789293
+git push -u jul12 __pmpublish_ref__:add_pmpublish # setup pm_publish for july 12 comdb2
+#1626813254
+git reset --hard trnma/master # local-dev
+#1626870545
+cd /c/Projects # to Proj 0
+#1626870756
+wget https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb # download dive
+#1626871431
+docker image ls | grep python # Find images
+#1626874656
+ga settings.json.strip-and-sort.sh # Adopt the stableburner version
+#1626876936
+cd /c/Projects/guts.workspace/trnma.metrics # to metr
+#1626879233
+cd /c/Projects/guts.workspace/trnma.metrics/labs/bannerguts # to bann
+#1626886314
+pylintish bannerguts.py #
+#1626886472
+black bannerguts.py #
+#1626886781
+loop python3.8 ./bannerguts.py # loop test bannerguts.py
+#1626926762
+cd /c/Projects/progress-metrics.workspace/pm_publish # to pub //
+#1626927885
+cd /c/Users/MathesonLes/AppData/Roaming/Code/User # to Code
+#1626952993
+cd /c/Projects/riddle/1pp # to 1pp
+#1626981338
+cd /c/Projects/training_repos_copier_workspace/trna.training_repos_copier # to repo
+#1627036083
+ssh -O check lmatheson@maczilla #
+#1627036241
+cd /home/lmatheson4/my-home/zsh # to zsh
+#1627212964
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to midd
+#1627248774
+cd /c/Projects/explore # to explore 0 //
+#1627249157
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash # install nvm to manage node versions
+#1627249282
+echo NVM init stuff is now in ~/.taskrc/nvm.taskrc #
+#1627249342
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash # install nvm to manage node versions
+#1627249463
+bb-inet-proxy-shell nvm install --lts # Install node.js
+#1627249492
+nvm install --lts # Install node.js
+#1627250165
+npx create-react-app my-app # Create my-app
+#1627250477
+cd /c/Projects/explore/react # to react
+#1627296424
+sudo /opt/bb/bin/apt-get install kafkacat # Installing kafkacat in wsl
+#1627297694
+cd /c/Projects/middleware.workspace/kafka # to midd
+#1627297989
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to midd //
+#1627298165
+echo Lets build a kafkacat-based chat app # Jun21 middleware lab
+#1627299543
+cd /home/lmatheson4/my-home # to my-ho //
+#1627384843
+cd /c/Projects/unix.workspace/trnma.unix # to unix //
+#1627386908
+cd tmp/unix-jul12-autogist # to unix
+#1627389565
+cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to unix 2
+#1627392443
+./autocommit_run.sh -p 10 # sync unix github bash_history
+#1627473982
+autocommit_run.sh -p 10 # sync unix github bash_history
+#1627477777
+echo /c/Projects/training_repos_copier_workspace/trna.training_repos_copier/training_repos_copier.py makeconfig > rosters/jun28.cfg # Create a dummy cfg for abids class
+#1627573732
+echo ./training_repos_copier.py rosters/jun28.cfg remove dmp # Drop the old dmp
+#1627573764
+./training_repos_copier.py create rosters/jun28.cfg # Rebuild dmp repo for jun28
+#1627573833
+/c/Projects/training_repos_copier_workspace/trna.training_repos_copier/training_repos_copier.py makeconfig > rosters/jun28.cfg # Create a dummy cfg for abids class
+#1627573934
+./training_repos_copier.py create rosters/jun28.cfg dmp # Rebuild dmp repo for jun28
+#1627576058
+cd /c/Projects/progress-metrics.workspace/landlord # to metrics
+#1627576066
+cd /c/Projects/guts.workspace/trnma.metrics # to metr //
+#1627576165
+/c/Projects/guts.workspace/guts-flow-gist # This is for having the guts network team help with presentation Aug 3
+#1627578058
+cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to dmp //
+#1627645601
+cd /c/Projects/dmp.workspace/trnma.dmp # to dmp
+#1627645604
+cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher-advanced/7-bas-dmp/solution # to 7
+#1627646098
+dc exec trndmpsv basclient -x trndmpsv.xsd --uuid 1 requests/add-city-lu.json # Test lab7 add-city
+#1627657983
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middl //
+#1627658091
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middle
+#1627675386
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middl
+#1627675632
+git reset --hard jun28/master # middleware teach prep
+#1627917776
+cd /c/Projects/middleware.workspace/kafka.docker/kafka # to kafk
+#1627918135
+cd /c/Projects/middleware.workspace/kafka # to kaf
+#1627918139
+cd /c/Projects/middleware.workspace/trnma.middleware-overview/labs/kafkachat # to kaf
+#1627942278
+curl http://artprod.dev.bloomberg.com/artifactory/bb-public-bucket-local/tdoc/landlord/v0.6.2/setup-landlord.sh | sh - # Setup landlord v0.6.2
+#1627942498
+cd /home/lmatheson4/journal # to jour
+#1627942721
+vim rosters.taskrc # Add Tom's new Aug 9 class
+#1627948198
+cat | xargs landcli roster add $toms_class # Paste column of trainee data into roster-add
+#1627987365
+lc -i roster remove tmp/aug9-roster # Use roster file to load trainee idents
+#1627987566
+lc -i roster remove aug9-roster # Use roster file to load trainee idents
+#1628090226
+cd /c/Projects/unix.workspace # to unix
+#1628090500
+HISTFILE=/home/lmatheson4/.bash_history # Switching from /home/lmatheson4/.bash_history
+#1628090595
+HISTFILE=/home/lmatheson4/.bash_history  # Switching from /c/Projects/progress-metrics.workspace/pm_reportserv/bash_history
+#1628090595
+HISTFILE=/home/lmatheson4/.bash_history # Switching from /c/Projects/progress-metrics.workspace/pm_reportserv/bash_history
+#1628122853
+cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to dmp
+#1628122855
+HISTFILE=/c/Projects/dmp.workspace/bash_history # Switching from /home/lmatheson4/.bash_history
+#1628161030
+sudo apt install groff # install groff so we can use "man -Tpdf"
+#1628161128
+sudo apt install groff # install groff so we can use "man -Tpdf".  The default installation was just groff-base"
+#1628162511
+echo $#
+#1628162524
+set -- "hello world"  # Set positional args
+#1628162630
+set -- 1 2 3 4 5 6 7 8 9 a b c d e f g h # lots of positional params
+#1628162797
+cd /c/Projects/explore # to explo
+#1628162952
+va=(1 2 3 4 5 6 7 8 9 a b c d e f g h) # make an array 'va'
+#1628163014
+echo "# Working the shell parameter expansion examples in https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion"
+#1628268448
+HISTFILE=/home/lmatheson4/.bash_history  # Switching from ^c^Projects^bedtime-bound^bash_history
+#1628268515
+grep -Ev '^#' $HISTFILE
+#1628268521
+grep -Ev '^#' $HISTFILE | wc -l
+#1628268528
+grep -Ev '^#\d+' $HISTFILE | wc -l
+#1628268549
+grep -Ev '^#[0-9]+' $HISTFILE | wc -l
+#1628277413
+cd /c/Projects/progress-metrics.workspace/pm_reportserv/pm_reportserv/templates/auto_heatmap # to prog
+#1628277488
+cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to unix
+#1628277575
+cd /home/lmatheson4/bin # to bin //
+#1628277579
+cd /home/lmatheson4/bin # to bin 0 //
+#1628283758
+chmod +x ~/bin/localhist-catalog.sh # Let's have a way to catalog the .localhist content
+#1628283830
+localhist-catalog.sh # t1
+#1628284390
+cd /c/Projects/guts.workspace # to guts
+#1628289547
+cd bin # to bin
+#1628289795
+gpa Improves ELT-class-setup.md #
+#1628290322
+set -- "${var[*]}" # Expand var into $1
+#1628290337
+set -- "${var[@]}" # Expand var into multiple args
+#1628290359
+var[2]=world # TIL you can just make up array vars on the fly if you use brackets!
+#1628291059
+var=( $* ) # TIL you can init an array like this
+#1628291059
+var=( $* )  # TIL you can init an array like this
+#1628291352
+echo myfile.{py,c,o}  # Remember brace expansion?  It doesn't have to refer to files
+#1628291392
+vcol=( col{red,green,blue} )  # Example of non-file brace expansion
+#1628291610
+echo {1..10} # You forgot all about sequence expansion: here's 10 digits
+#1628291632
+set -- {1..10}  # positional args
+#1628291769
+echo \${1..10}  # Creates $1 $2 $3...
+#1628291875
+echo \${1..10} # Creates $1 $2 $3...
+#1628292135
+cd /home/lmatheson4/.taskrc # to task
+#1628292438
+cd /home/lmatheson4/bin # to bin // 0
+#1628292608
+echo {a..z..3} # Expand from a to z skipping 3 chars
+#1628292677
+echo {01..109} # If you add a leading 0, all results have the same width
+#1628292725
+echo {z..a}  # You can do this backwards also
+#1628292923
+for vv; do echo -en "\033[${vv};0m${vv}|"; done  # Variation
+#1628292933
+for vv; do echo -en "\033[${vv};30m${vv}|"; done  # Variation
+#1628293120
+echo ~+ # An alias for $PWD
+#1628293135
+echo ~- # An alias for OLDPWD
+#1628293163
+ls ~-  # this is worth practicing, so you can ls the old dir
+#1628293259
+cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to trnma
+#1628293301
+cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to unix //
+#1628293671
+HISTFILE=/home/lmatheson4/.bash_history  # Switching from t1
+#1628294148
+xx=PATH; echo #{!xx}  # Bet you didn't know that variables can be indirect like this
+#1628294162
+xx=PATH; echo ${!xx}  # Bet you didn't know that variables can be indirect like this
+#1628294298
+echo ${vc:=32}  # You can set the variable default this way.  If vc is defined, it will be used, otherwise 32 will be assigned
+#1628294310
+echo ${vc:=39}  # You can set the variable default this way.  If vc is defined, it will be used, otherwise 32 will be assigned
+#1628294502
+echo ${!HIST*}  # Print all vars that start with HIST
+#1628294518
+echo ${!B*}  # Print all vars that start with B
+#1628298321
+echo $(<hello)  # Did not know you could use this instead of 'cat hello'
+#1628299355
+alias ss='( echo "hello"; read -p "u haz question?"; )'  # You have underestimated aliases
+#1628299538
+shopt -s expand_aliases  # TIL that it's possible to expand aliases in a shell script!
+#1628299692
+for vv; do echo -en "\033[;${vv}m${vv}|"; done  # How to make a quick-and-dirty color chart!
+#1628300544
+declare -i vv=32; (( vv >>= 2 )); echo $vv  # did you know that C-style bit math is done?
+#1628300580
+declare -i vv=32; (( vv %= 10 )); echo $vv  # And modulo-arithmetic?
+#1628300769
+declare -i vv=0x1000; (( vv >> 3 )); echo $vv  # And hex values
+#1628300891
+type -a [  # Actually [ is a built-in as well as ext command
+#1628301133
+[[ hello -nt bash_history ]]; echo $?  # Did you know that modification times can be compared with -nt and -ot ??
+#1628301138
+[[ hello -ot bash_history ]]; echo $?  # Did you know that modification times can be compared with -nt and -ot ??
+#1628301195
+[[ hello -ef hello2 ]]; echo $?  # Compare inodes for equality!
+#1628301204
+[[ hello -ef bash_history ]]; echo $?  # Compare inodes for equality!
+#1628332042
+hisg \#
+#1628332314
+for vv in {0..99}; do echo -en "\033[;${vv}m${vv}|"; done  # one-line colorchart
+#1628333337
+CDPATH=:~:/c/Projects # cdpath simple
+#1628336071
+localhist-merge.sh # t2
+#1628336854
+echo ${#}
+#1628336864
+echo ${${#}}
+#1628337208
+/home/lmatheson4/bin/localhist-merge.sh ^c^Projects^dmp.workspace^bash_history ^c^Projects^elt-classmgr.workspace^may24^bash_history /tmp/foo  # t2
+#1628337221
+/home/lmatheson4/bin/localhist-merge.sh ^c^Projects^dmp.workspace^bash_history ^c^Projects^elt-classmgr.workspace^may24^bash_history -o /tmp/foo  # t2
+#1628337826
+/home/lmatheson4/bin/localhist-merge.sh ^c^Projects^dmp.workspace^bash_history ^c^Projects^elt-classmgr.workspace^may24^bash_history -o /tmp/foohist  # t3
+#1628338010
+echo "${vv[@]}" # dump
+#1628339224
+vv+=(13)  # Adding a new value to end of array 'vv'
+#1628381076
+PS1="\#"
+#1628383702
+shopt -u progcomp  # turning off programmable completion
+#1628383789
+shopt | grep sourcepath # TIL that sourcepath opt is why I can source files on the PATH
+#1628388666
+shopt -s progcomp  # TIL that Ctrl+R Ctrl+R recalls most-recently searched term!
+#1628425525
+complete -W "now tomorrow never" dothis  # If the completion possibilities are simple, a -W can just list them
+#1628425534
+function dothis {    echo "dothis invoked with $@"; }  # For testing bash completion
+#1628425622
+complete -A directory dothis # How to supply dir names as completion options
+#1628425642
+dothis .vscode/ # demo of dir
+#1628425697
+complete -A file dothis # How to supply file names as completion options
+#1628425756
+complete -A function dothis # How to supply function names
+#1628425856
+complete -r dothis  # It can take multiple -r's to remove a completion if it was added more than once
+#1628426060
+complete -p # List all completions
+#1628426156
+echo # Just understanding the "complete -F" output is half the job, if you can borrow the completion logic of an existing function you can wrap it or reuse it
+#1628426515
+_dothis_completions()  {   COMPREPLY+=("now");   COMPREPLY+=("tomorrow");   COMPREPLY+=("never"); };  # tv1
+#1628426770
+compgen -W "now tomorrow never"  # Trying to understand compgen
+#1628426778
+compgen -W "now tomorrow never" nev # Trying to understand compgen
+#1628427092
+_cstb_term=/dev/pts/17 # set debug terminal for tv1
+#1628427119
+. /c/Projects/explore/bash/_dothis_completions.bash # reload tv1
+#1628427511
+complete -F _dothis_completions dothis # Register tv1
+#1628428060
+PATH="$PATH:$PWD"  # just testing dothis
+#1628428077
+_cstb_term=/dev/pts/11 # set debug terminal for tv1
+#1628428162
+echo ${#DIRSTACK[@]}
+#1628429263
+source ~/bin/localhist_completion.bash # tv2
+#1628430056
+source  /c/Projects/explore/bash/_dothis_completions.bash # reload tv1
+#1628432328
+HISTFILE=/home/lmatheson4/.bash_history  # Switching from /home/lmatheson4/bash_history
+#1628504539
+export _cstb_term=/dev/pts/2 # wfl
+#1628675413
+cd /c/Projects/progress-metrics.workspace/landlord # to landlord
+#1628675835
+ls lc-start-error.txt # This is the landcli startup exception we need to trap and advise user
+#1628677189
+cd /c/Projects/progress-metrics.workspace/landlord # to land
+#1628677675
+cd /c/Projects/explore/bash # to bash //
+#1628677714
+cd /c/Projects/explore/bash # to bash
+#1628723305
+cd /c/Projects/wsl.HOME/bin-pub/tox-py # to tox
+#1629501540
+cd /c/Projects/zap_container/config/lmath.basic # to lmath
+#1629537504
+makeself.sh /c/Projects/localhist/bin ./tmp/localhist-0.8.0.run "Installing localhist-0.8.0" ./setup.sh  # Learning to use makeself245
+#1630241477
+landlord_live_container_name=landlord-live /home/lmatheson4/.landlord-live-init # test landlord init script
+#1630242443
+cd /c/Projects/progress-metrics.workspace/landlord # to landl
+#1630242453
+cd /c/Projects/wsl.HOME/my-home/landlord-live # to landl
+#1630242494
+gpa Add cdpp and localhist to landlor live setup #
+#1630612314
+gco start-bas-router-for-wsl.sh #
+#1630612785
+lc -i roster add $aug23_cpp $(cat) #  Add trainees to roster
+#1630612909
+lc -i bbgh-teams add -o $aug23_cpp -t Trainees -r $aug23_cpp #  Add trainees to Trainees team
+#1631810666
+set tdoc-apartment-00{5..8} # Let's make more apartment orgs
+#1631810844
+# Who do we want in apartment orgs?  [a] the trainer(s) directly responsible for the class modules; [b] the trainees ;  [c] a couple of admin-only trainers who maintain apartments in general
+#1631810868
+# Today we're building 4 more apartments (005..008) and thinking about how this should be scripted
+#1631811200
+*lc -i bbgh-teams add -o $1 -t Trainees # Add Tom's aug9 cohort to apartment 005
+#1631811545
+shift # Put 006 in line for next
+#1631811989
+lc -i bbgh-teams add -o $1 -t Trainees -r $sep13 # Add sep13 cohort to apt 006
+#1632337757
+gco -b add_reportspec_autogeneration # See https://bbgithub.dev.bloomberg.com/TdocProgressMetrics/pm_publish/issues/27
+#1632338714
+landlord reportspec autogen --template foo --orgname org1 --rostername rost1 #
+#1632339870
+python3.8 tmprgx.py 'foo${can}' #
+#1632340020
+python3.8 tmprgx.py 'foo${can} and also ${whop}' #
+#1632340749
+python3.8 -m pudb tmprgx.py 'foo${can} and also ${whop}' #
+#1632341164
+python3.8 -i tmprgx.py 'foo${can} and also ${whop}' #
+#1632344909
+cd /c/Projects/progress-metrics.workspace/landlord/test # to test
+#1632344985
+lc --sh ./test_reportspec_autogen.sh  #
+#1632346875
+./test_reportspec_autogen.sh #
+#1632357146
+gpa Add save-as arg in reportspec autogen to commit to pmdata #
+#1632357205
+# We've completed the lower-layer work for autogen of reportspecs.  Now we need to implement make-reportspec
+#1632359150
+# Now we're coding make-reportspec
+#1632360679
+export WORKSPACE=/tmp/fuzpace1; mkdir -p $WORKSPACE; /c/Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec # tv100
+#1632361083
+echo ${#vx[*]}
+#1632361464
+export WORKSPACE=/tmp/fuzpace1; mkdir -p $WORKSPACE; cd /c/Projects/progress-metrics.workspace/trnma.comdb2; /c/Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec --inner # tv102
+#1632361767
+( lh cd; pwd ; gpa  ) # gv101
+#1632389346
+git push tdpm next:make-reportspec-latest # How to update the distribution branch
+#1632389896
+# Thu am, still implementing make-reportspec
+#1632390078
+# Goal: get reportspec.py to run on Jenkins with pmdata connectivity
+#1632390548
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to libex
+#1632393439
+# Inside docker dpkg-python-development-base, we're trying to make reportspec.py run in alien environ
+#1632393544
+docker run -it --rm -v `pwd -P`:/workarea --workdir /workarea artifactory.inf.bloomberg.com/dpkg-python-development-base:3.8 /bin/bash # use python3.8 for testing make-reportspec
+#1632393681
+# reportspec depends on python3.8 (because of launcher shell script only)
+#1632393720
+python3.8 -m pip install comdb2 # 
+#1632393746
+# reportspec.py requires pip install comdb2
+#1632393855
+PYTHONPATH=$PWD/lib #
+#1632393924
+PYTHONPATH=$PWD #
+#1632394015
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to libexe
+#1632394233
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec/pmsys_common # to pmsys
+#1632394240
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec/pmsys_common # to pmsys //
+#1632394256
+cd /c/Projects/progress-metrics.workspace/pm_sys/common # to common //
+#1632394878
+# reportspec depends on PYTHONPATH containing landlord root (so ./lib is available)
+#1632394969
+# reportspec.py depends on pip install comdb2
+#1632395028
+cd /c/Projects/progress-metrics.workspace/pm_reportserv # to landlo repor
+#1632395348
+export WORKSPACE=/c/Projects/progress-metrics.workspace/trnma.comdb2; cd $WORKSPACE; /c/Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec --inner # tv102
+#1632395633
+cd /c/Projects/progress-metrics.workspace/landlord/make-reportspec # to land make
+#1632400373
+cd /share/comdb2.workspace/trnma.comdb2 # to comdb
+#1632400450
+cd /share/progress-metrics.workspace/landlord # to land
+#1632400499
+# Setting up trnma.comdb2/.etc for testing make-reportspec
+#1632400662
+export WORKSPACE=/c/Projects/progress-metrics.workspace/trnma.comdb2; cd $WORKSPACE; ./.etc/make-reportspec # tv103 outer
+#1632400684
+export WORKSPACE=/project/trnma.comdb2; cd $WORKSPACE; ./.etc/make-reportspec # tv103 outer
+#1632403150
+export WORKSPACE=/share/progress-metrics.workspace/trnma.comdb2; cd $WORKSPACE; ./.etc/make-reportspec # tv103 outer
+#1632403827
+# reportspec --envcheck is working, now it's time to test a semi-realistic reportspec-template
+#1632403851
+cd $PWD #
+#1632403869
+cd /c/Projects/progress-metrics.workspace/trnma.comdb2/labs/portfolio/template/.etc #
+#1632407366
+cp ../../landlord/make-reportspec/make-reportspec ./  # update trnma.comdb2/.etc/make-reportspec
+#1632408067
+# outer instance passing in Jenkins
+#1632411271
+# We're going to add a property to reportspec json (context.saveauto_name) to allow reportspec.py to implement --saveauto
+#1632414597
+gpa "reportspec autogen --saveauto regression tested" #
+#1632423221
+GIT_URL=https://bbgithub.dev.bloomberg.com/ELT-2020-02-31-NY-Test/comdb2.git # sample OrgName
+#1632429385
+# We need a comdb2 branch to capture today's test activity on make-reportspec.  Let's name it 'make-reportspec-test-env'
+#1632429591
+git branch make-reportspec-test-env #
+#1632429602
+git push -u tdpm make-reportspec-test-env #
+#1632431763
+# Open PR for that new branch: https://bbgithub.dev.bloomberg.com/TdocProgressMetrics/trnma.comdb2/pull/1/files
+#1632431814
+# TODO: turn tdpm:trnma.comdb2:make-reportspec-test-env into a real upstream PR with reportspec-template, Jenkinsfile.
+#1632432163
+gpa Add make_reportspec Makefile target #
+#1632433693
+cp ../../landlord/make-reportspec/make-reportspec ./  && gpa # lv99
+#1632433918
+gpa Remove dead reportspec-template in client-accessor #
+#1632433997
+# Now we want to split the make-reportscript inner and outer parts into two units, so only the latter is packaged with material repos
+#1632479934
+# TODO: the 'paths' in reportspec-template can be another generated field now, and should be.
+#1632480429
+gc -am sync; git push -f tdpm next:make-reportspec-latest # update make-reportspec-latest
+#1632482972
+# TODO: tweak teach-patch branches for bas, comdb2 to include make-reportspec
+#1632483471
+GIT_URL="https://bbgithub.dev.bloomberg.com/training-materials/bas" ./make-reportspec #
+#1632483500
+gpa "Bypass training-materials altogether in make-reportspec" #
+#1632483517
+gc -am sync; git push tdpm next:make-reportspec-latest # update make-reportspec-latest
+#1632485738
+# Let's patch make-reportspec into sep13 comdb2
+#1632485980
+cd /c/Projects/comdb2.workspace/trnma.comdb2 # to comdb2
+#1632486156
+git push mine trnma/master:teach-patch # comdb2 
+#1632486323
+cp $Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec ./  #
+#1632486341
+cp $ProjectsHome/progress-metrics.workspace/landlord/make-reportspec/make-reportspec ./  #
+#1632486355
+cd /c/Projects/comdb2.workspace/trnma.comdb2/labs/portfolio # to portfol
+#1632486703
+gpa Add make-reportspec + portfolio lab template #
+#1632490560
+cd /share/progress-metrics.workspace/landlord # to landl
+#1632492300
+landlord reportspec autogen --template /share/progress-metrics.workspace/landlord/test/reportspec-autogen.d/reportspec-template-1.rips.tmpl --orgname my-org --rostername my-roster #
+#1632519305
+cd /c/Projects/comdb2.workspace/trnma.comdb2 # to comdb
+#1632519720
+# Let's fix shell completion for our git aliases.
+#1632521739
+cd /c/Projects/progress-metrics.workspace/landlord # to landlord //
+#1632522162
+cat $( d 3; pwd)/make-reportspec # 
+#1632522173
+cat $( d 3; pwd)/make-reportspec > make-reportspec # 
+#1632522196
+cat $( d 4; pwd)/make-reportspec > make-reportspec # 
+#1632522728
+cd /c/Projects/bas.workspace/trnma.bas # to bas //
+#1632522897
+cd /c/Projects/bas.workspace/trnma.bas/labs/fxc/template/.etc # to etc //
+#1632523796
+lc reportspec show $sep13.portfolio-lab #
+#1632523811
+lc reportspec show $sep13.bas-fxc #
+#1632523893
+cd /c/Projects/progress-metrics.workspace/landlord # to landlo
+#1632523955
+cd /c/Projects/progress-metrics.workspace/trnma.comdb2 # to comdb
+#1632524037
+# Now I think all the bad templatedir missing stuff is fixed for make-reportspec
+#1636037522
+# Trying to implement landcli --bounce
+#1636038107
+lc --bounce #
+#1636038153
+lc --down #
+#1636038171
+lc --up #
+#1638400583
+SaveContainers=1 ./run_all_tests # Preserve containers so we can debug
+#1638562507
+# Testing apartment list
+#1638562510
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec/apartment_org_maint # cdmark
+#1638564411
+loop python3.8 ./apartment_org_maint.py list --full #
+#1638565664
+lc apartment list # it works
+#1638911629
+export DEFAULT_REPOCOPIER_DIR=/share/training_repos_copier_workspace/trna.training_repos_copier # Setup 
+#1638911775
+export REPOCOPIER_DIR=/share/training_repos_copier_workspace/trna.training_repos_copier # Setup 
+#1638911779
+./apartment remove-repos tdoc-apartment-003 #
+#1638911811
+loop ./apartment remove-repos tdoc-apartment-003 #
+#1639000143
+# We're considering apartment org support to be adequate for now

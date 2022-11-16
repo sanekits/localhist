@@ -1,0 +1,84 @@
+#1638400583
+SaveContainers=1 ./run_all_tests # Preserve containers so we can debug
+#1638469416
+# We're in bin/bbonly/ssh, trying to get the new DEV ssh magic working.  See https://tutti.prod.bloomberg.com/local-development/transparent-ssh/ssh-kerberos
+#1638562507
+# Testing apartment list
+#1638562510
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec/apartment_org_maint # cdmark
+#1638564411
+loop python3.8 ./apartment_org_maint.py list --full #
+#1638565664
+lc apartment list # it works
+#1638821553
+group3() {           while true; do          for i in {1..3}; do                          read line || return;                          echo "$line";                  done;         echo;     done; }  # Function to insert newlines every 3rd line
+#1638821619
+cat tmp1 | tr '\t' ',' | shuf | group3 | tee tmp2 | xclip # cat the roster, shuffle, and split in 3-tuples
+#1638911629
+export DEFAULT_REPOCOPIER_DIR=/share/training_repos_copier_workspace/trna.training_repos_copier # Setup
+#1638911775
+export REPOCOPIER_DIR=/share/training_repos_copier_workspace/trna.training_repos_copier # Setup
+#1638911779
+./apartment remove-repos tdoc-apartment-003 #
+#1638911811
+loop ./apartment remove-repos tdoc-apartment-003 #
+#1638998528
+lc -i apartment list --full > ~/tmp/tdoc-apartments #
+#1639000143
+# We're considering apartment org support to be adequate for now
+#1639147096
+python3.8 currsvc.py -l /tmp/service.log --stdout-log-level=DEBUG # start service
+#1639147606
+dc run --remove service bash #
+#1639156804
+cd /c/Projects/progress-metrics.workspace/tmp/test.tmp # to test.tm
+#1639171215
+oct25=ELT-2021-Oct-25-LFSF-NY # Heather's class TODO
+#1639412604
+# Building c++ team projects in cpp.workspace/tmp.nov29
+#1639413165
+# There's a taskrc for managing multiple C++ team repos here
+#1639413166
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/tmp.nov29 # cdmark
+#1639419110
+# How to revive the gdb support for this lab?  1. Add cgdb and bde-gdb-printers to the Dockerfile
+#1639419120
+# See also: https://bbgithub.dev.bloomberg.com/gdb/pretty-printers
+#1639419148
+# See also: https://bbgithub.dev.bloomberg.com/bde/bde-tools/blob/936025db5bbaba738f3fada11d83b23a4d5fd938/contrib/gdb-printers/README.md
+#1639419217
+# See also: https://engx.prod.bloomberg.com/questions/43751/43752#43752
+#1639420882
+# We're pushing to the team-12 master now.  Ick.  Let's at least create a branch
+#1639430895
+# cgdbrc comes from here: https://bbgithub.dev.bloomberg.com/sanekits/cgdbrc/blob/master/cgdbrc
+#1639431967
+cd /home/lmatheson4/projects-wsl2/cgdbx/cgdbrc # cdmark
+#1639490197
+sourceMe=1 source ./debug.sh; find_gdb_printers  #
+#1639490345
+sourceMe=1 source ./debug.sh; gdbinit_template_content  #
+#1639496075
+# We're building this PR for docker+debug improvements: https://bbgithub.dev.bloomberg.com/training-materials/EVAL-bde-compliance-monitor-ASSIGNMENT/pull/167/files
+#1639496380
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/tmp.nov29/team-12/src # cdmark
+#1639496675
+dc exec compliance-monitor bash #
+#1639586974
+# Here's where we're making improvements to the BDE lab
+#1639587249
+# We're moving out of team-12 for the bde debugger improvements
+#1639587264
+# Our new home for debugger improvements
+#1639587374
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/EVAL-bde-compliance-monitor-ASSIGNMENT.devel # cdmark
+#1639588462
+dc run --rm service bash #
+#1639588469
+dc run --rm compliance-monitor bash #
+#1639666881
+# fix_team_filepermissions in our taskrc is good for cleaning up root-owned files resulting from docker interactive mistakes
+#1639666886
+#cdmark
+#1639691906
+# new debug.sh for C++ in this tree

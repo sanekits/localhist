@@ -1,0 +1,318 @@
+#1630609397
+# Prep for Charles Aug23 class
+#1630609402
+cd class.aug23/ #
+#1630609408
+cd $PWD #
+#1631893502
+# Fixing this upstream PR  https://bbgithub.dev.bloomberg.com/training-materials/cpp/pull/160/files
+#1631893516
+# Allow one build --pull for fire-and-forget #160
+#1632332426
+cd /c/Projects/progress-metrics.workspace # to prog
+#1632333610
+# See gmail "WSL2 / Docker Hyper-V hybrid mode" for configuring wsl2 with docker using Hyper-V linux back end
+#1632778514
+# Explore the latest ide-magic and aran3's gdb visualizers PR: https://bbgithub.dev.bloomberg.com/Local-Development/ide-magic/pull/591
+#1632778522
+# Like... does this stuff work now?
+#1632832971
+lc -i  roster add $my_oct4_cpp $(cat) # Added roster for oct 4 cpp
+#1632833011
+# In general the heatmap and org are ready, see chrome bmk folder chrome://bookmarks/?id=8480
+#1632833053
+# Sent email to Arthur O'Dwyer: {MSG /ID 61530D39015A056200390001}
+#1632837591
+cd /c/Projects/elt-classmgr.workspace/sep13 # to elt-clas //
+#1632951736
+cd /c/Projects/cpp.workspace/trnma.bde-compliance-monitor-TRAINER # to compli //
+#1633003763
+cd /c/Projects/wsl.HOME/bin-pub # cdmark
+#1633006725
+# TODO: customize the cpp Docker container to integrate cgdbx
+#1633353656
+# Strong in C++: Andrea Zhang (likes c++ a lot)
+#1633353681
+# Strong: Arjun (sort of)
+#1633353827
+# Strong: ian wohlers
+#1633353877
+# Strong: Jack Hilger has C 
+#1633353994
+# Strong: Joel
+#1633354017
+# Strong: Karen
+#1633354107
+# Strong: Matt
+#1633354323
+# Strong: Szuzhan
+#1633355217
+# See ./strong-trainees-from-intro for oct4 team allocation
+#1633460663
+#  Add Max Huang to 10/4 -- he will not be doing the project
+#1634059938
+# The class setup procedures are in ~/projects/team-policies now
+#1634063270
+cat > design-reviewers #
+#1634063343
+cd /c/Projects/cpp-classmgr.workspace/oct4 # cdmark
+#1634068824
+echo ${#vc}
+#1634068874
+echo "${#vc[@]}"
+#1634070711
+cat tmp1 | shuf | group3  # cat the roster, shuffle, and split in 3-tuples
+#1634070924
+cat tmp1 | tr '\t' ',' | shuf | group3  # cat the roster, shuffle, and split in 3-tuples
+#1634070981
+cat tmp1 | tr '\t' ',' | shuf | group3 | tee /dev/stdout | xclip # cat the roster, shuffle, and split in 3-tuples
+#1634308170
+lc -i bbgh-teams add -o $1 -r $1 -t Trainees # Setup trainees team in bbgh
+#1636404234
+cd landlord # to landlo
+#1636404317
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/lib # to landlo
+#1636404633
+cd /c/Projects/unix.workspace/trnma.unix # to unix
+#1636405190
+printf 'x\ufe0e%.0s' {1..100} # Test tmux render bug
+#1636482178
+cd /c/Projects/progress-metrics.workspace/landlord # to landlo
+#1636484121
+cd /c/Projects/cpp-classmgr.workspace/jaas.training # to jaas
+#1636484521
+cd /c/Projects/cpp-classmgr.workspace/jaas.training # to jaas //
+#1636551062
+cd /home/lmatheson4/projects/tmux.workspace # to tmu
+#1636552476
+sudo apt update && sudo apt install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build
+#1636553763
+sudo /opt/bb/bin/apt update && sudo /opt/bb/bin/apt install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build
+#1636553777
+sudo /opt/bb/bin/apt-get update && sudo /opt/bb/bin/apt-get install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build
+#1636553928
+sudo /opt/bb/bin/apt-get install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc-dev bison # setup for tmux build
+#1636553978
+sudo /opt/bb/bin/apt-get update && sudo /opt/bb/bin/apt-get install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build #
+#1636554276
+cd /home/lmatheson4/projects/tmux.workspace # to tmux
+#1636554371
+# Successfully built tmux, but only after putting /usr/bin at the head of the path!
+#1636568046
+# Today we're migrating the cpp.workspace to wsl2
+#1636568416
+cd /c/Projects/cpp-classmgr.workspace # to cpp
+#1636568430
+cd /c/Projects/cpp.workspace # to cpp
+#1636568451
+cd /home/lmatheson4/projects/trnma.cpp # to cpp
+#1636568471
+cd /home/lmatheson4/projects/cpp.workspace # to cpp
+#1636568554
+# Migrated cpp.workspace to wsl2/projects
+#1636568935
+cd /c/Projects/localhist # to localhist
+#1636569834
+cd /home/lmatheson4/journal/lh_archive # to jour
+#1636636539
+cd /home/lmatheson4/projects/cpp.workspace/trnma.bde-compliance-monitor-ASSIGNMENT # to ASS
+#1636659321
+# WTF!  All nodes of BLDLNX are offline in Jenkins?
+#1636738762
+./gh_team_maint.py add -o $sep13 -t Trainees lmatheson4 #
+#1636738766
+./gh_team_maint.py remove -o $sep13 -t Trainees lmatheson4 #
+#1637106720
+# 286151740681
+#1638297107
+#!/opt/bb/bin/python3.7
+#1638297107
+# Adapted from the example usage provided by the C++ API
+#1638469416
+# We're in bin/bbonly/ssh, trying to get the new DEV ssh magic working.  See https://tutti.prod.bloomberg.com/local-development/transparent-ssh/ssh-kerberos
+#1638821553
+group3() {           while true; do          for i in {1..3}; do                          read line || return;                          echo "$line";                  done;         echo;     done; }  # Function to insert newlines every 3rd line
+#1638821619
+cat tmp1 | tr '\t' ',' | shuf | group3 | tee tmp2 | xclip # cat the roster, shuffle, and split in 3-tuples
+#1638998528
+lc -i apartment list --full > ~/tmp/tdoc-apartments #
+#1639147606
+dc run --remove service bash #
+#1639171215
+oct25=ELT-2021-Oct-25-LFSF-NY # Heather's class TODO
+#1639412604
+# Building c++ team projects in cpp.workspace/tmp.nov29
+#1639413165
+# There's a taskrc for managing multiple C++ team repos here
+#1639413166
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/tmp.nov29 # cdmark
+#1639419110
+# How to revive the gdb support for this lab?  1. Add cgdb and bde-gdb-printers to the Dockerfile
+#1639419120
+# See also: https://bbgithub.dev.bloomberg.com/gdb/pretty-printers
+#1639419148
+# See also: https://bbgithub.dev.bloomberg.com/bde/bde-tools/blob/936025db5bbaba738f3fada11d83b23a4d5fd938/contrib/gdb-printers/README.md
+#1639419217
+# See also: https://engx.prod.bloomberg.com/questions/43751/43752#43752
+#1639420882
+# We're pushing to the team-12 master now.  Ick.  Let's at least create a branch
+#1639430895
+# cgdbrc comes from here: https://bbgithub.dev.bloomberg.com/sanekits/cgdbrc/blob/master/cgdbrc
+#1639431967
+cd /home/lmatheson4/projects-wsl2/cgdbx/cgdbrc # cdmark
+#1639490197
+sourceMe=1 source ./debug.sh; find_gdb_printers  #
+#1639490345
+sourceMe=1 source ./debug.sh; gdbinit_template_content  #
+#1639496075
+# We're building this PR for docker+debug improvements: https://bbgithub.dev.bloomberg.com/training-materials/EVAL-bde-compliance-monitor-ASSIGNMENT/pull/167/files
+#1639496380
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/tmp.nov29/team-12/src # cdmark
+#1639496675
+dc exec compliance-monitor bash #
+#1639586974
+# Here's where we're making improvements to the BDE lab
+#1639587249
+# We're moving out of team-12 for the bde debugger improvements
+#1639587264
+# Our new home for debugger improvements
+#1639587374
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/EVAL-bde-compliance-monitor-ASSIGNMENT.devel # cdmark
+#1639588462
+dc run --rm service bash #
+#1639588469
+dc run --rm compliance-monitor bash #
+#1639666881
+# fix_team_filepermissions in our taskrc is good for cleaning up root-owned files resulting from docker interactive mistakes
+#1639666886
+#cdmark
+#1639691906
+# new debug.sh for C++ in this tree
+#1642024629
+# Struggling with devcontainers today.  What a mess!
+#1642101208
+# We finally have C++ debugging working in vscode+docker
+#1642101325
+# Tip: manually install the ms-vscode.cmake-tools and ms-vscode.cpptools by downloading their .vsix files from github and running "code --install-extension [path-to-vsix]" within the container
+#1642101341
+# However we still don't have bde pretty-printing in the debuggeer
+#1642109235
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/trnma.cpp # cdmark
+#1642110037
+# I'm hacking the labs/tool-test stuff to add solutions
+#1642173967
+# Branch docker-hack-2022-jan in mine/cpp has install-vscode-extensions.sh
+#1642187790
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/trnma.cpp/labs/tool-test # cdmark
+#1642190014
+docker commit cpp_labs_1 # Hash is sha256:b18a53197e4a2bb2a3b189cef1880375222dedd995b2bb1d986edb8ce4e41b36
+#1642190120
+docker commit cpp_labs_1 cpp_labs_image -m "Updated 1/14 14:54" # We installed the vsix base
+#1642190142
+docker commit cpp_labs_1 :cpp_labs_image -m "Updated 1/14 14:54" # We installed the vsix base
+#1642191678
+docker create  --name cpp_labs_1 cpp_labs_image #
+#1642519505
+# BDE sample project design drawio is here in ~/projects/cpp.workspace/bde-project-sample-design.drawio
+#1643213043
+# We're doing maintenance on bde_ci here
+#1643213046
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/bde_ci/bde-compliance-monitor-ASSIGNMENT # cdmark
+#1643213073
+# Why are the PR counts wrong on the Jenkins bde-ci dashboard?  Looks like maybe git query operations failing
+#1643371121
+cd /mnt/c/Projects/wsl.HOME/bin-pub # cdmark
+#1643371141
+# We're writing 'multirun' here: shell helper for ad-hoc cached multiline functions
+#1644003637
+# Back at the Docker+Cpp issue today.  Here's a PR on my own repo to capture ideas about how to fix debugging and container state management -- https://bbgithub.dev.bloomberg.com/lmatheson4/cpp/pull/1/files #
+#1644003645
+gco docker-hack-2022-jan #
+#1644266729
+export BBGH_TOKEN=$(cat ~/.bbgithub  | grep token | cut -f 3 -d' ') # setting BBGH_TOKEN in env
+#1644269412
+# get_pull_request_summary.py is our prototype for fixing the bde-ci PR summary with graphql
+#1644269417
+cd /home/lmatheson4/projects-wsl2/training_repos_copier_workspace/trna.training_repos_copier # cdmark
+#1644425195
+# working on list-prs.py for issue_99 again.  We have preliminary python that uses graphql, that's in the repo-copier experiment branch.  We're going to integrate it with the TRAINER repo's eval-tools/list-prs.py and test the thing and so forth.
+#1644434899
+ln -sf ../EVAL-bde-compliance-monitor-TRAINER intgtest # Setting up intgtest
+#1644434911
+./eval-pr-status.sh  #
+#1644434926
+eval-tools/eval-pr-status.sh  #
+#1644434934
+intgtest/eval-tools/eval-pr-status.sh  #
+#1644435771
+export BdeciEvalRoot=$PWD #
+#1644438158
+black list_prs.py ; python3.8 -m pylint list_prs.py #
+#1645125132
+./training_repos_copier.py remove tests/feb28-elt.cfg javascript --force # clean1
+#1645133493
+./training_repos_copier.py remove tests/feb28-elt.cfg deployment --force # clean2
+#1645133612
+./training_repos_copier.py remove tests/feb28-elt.cfg --force # clean ALL
+#1645134720
+./training_repos_copier.py remove tests/feb28-elt.cfg --all --force # clean ALL
+#1645134778
+./training_repos_copier.py create tests/feb28-elt.cfg --force # rebuild
+#1646773113
+cat ~/.bbgithub  | awk '/to.*/ {print $3}' # initialize BBGH_TOKEN
+#1646773140
+export BBGH_TOKEN=$(awk '/to.*/ {print $3}' ~/.bbgithub) # initialize BBGH_TOKEN
+#1646848995
+# I think we should just bail out of using graphql for this.  It's too hard to figure out how to do things.
+#1646849002
+# Docs suck, no examples, etc.
+#1647443818
+# The catfish project:  capture trainee repos with a 'push' script embedded in the lab scaffolding, use an apartment org or trainee-org or class org as destination.  Deploy like Abid's tracker, using BCC+docker
+#1647450569
+# My new bbgh access token created for catfish can be found in ~/.config/hub.catfish
+#1647459029
+awk -F= '/TOKEN/ { print $2}' rest/.env  # Get token
+#1647459079
+awk -F= '/TOKEN/ { print $2}' rest/.env  # Get token 
+#1647459098
+export BBGH_TOKEN=$(awk -F= '/TOKEN/ { print $2}' rest/.env  ) #
+#1647522672
+dc run --rm  --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522691
+dc run --rm  -p --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522726
+dc run --rm  --service-ports --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522760
+echo dc run --rm  --service-ports --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522770
+echo dc run --rm  --service-ports --entrypoint /bin/bash rest  # Start the rest container for debug mode >> taskrc
+#1647541858
+# echo docker run --rm -t -v `pwd -P`:/workarea artifactory.inf.bloomberg.com/dpkg-python-development-base:3.10 bash
+#1647550167
+HISTFILE=/home/lmatheson4/.bash_history  # Switching from /mnt/c/Projects/progress-metrics.workspace/catfish/bash_history
+#1647870498
+tw cwd #
+#1648468906
+cd /home/lmatheson4/projects-wsl2/cpp-classmgr.workspace/mar28 # cdmark
+#1648468926
+# Preparing to start the C++ 3/28 program in TDOC Alpha at 9
+#1648760022
+# vscode integration continues in trnma.cpp branch 'mar28-delivery-notes'.  Trying to get vscode_tool to update settings.json to set the current project dir
+#1649163508
+# We're exploring gist-paste (a.k.a. https://github.com/defunkt/gist ) for managing gists from the command line. The idea is to rely on that and also the vscode GistPad plugin or similar
+#1649432870
+# The CWT that Abid led today on using devcontainers for visual python debugging is captured in the following repo:
+#1649432919
+hist -a '#$(grv)'
+#1649432941
+history -a "#$(grv)"
+#1652102200
+# Doing modern cpp here on branch 'work'
+#1652102228
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/trnma.modern-cpp # cdmark
+#1652468523
+# vsdock.cpp is our temporary home for C++ vscode docker devcontainer solutions.  Until Abid gets labpublish to do things
+#1652473262
+bin/setup-vsdock.sh #
+#1652474177
+../bin/setup-vsdock.sh #

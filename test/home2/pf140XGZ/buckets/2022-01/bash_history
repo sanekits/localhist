@@ -1,0 +1,38 @@
+#1641309615
+# Prep for middleware nov29 teach
+#1642024629
+# Struggling with devcontainers today.  What a mess!
+#1642101208
+# We finally have C++ debugging working in vscode+docker
+#1642101325
+# Tip: manually install the ms-vscode.cmake-tools and ms-vscode.cpptools by downloading their .vsix files from github and running "code --install-extension [path-to-vsix]" within the container
+#1642101341
+# However we still don't have bde pretty-printing in the debuggeer
+#1642109235
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/trnma.cpp # cdmark
+#1642110037
+# I'm hacking the labs/tool-test stuff to add solutions
+#1642173967
+# Branch docker-hack-2022-jan in mine/cpp has install-vscode-extensions.sh
+#1642187790
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/trnma.cpp/labs/tool-test # cdmark
+#1642190014
+docker commit cpp_labs_1 # Hash is sha256:b18a53197e4a2bb2a3b189cef1880375222dedd995b2bb1d986edb8ce4e41b36
+#1642190120
+docker commit cpp_labs_1 cpp_labs_image -m "Updated 1/14 14:54" # We installed the vsix base
+#1642190142
+docker commit cpp_labs_1 :cpp_labs_image -m "Updated 1/14 14:54" # We installed the vsix base
+#1642191678
+docker create  --name cpp_labs_1 cpp_labs_image #
+#1642519505
+# BDE sample project design drawio is here in ~/projects/cpp.workspace/bde-project-sample-design.drawio
+#1643213043
+# We're doing maintenance on bde_ci here
+#1643213046
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/bde_ci/bde-compliance-monitor-ASSIGNMENT # cdmark
+#1643213073
+# Why are the PR counts wrong on the Jenkins bde-ci dashboard?  Looks like maybe git query operations failing
+#1643371121
+cd /mnt/c/Projects/wsl.HOME/bin-pub # cdmark
+#1643371141
+# We're writing 'multirun' here: shell helper for ad-hoc cached multiline functions

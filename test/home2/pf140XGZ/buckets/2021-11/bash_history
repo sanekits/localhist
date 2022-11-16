@@ -1,0 +1,70 @@
+#1636037522
+# Trying to implement landcli --bounce
+#1636038107
+lc --bounce #
+#1636038153
+lc --down #
+#1636038171
+lc --up #
+#1636404234
+cd landlord # to landlo
+#1636404317
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/lib # to landlo
+#1636404633
+cd /c/Projects/unix.workspace/trnma.unix # to unix
+#1636405190
+printf 'x\ufe0e%.0s' {1..100} # Test tmux render bug
+#1636482178
+cd /c/Projects/progress-metrics.workspace/landlord # to landlo
+#1636484121
+cd /c/Projects/cpp-classmgr.workspace/jaas.training # to jaas
+#1636484521
+cd /c/Projects/cpp-classmgr.workspace/jaas.training # to jaas //
+#1636551044
+# We're trying to build tmux 3 for wsl2
+#1636551062
+cd /home/lmatheson4/projects/tmux.workspace # to tmu
+#1636552476
+sudo apt update && sudo apt install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build
+#1636553763
+sudo /opt/bb/bin/apt update && sudo /opt/bb/bin/apt install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build
+#1636553777
+sudo /opt/bb/bin/apt-get update && sudo /opt/bb/bin/apt-get install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build
+#1636553928
+sudo /opt/bb/bin/apt-get install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc-dev bison # setup for tmux build
+#1636553978
+sudo /opt/bb/bin/apt-get update && sudo /opt/bb/bin/apt-get install -y automake build-essential pkg-config libevent-dev libncurses5-dev byacc bison # setup for tmux build #
+#1636554276
+cd /home/lmatheson4/projects/tmux.workspace # to tmux
+#1636554371
+# Successfully built tmux, but only after putting /usr/bin at the head of the path!
+#1636568046
+# Today we're migrating the cpp.workspace to wsl2
+#1636568416
+cd /c/Projects/cpp-classmgr.workspace # to cpp
+#1636568430
+cd /c/Projects/cpp.workspace # to cpp
+#1636568451
+cd /home/lmatheson4/projects/trnma.cpp # to cpp
+#1636568471
+cd /home/lmatheson4/projects/cpp.workspace # to cpp
+#1636568554
+# Migrated cpp.workspace to wsl2/projects
+#1636568935
+cd /c/Projects/localhist # to localhist
+#1636569834
+cd /home/lmatheson4/journal/lh_archive # to jour
+#1636636539
+cd /home/lmatheson4/projects/cpp.workspace/trnma.bde-compliance-monitor-ASSIGNMENT # to ASS
+#1636659321
+# WTF!  All nodes of BLDLNX are offline in Jenkins?
+#1636738762
+./gh_team_maint.py add -o $sep13 -t Trainees lmatheson4 #
+#1636738766
+./gh_team_maint.py remove -o $sep13 -t Trainees lmatheson4 #
+#1637106720
+# 286151740681
+#1638297107
+# Adapted from the example usage provided by the C++ API
+#1638297107
+#!/opt/bb/bin/python3.7

@@ -1,0 +1,470 @@
+#1626116946
+cd trnma.metrics/trainer-notes # to metr
+#1626117463
+cd /c/Projects/guts.workspace/trnma.metrics # to metric
+#1626118089
+cd /c/Projects/wsl.HOME/my-home # to my-ho
+#1626119651
+cd /c/Projects/progress-metrics.workspace/pmpilots # to prog // pilo
+#1626183471
+cd /c/Projects/training_repos_copier_workspace/trna.training_repos_copier # to repo //
+#1626186583
+cd /c/Projects/training_repos_copier_workspace/trna.training_repos_copier # to copi //
+#1626188372
+gpa Cleanup .gitignore # repo-copier commit
+#1626200830
+type -a hello_loop # what sort of command is 'hello_loop'?
+#1626200830
+type -a ls # What sort of command is 'ls'
+#1626200830
+exec bash # reload my new changeshello_loop "how are you today?"
+#1626200830
+vi .bashrc # Create new .bashrc
+#1626259296
+cd /c/Projects/progress-metrics.workspace # to metrics
+#1626259456
+cd /c/Projects/guts.workspace/trnma.metrics # to metri
+#1626265808
+cd /c/Projects/dev-environment.workspace/trnma.dev-environment # to dev 0
+#1626266141
+cd /home/lmatheson4/tmp/unix-jul12-autogist # to jul //
+#1626266167
+cat bash_history_snapshot.txt | grep -v '^#'
+#1626266179
+cat bash_history_snapshot.txt | grep -v '^#' > tmp1
+#1626266239
+cat tmp1 | grep # > bash_history_snapshot.txt
+#1626348802
+cd /c/Projects/docker-workshop # to dock
+#1626348871
+ls | grep dock # find all docker-named things
+#1626348985
+cd /c/Projects/trnma.local-dev # to local
+#1626349140
+cd /c/Projects/local-dev.workspace # to loc
+#1626349163
+cd /c/Projects/docker.workspace/docker-workshop # to dock
+#1626349240
+cd /c/Projects/trnma.local-dev # to loca
+#1626349523
+cd /c/Projects/docker.workspace # to dock //
+#1626349545
+cd /c/Projects/docker.workspace # to docker
+#1626349763
+cd /c/Projects/docker.workspace/trnma.local-dev # to loca
+#1626349987
+git merge trnma/master -X ours # Update jul12/master from trnma/master for local-dev WC
+#1626352374
+cd /c/Projects/docker.workspace/trnma.local-dev/1-hello-world # to hel
+#1626356942
+cd /c/Projects/docker.workspace/trnma.local-dev/4-troubleshooting-composable # to 4
+#1626359698
+cd /c/Projects/docker.workspace/trnma.local-dev/1-hello-world # to 1
+#1626360086
+cd /c/Projects/docker.workspace/trnma.local-dev/2-hello-world-docker-compose # to 2
+#1626375871
+cd /c/Projects/docker.workspace/docker-workshop # to docker
+#1626433423
+cd /c/Projects/row-cohort.workspace # to coho //
+#1626433733
+lc roster list $abids_class --full # Show full roster of Abid's class to filter by given name
+#1626433775
+lc roster list $abids_class --full | tr 't' ' ' # Use spaces in output for better matching
+#1626437067
+[[ #12445254 =~ ^#[[:digit:]]+$ ]]; echo 130 # This regex works to match timestamps
+#1626437572
+vv="#12445254 asdf"
+#1626437582
+vv="#12445254"
+#1626437600
+[[ $vv =~ ^#.* ]]; echo $?
+#1626437605
+[[ $vv =~ ^#x.* ]]; echo $?
+#1626437615
+[[ $vv =~ ^#d+ ]]; echo $?
+#1626437676
+[[ $vv =~ ^#[[:digit:]]+ ]]; echo $?
+#1626437685
+[[ $vv =~ ^#[[:digit:]]+ $]]; echo $?
+#1626437694
+[[ $vv =~ ^#[[:digit:]]+$ ]]; echo $?
+#1626437711
+[[ $vv =~ ^#[[:digit:]]+$ ]]; echo $? # This regex works to match timestamps
+#1626437749
+echo "[[ $vv =~ ^#[[:digit:]]+$ ]]; echo $? # This regex works to match timestamps" >> bash_history
+#1626437971
+echo ${#lx}
+#1626437977
+echo ${#PATH}
+#1626439219
+sourceMeRun ~/bin/histfile-cleanup.sh cleanup_histstream # Testing histfile-cleanup.sh
+#1626440221
+lc roster list $abids_class --full | tr 't' ' ' | grep -iF ./ib-header # Match abid's class against ib-header row trainee list
+#1626440296
+lc roster list $abids_class --full | tr 't' ' ' | ./full-names # (works) match roster vs full names of cohort
+#1626469135
+cd /home/lmatheson4/tmp/unix-jul12-autogist # to jul
+#1626469140
+cd /c/Projects/row-cohort.workspace/jun28 # to jun
+#1626613701
+cd /c/Projects/explore # to explore
+#1626613804
+python3.8 -i explore_itertools.py # Experiment with itertools
+#1626625386
+ls / # this is hist
+#1626625426
+cat ~/.bash_history # testing
+#1626625443
+ls / # foo2
+#1626625464
+ls / # foo 3.9
+#1626625528
+ls / # twe ase
+#1626626275
+ls / # foo 1
+#1626626307
+ls / # foo 2
+#1626626312
+ls / # foo 3
+#1626626434
+cd /c/Projects/riddle-bin/fizl # to bin
+#1626627180
+lh s # show hist
+#1626627236
+lh s # foo2
+#1626627315
+cd /c/Projects/guts.workspace # to guts //
+#1626627604
+whoami # foo
+#1626627706
+echo $foo | tr 't' 'x' # foo
+#1626627994
+Something in the way she # moves
+#1626643917
+ls #
+#1626644083
+ls / #
+#1626644222
+cd .taskrc # to task
+#1626687698
+cd /c/Projects/progress-metrics.workspace/tmp/test.tmp # to test.tm
+#1626688130
+cd /c/Projects/progress-metrics.workspace/pm_reportserv/test/test_bigsheet.d # to shee
+#1626689029
+cd test/test_indivreport.d # to indiv
+#1626714333
+cd /c/Projects/progress-metrics.workspace/pm_reportserv/test/test_full.d # to full
+#1626714455
+code --diff test_full_db-out.html new-report-db.html #
+#1626715570
+code pm_reportserv/version #
+#1626715621
+cd /c/Projects/progress-metrics.workspace/pm_reportserv/pm_reportserv/pmsys_common # to sys
+#1626715631
+cd /c/Projects/progress-metrics.workspace/pm_sys # to pm_sys //
+#1626723792
+upload_bb_pypi #
+#1626724068
+ln -sf .config/bb-artifactory/bb-artifactory-upload.config ./ # configure bb artifactory upload
+#1626730011
+upload_bb_pypi # upload v0.7.1
+#1626738508
+cd /c/Projects/explore # to explore //
+#1626738601
+cd /c/Projects/explore # to explor
+#1626739074
+cd /c/Projects/explore # to explore 0
+#1626740614
+cd /c/Projects/unix/labs/bashdock # to bash
+#1626777516
+cd /c/Projects/unix/labs/bashdock # to unix 1
+#1626777846
+code ~/bin/localhist #1626777850
+#1626779044
+cd /c/Projects/progress-metrics.workspace/pm_reportserv # to repo
+#1626779946
+cd /c/Users/MathesonLes/AppData/Roaming/Code/User # to Code //
+#1626782252
+cd /c/Projects/docker.workspace/trnma.local-dev # to local //
+#1626783353
+echo Resolving local-dev issues from july 12 delivery #
+#1626784680
+git show trnma/master:./README.md >README.md # revert repo-copier effects
+#1626784729
+ff=Makefile; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626784890
+ff=local-development-overview.md; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626784956
+ff=objectives; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626785013
+ff=introduction.md; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626785037
+ff=index.md; git show trnma/master:./${ff} >${ff} # revert repo-copier effects (2)
+#1626789293
+cd /c/Projects/cpp.workspace # to cpp //
+#1626797933
+cd /c/Projects/trnma.bas # to bas //
+#1626805494
+cd /c/Projects/comdb2.workspace/trnma.comdb2 # to comdb
+#1626805804
+git push -u jul12 __pmpublish_ref__:add_pmpublish # setup pm_publish for july 12 comdb2
+#1626813225
+cd /c/Projects/docker.workspace/trnma.local-dev/3-flask-client-server # to 3
+#1626813254
+git reset --hard trnma/master # local-dev
+#1626870545
+cd /c/Projects # to Proj 0
+#1626870756
+wget https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb # download dive
+#1626871431
+docker image ls | grep python # Find images
+#1626874656
+ga settings.json.strip-and-sort.sh # Adopt the stableburner version
+#1626876936
+cd /c/Projects/guts.workspace/trnma.metrics # to metr
+#1626879233
+cd /c/Projects/guts.workspace/trnma.metrics/labs/bannerguts # to bann
+#1626886314
+pylintish bannerguts.py #
+#1626886472
+black bannerguts.py #
+#1626886781
+loop python3.8 ./bannerguts.py # loop test bannerguts.py
+#1626926762
+cd /c/Projects/progress-metrics.workspace/pm_publish # to pub //
+#1626927885
+cd /c/Users/MathesonLes/AppData/Roaming/Code/User # to Code
+#1626952993
+cd /c/Projects/riddle/1pp # to 1pp
+#1626981338
+cd /c/Projects/training_repos_copier_workspace/trna.training_repos_copier # to repo
+#1627036083
+ssh -O check lmatheson@maczilla #
+#1627036241
+cd /home/lmatheson4/my-home/zsh # to zsh
+#1627212964
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to midd
+#1627248774
+cd /c/Projects/explore # to explore 0 //
+#1627249157
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash # install nvm to manage node versions
+#1627249282
+echo NVM init stuff is now in ~/.taskrc/nvm.taskrc #
+#1627249342
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash # install nvm to manage node versions
+#1627249463
+bb-inet-proxy-shell nvm install --lts # Install node.js
+#1627249492
+nvm install --lts # Install node.js
+#1627250165
+npx create-react-app my-app # Create my-app
+#1627250477
+cd /c/Projects/explore/react # to react
+#1627296424
+sudo /opt/bb/bin/apt-get install kafkacat # Installing kafkacat in wsl
+#1627297694
+cd /c/Projects/middleware.workspace/kafka # to midd
+#1627297989
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to midd //
+#1627298165
+echo Lets build a kafkacat-based chat app # Jun21 middleware lab
+#1627299543
+cd /home/lmatheson4/my-home # to my-ho //
+#1627383444
+cd bin # to bin
+#1627383456
+cd /home/lmatheson4/bin # to bin
+#1627384843
+cd /c/Projects/unix.workspace/trnma.unix # to unix //
+#1627385101
+cd /home/lmatheson4/bin # to bin //
+#1627385942
+cd /home/lmatheson4/.taskrc # to task
+#1627386908
+cd tmp/unix-jul12-autogist # to unix
+#1627387047
+cd /home/lmatheson4/bin # to bin // 0
+#1627389547
+cd /home/lmatheson4/tmp/unix-jul12-autogist # to unix
+#1627389565
+cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to unix 2
+#1627392443
+git fetch jun28 && gco master && git reset --hard jun28/master # Setup dmp for jun28
+#1627401595
+ls -al # List all the files in this dir, long format
+#1627402182
+echo $HISTFILE # Show me the path of the history file for my shell
+#1627402262
+cat $HISTFILE # Show me what is in the history file, which may be different than what's in memory
+#1627402374
+history # Show me my in-memory history
+#1627402392
+cat $HISTFILE # Show me what's in the hist file
+#1627402655
+help history # Getting help for the shell history
+#1627412727
+cd # all by itself, this goes to HOME dir
+#1627413267
+touch dumfile # use the touch command to create a new empty file
+#1627413318
+ls -alrt # All files, sorted in reverse-time order
+#1627413725
+i=3 # Set variable i = 3 do not use spaces around the =
+#1627413747
+echo $i # this is how we read a variable to the screen
+#1627413907
+echo $i # In the parent shell, this is defined
+#1627413915
+bash # create child shell
+#1627413980
+export i # This is how the parent gives access to i for a child shell
+#1627413994
+bash # Create another child
+#1627414372
+echo $PATH # The PATH is a very important built-in variable which defines the list of directories used to search for programs
+#1627416966
+ls | grep index # List files, throw out anything that doesn't contain 'index'
+#1627417408
+type -a ls # How we find out what type of command something is
+#1627417446
+unalias ls # This removes the alias 'ls'
+#1627417516
+alias ls='ls --color=auto' # This is how we define an alias
+#1627417665
+type -a loop_hello # What type of thing is loop_hello
+#1627417709
+loop_hello() { while true; do echo hello world; sleep 3; done; } # This is how we define a function
+#1627417854
+type -a help # What sort of thing is 'help'
+#1627420937
+cd /c/Projects/unix.workspace/trnma.unix # to unix
+#1627473814
+echo Wednesday morning #
+#1627473979
+./autocommit_run.sh -p 10 # sync unix github bash_history
+#1627473982
+autocommit_run.sh -p 10 # sync unix github bash_history
+#1627477777
+pwd -P # What dir am I in?
+#1627477886
+cd - # Return to previous dir
+#1627477893
+.3 # Go up 3 levels
+#1627478357
+cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to pub
+#1627479463
+echo $$; bash # Launch subshell
+#1627479811
+( cd / ; ls ) # Do that same looking at root files without changing current dir
+#1627479926
+mystuff=$( cd /; ls ) # Capture that dir list as a variable named mystuff
+#1627479976
+echo $mystuff # Now we can see what the subshell said
+#1627480527
+uname # What kind of unix is this?
+#1627480535
+uname -a # What kind of unix is this?
+#1627481766
+myfunc() { local arg1=$1; local arg2=$2; shift 2; local arg_remaining="$@"; echo "arg1=$arg1"; echo "arg2=$arg2"; echo "args_remaining=$@"; } # Defining a function which takes arguments
+#1627482090
+cd /c/Projects/unix.workspace # to unix
+#1627482484
+( cd foonot ; echo hello ) # Output both error and standard in one command
+#1627482511
+( cd foonot 2>/dev/null; echo hello ) # Output both error and standard in one command
+#1627482563
+( cd foonot ; echo hello 1>/dev/null ) # Output both error and standard in one command
+#1627482625
+( cd foonot ; echo hello ) &>/dev/null # Output both error and standard in one command
+#1627483174
+tr '#' '_'
+#1627483243
+< taskrc.md tr '#' '_'
+#1627483270
+< taskrc.md tr '#' '_' # This is how we can redirect the input to a program (tr in this case)
+#1627483643
+which kafkacat # Find kafkacat
+#1627484164
+man bash # the man command runs man(uals) for a given command
+#1627503444
+sudo apt-get install tree # This is how we install software on wsl
+#1627503460
+brew install tree # This is how we install software on mac
+#1627503492
+push ~ # Change to this dir, and "push" the current dir onto a stack
+#1627503498
+pushd ~ # Change to this dir, and "push" the current dir onto a stack
+#1627503655
+cp -r trnfolsv something-else # this is how we copy a whole dir
+#1627503775
+mv something-else i-meant-to-say-this # This is how we rename or move a file or dir
+#1627503890
+mkdir i-want-this-dir-to-exist # this is how we create dirs
+#1627503988
+echo ${DIRSTACK[@]} # This is "how to extract the value of an array variable"
+#1627505088
+cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to unix
+#1627573133
+cd /home/lmatheson4/journal # to jour lc --down exec bash ls -al wsl -l -v wsl.exe -l -v exit cd /mnt/c ls pwd cd ls -a ls -al ls .bashrc ls -al .bashrc exec bash ls -al .profile .bash_profile uname uname -a source .bashrc source ~/.bashrc pwd -P ls -al .bashrc source bin/bashrc-common cd bin cd /c/Projects ls -al exit
+#1627573306
+cd /home/lmatheson4/journal # to jour
+#1627573470
+cd /c/Projects/training_repos_copier_workspace/trna.training_repos_copier # to copi
+#1627573721
+echo /c/Projects/training_repos_copier_workspace/trna.training_repos_copier/training_repos_copier.py makeconfig > rosters/jun28.cfg # Create a dummy cfg for abids class
+#1627573732
+echo ./training_repos_copier.py rosters/jun28.cfg remove dmp # Drop the old dmp
+#1627573764
+./training_repos_copier.py create rosters/jun28.cfg # Rebuild dmp repo for jun28
+#1627573833
+/c/Projects/training_repos_copier_workspace/trna.training_repos_copier/training_repos_copier.py makeconfig > rosters/jun28.cfg # Create a dummy cfg for abids class
+#1627573934
+./training_repos_copier.py create rosters/jun28.cfg dmp # Rebuild dmp repo for jun28
+#1627576058
+cd /c/Projects/progress-metrics.workspace/landlord # to metrics
+#1627576066
+cd /c/Projects/guts.workspace/trnma.metrics # to metr //
+#1627576165
+/c/Projects/guts.workspace/guts-flow-gist # This is for having the guts network team help with presentation Aug 3
+#1627578058
+cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher/1-simple-publisher # to dmp //
+#1627645601
+cd /c/Projects/dmp.workspace/trnma.dmp # to dmp
+#1627645604
+cd /c/Projects/dmp.workspace/trnma.dmp/labs/publisher-advanced/7-bas-dmp/solution # to 7
+#1627646098
+dc exec trndmpsv basclient -x trndmpsv.xsd --uuid 1 requests/add-city-lu.json # Test lab7 add-city
+#1627657983
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middl //
+#1627658091
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middle
+#1627673838
+cd /c/Projects/progress-metrics.workspace/landlord # to landl
+#1627675386
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to middl
+#1627675632
+git reset --hard jun28/master # middleware teach prep
+#1627738010
+cd /c/Projects/middleware.workspace/trnma.middleware-overview/labs/kafkachat # to kafka
+#1627738134
+gco kafkachat # Let's work on adding features to kafkachat
+#1627738172
+git reset --hard jun28/master # We'll start from jun28 master and merge in kafkachat
+#1627738222
+git push -u jun28 kafkacat-update # New stuff will go to jun28 class first
+#1627738242
+git push -u jun28 kafkacat:kafkacat-update # New stuff will go to jun28 class first
+#1627738258
+git push -u jun28 kafkachat:kafkachat-update # New stuff will go to jun28 class first
+#1627738356
+echo Goal is to add color and partition selection in talk.sh. User should interactively select partition for talk, and partitions should be colored so consumer traffic is readily distinguishable #
+#1627739116
+alias kc=kafkacat # shorthand for kafkacat
+#1627739186
+alias kc='kafkacat -b ${kafkaEndpoint} ' # shorthand for kafkacat, kafkaEndpoint is defined in ./common
+#1627740305
+echo 'hello p1' | kc -t $chatTopic -p 1 # Send to partition 1
+#1627740700
+kafkacat -b ${kafkaEndpoint} -L # Verify that endpoint works
+#1627740903
+cd /c/Projects/middleware.workspace/trnma.middleware-overview/labs/kafkachat # to chat

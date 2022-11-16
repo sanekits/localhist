@@ -1,0 +1,40 @@
+#1646773113
+cat ~/.bbgithub  | awk '/to.*/ {print $3}' # initialize BBGH_TOKEN
+#1646773140
+export BBGH_TOKEN=$(awk '/to.*/ {print $3}' ~/.bbgithub) # initialize BBGH_TOKEN
+#1646848995
+# I think we should just bail out of using graphql for this.  It's too hard to figure out how to do things.
+#1646849002
+# Docs suck, no examples, etc.
+#1647443818
+# The catfish project:  capture trainee repos with a 'push' script embedded in the lab scaffolding, use an apartment org or trainee-org or class org as destination.  Deploy like Abid's tracker, using BCC+docker
+#1647450569
+# My new bbgh access token created for catfish can be found in ~/.config/hub.catfish
+#1647459029
+awk -F= '/TOKEN/ { print $2}' rest/.env  # Get token
+#1647459079
+awk -F= '/TOKEN/ { print $2}' rest/.env  # Get token
+#1647459098
+export BBGH_TOKEN=$(awk -F= '/TOKEN/ { print $2}' rest/.env  ) #
+#1647522672
+dc run --rm  --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522691
+dc run --rm  -p --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522726
+dc run --rm  --service-ports --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522760
+echo dc run --rm  --service-ports --entrypoint /bin/bash rest  # Start the rest container for debug mode
+#1647522770
+echo dc run --rm  --service-ports --entrypoint /bin/bash rest  # Start the rest container for debug mode >> taskrc
+#1647541858
+# echo docker run --rm -t -v `pwd -P`:/workarea artifactory.inf.bloomberg.com/dpkg-python-development-base:3.10 bash
+#1647550167
+HISTFILE=/home/lmatheson4/.bash_history  # Switching from /mnt/c/Projects/progress-metrics.workspace/catfish/bash_history
+#1647870498
+tw cwd #
+#1648468906
+cd /home/lmatheson4/projects-wsl2/cpp-classmgr.workspace/mar28 # cdmark
+#1648468926
+# Preparing to start the C++ 3/28 program in TDOC Alpha at 9
+#1648760022
+# vscode integration continues in trnma.cpp branch 'mar28-delivery-notes'.  Trying to get vscode_tool to update settings.json to set the current project dir

@@ -1,0 +1,12 @@
+#1652102200
+# Doing modern cpp here on branch 'work'
+#1652102228
+cd /home/lmatheson4/projects-wsl2/cpp.workspace/trnma.modern-cpp # cdmark
+#1652468523
+# vsdock.cpp is our temporary home for C++ vscode docker devcontainer solutions.  Until Abid gets labpublish to do things
+#1652473262
+bin/setup-vsdock.sh #
+#1652474177
+../bin/setup-vsdock.sh #
+#1653582279
+git-wc-inventory-mark-done && exit 0 # dv
