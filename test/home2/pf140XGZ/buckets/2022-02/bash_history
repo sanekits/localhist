@@ -1,0 +1,34 @@
+#1644003637
+# Back at the Docker+Cpp issue today.  Here's a PR on my own repo to capture ideas about how to fix debugging and container state management -- https://bbgithub.dev.bloomberg.com/lmatheson4/cpp/pull/1/files #
+#1644003645
+gco docker-hack-2022-jan #
+#1644266729
+export BBGH_TOKEN=$(cat ~/.bbgithub  | grep token | cut -f 3 -d' ') # setting BBGH_TOKEN in env
+#1644269412
+# get_pull_request_summary.py is our prototype for fixing the bde-ci PR summary with graphql
+#1644269417
+cd /home/lmatheson4/projects-wsl2/training_repos_copier_workspace/trna.training_repos_copier # cdmark
+#1644425195
+# working on list-prs.py for issue_99 again.  We have preliminary python that uses graphql, that's in the repo-copier experiment branch.  We're going to integrate it with the TRAINER repo's eval-tools/list-prs.py and test the thing and so forth.
+#1644434899
+ln -sf ../EVAL-bde-compliance-monitor-TRAINER intgtest # Setting up intgtest
+#1644434911
+./eval-pr-status.sh  #
+#1644434926
+eval-tools/eval-pr-status.sh  #
+#1644434934
+intgtest/eval-tools/eval-pr-status.sh  #
+#1644435771
+export BdeciEvalRoot=$PWD #
+#1644438158
+black list_prs.py ; python3.8 -m pylint list_prs.py #
+#1645125132
+./training_repos_copier.py remove tests/feb28-elt.cfg javascript --force # clean1
+#1645133493
+./training_repos_copier.py remove tests/feb28-elt.cfg deployment --force # clean2
+#1645133612
+./training_repos_copier.py remove tests/feb28-elt.cfg --force # clean ALL
+#1645134720
+./training_repos_copier.py remove tests/feb28-elt.cfg --all --force # clean ALL
+#1645134778
+./training_repos_copier.py create tests/feb28-elt.cfg --force # rebuild

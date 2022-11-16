@@ -1,0 +1,38 @@
+#1633353656
+# Strong in C++: Andrea Zhang (likes c++ a lot)
+#1633353681
+# Strong: Arjun (sort of)
+#1633353827
+# Strong: ian wohlers
+#1633353877
+# Strong: Jack Hilger has C
+#1633353994
+# Strong: Joel
+#1633354017
+# Strong: Karen
+#1633354107
+# Strong: Matt
+#1633354323
+# Strong: Szuzhan
+#1633355217
+# See ./strong-trainees-from-intro for oct4 team allocation
+#1633460663
+#  Add Max Huang to 10/4 -- he will not be doing the project
+#1634059938
+# The class setup procedures are in ~/projects/team-policies now
+#1634063270
+cat > design-reviewers #
+#1634063343
+cd /c/Projects/cpp-classmgr.workspace/oct4 # cdmark
+#1634068824
+echo ${#vc}
+#1634068874
+echo "${#vc[@]}"
+#1634070711
+cat tmp1 | shuf | group3  # cat the roster, shuffle, and split in 3-tuples
+#1634070924
+cat tmp1 | tr '\t' ',' | shuf | group3  # cat the roster, shuffle, and split in 3-tuples
+#1634070981
+cat tmp1 | tr '\t' ',' | shuf | group3 | tee /dev/stdout | xclip # cat the roster, shuffle, and split in 3-tuples
+#1634308170
+lc -i bbgh-teams add -o $1 -r $1 -t Trainees # Setup trainees team in bbgh

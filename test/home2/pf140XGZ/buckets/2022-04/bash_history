@@ -1,0 +1,8 @@
+#1649163508
+# We're exploring gist-paste (a.k.a. https://github.com/defunkt/gist ) for managing gists from the command line. The idea is to rely on that and also the vscode GistPad plugin or similar
+#1649432870
+# The CWT that Abid led today on using devcontainers for visual python debugging is captured in the following repo:
+#1649432919
+hist -a '#$(grv)'
+#1649432941
+history -a "#$(grv)"

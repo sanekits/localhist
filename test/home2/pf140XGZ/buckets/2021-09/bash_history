@@ -1,0 +1,290 @@
+#1630609397
+# Prep for Charles Aug23 class
+#1630609402
+cd class.aug23/ #
+#1630612314
+gco start-bas-router-for-wsl.sh #
+#1630612785
+lc -i roster add $aug23_cpp $(cat) #  Add trainees to roster
+#1630612909
+lc -i bbgh-teams add -o $aug23_cpp -t Trainees -r $aug23_cpp #  Add trainees to Trainees team
+#1631370498
+# Prep for middleware teach 9/13 - cohort aug9
+#1631371113
+# We want mine/master to have all of the recent patches like kafkachat, etc., so it can quick-merge into a class org
+#1631371541
+gdf HEAD mine/teach-patch # mine/teach-patch contains the latest without org rename, I think
+#1631371657
+# Diff from aug9/master to mine/teach-patch reveals a bunch of Windows carriage returns!  From adil?  need to fix the patch branch.
+#1631371811
+git ls-files  | grep -vE "(gif|png|svg)" # Let's see all the non-binary files
+#1631371825
+set -- $(git ls-files  | grep -vE "(gif|png|svg)" # Let's see all the non-binary files)
+#1631371836
+set -- $(git ls-files  | grep -vE "(gif|png|svg)") # Let's see all the non-binary files)
+#1631371843
+echo $#
+#1631372302
+git push trnma master:fix-bad-line-endings  # This is now PR #60 on the upstream
+#1631372322
+# Need to fix teach-patch with the line endings merge
+#1631372434
+# teach-patch is up-to-date with everything now, but has no org name
+#1631372790
+gpa Fix concrete org name in lab # There was a leftover Jun-28 ref in the README for kafkachat
+#1631387239
+cd /c/Projects/middleware.workspace/trnma.middleware-overview # to mid
+#1631389722
+cd /c/Projects/unix.workspace/trnma.unix/examples/dotfiles # to uni
+#1631802374
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to landlo
+#1631810666
+set tdoc-apartment-00{5..8} # Let's make more apartment orgs
+#1631810844
+# Who do we want in apartment orgs?  [a] the trainer(s) directly responsible for the class modules; [b] the trainees ;  [c] a couple of admin-only trainers who maintain apartments in general
+#1631810868
+# Today we're building 4 more apartments (005..008) and thinking about how this should be scripted
+#1631811200
+*lc -i bbgh-teams add -o $1 -t Trainees # Add Tom's aug9 cohort to apartment 005
+#1631811545
+shift # Put 006 in line for next
+#1631811989
+lc -i bbgh-teams add -o $1 -t Trainees -r $sep13 # Add sep13 cohort to apt 006
+#1631829417
+cd /c/Projects/tox-py-dev # to tox //
+#1631893502
+# Fixing this upstream PR  https://bbgithub.dev.bloomberg.com/training-materials/cpp/pull/160/files
+#1631893516
+# Allow one build --pull for fire-and-forget #160
+#1632250619
+# Merged teach-patch into aug23 master, includes kafkachat as of 9/11
+#1632251230
+# Think we've now fixed the shortcomings of aug23/master wrt teach-patch and aug9 in-class fixes.
+#1632310520
+vim reportspec_generation.md # How are reportspecs auto-generated?
+#1632311479
+wsl.exe -d ubuntu_1804_wsl2 -- /bin/bash --rcfile /home/lmatheson4/.wsl.rc # How to invoke wsl2 in vscode
+#1632313287
+# There's an obsolete .pm_publish.yaml here in comdb2 portfolio lab.  Let's get it out of trnma
+#1632313527
+# We pushed a PR to trnma/comdb2 to remove old .pm_publish.yaml from portfolio lab
+#1632316676
+# We need to find a comdb2 repo with Jenkins connected so we can experiment.  Maybe an old classroom?
+#1632316696
+# Or the 02-31 classroom?
+#1632317076
+git push -u feb31 master  # Using the fake org for testing
+#1632317082
+git remote add feb31 git@bbgithub.dev.bloomberg.com:ELT-2020-02-31-NY-TEST/comdb2.git #
+#1632317335
+cd /c/Projects/cpp-classmgr.workspace/jaas.training # to jaas //
+#1632318110
+cd /c/Projects/progress-metrics.workspace/landlord # to landlo //
+#1632318336
+# Regarding auto reportspec generation, I think we want to first get it working with 'landcli reportspec autocreate' or something like that first.  It would check the current dir for a 'reportspec-template' and use that for repo-specific properties.
+#1632318493
+cd /c/Projects/progress-metrics.workspace/pm_reportserv # to pm_reportserv
+#1632318527
+gpa Add some context to README.md #
+#1632318603
+gpa Add auto reportspec generation design notes #
+#1632321060
+gpa Fix Jenkinsfile syntax #
+#1632332426
+cd /c/Projects/progress-metrics.workspace # to prog
+#1632333610
+# See gmail "WSL2 / Docker Hyper-V hybrid mode" for configuring wsl2 with docker using Hyper-V linux back end
+#1632337757
+gco -b add_reportspec_autogeneration # See https://bbgithub.dev.bloomberg.com/TdocProgressMetrics/pm_publish/issues/27
+#1632338714
+landlord reportspec autogen --template foo --orgname org1 --rostername rost1 #
+#1632339870
+python3.8 tmprgx.py 'foo${can}' #
+#1632340020
+python3.8 tmprgx.py 'foo${can} and also ${whop}' #
+#1632340749
+python3.8 -m pudb tmprgx.py 'foo${can} and also ${whop}' #
+#1632341164
+python3.8 -i tmprgx.py 'foo${can} and also ${whop}' #
+#1632344909
+cd /c/Projects/progress-metrics.workspace/landlord/test # to test
+#1632344985
+lc --sh ./test_reportspec_autogen.sh  #
+#1632346875
+./test_reportspec_autogen.sh #
+#1632357146
+gpa Add save-as arg in reportspec autogen to commit to pmdata #
+#1632357205
+# We've completed the lower-layer work for autogen of reportspecs.  Now we need to implement make-reportspec
+#1632359150
+# Now we're coding make-reportspec
+#1632360679
+export WORKSPACE=/tmp/fuzpace1; mkdir -p $WORKSPACE; /c/Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec # tv100
+#1632361083
+echo ${#vx[*]}
+#1632361464
+export WORKSPACE=/tmp/fuzpace1; mkdir -p $WORKSPACE; cd /c/Projects/progress-metrics.workspace/trnma.comdb2; /c/Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec --inner # tv102
+#1632361767
+( lh cd; pwd ; gpa  ) # gv101
+#1632389346
+git push tdpm next:make-reportspec-latest # How to update the distribution branch
+#1632389896
+# Thu am, still implementing make-reportspec
+#1632390078
+# Goal: get reportspec.py to run on Jenkins with pmdata connectivity
+#1632390548
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to libex
+#1632393439
+# Inside docker dpkg-python-development-base, we're trying to make reportspec.py run in alien environ
+#1632393544
+docker run -it --rm -v `pwd -P`:/workarea --workdir /workarea artifactory.inf.bloomberg.com/dpkg-python-development-base:3.8 /bin/bash # use python3.8 for testing make-reportspec
+#1632393681
+# reportspec depends on python3.8 (because of launcher shell script only)
+#1632393720
+python3.8 -m pip install comdb2 #
+#1632393746
+# reportspec.py requires pip install comdb2
+#1632393855
+PYTHONPATH=$PWD/lib #
+#1632393924
+PYTHONPATH=$PWD #
+#1632394015
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec # to libexe
+#1632394233
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec/pmsys_common # to pmsys
+#1632394240
+cd /c/Projects/progress-metrics.workspace/landlord/landlord/libexec/pmsys_common # to pmsys //
+#1632394256
+cd /c/Projects/progress-metrics.workspace/pm_sys/common # to common //
+#1632394878
+# reportspec depends on PYTHONPATH containing landlord root (so ./lib is available)
+#1632394969
+# reportspec.py depends on pip install comdb2
+#1632395028
+cd /c/Projects/progress-metrics.workspace/pm_reportserv # to landlo repor
+#1632395348
+export WORKSPACE=/c/Projects/progress-metrics.workspace/trnma.comdb2; cd $WORKSPACE; /c/Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec --inner # tv102
+#1632395633
+cd /c/Projects/progress-metrics.workspace/landlord/make-reportspec # to land make
+#1632400373
+cd /share/comdb2.workspace/trnma.comdb2 # to comdb
+#1632400450
+cd /share/progress-metrics.workspace/landlord # to land
+#1632400499
+# Setting up trnma.comdb2/.etc for testing make-reportspec
+#1632400662
+export WORKSPACE=/c/Projects/progress-metrics.workspace/trnma.comdb2; cd $WORKSPACE; ./.etc/make-reportspec # tv103 outer
+#1632400684
+export WORKSPACE=/project/trnma.comdb2; cd $WORKSPACE; ./.etc/make-reportspec # tv103 outer
+#1632403150
+export WORKSPACE=/share/progress-metrics.workspace/trnma.comdb2; cd $WORKSPACE; ./.etc/make-reportspec # tv103 outer
+#1632403827
+# reportspec --envcheck is working, now it's time to test a semi-realistic reportspec-template
+#1632403851
+cd $PWD #
+#1632403869
+cd /c/Projects/progress-metrics.workspace/trnma.comdb2/labs/portfolio/template/.etc #
+#1632407366
+cp ../../landlord/make-reportspec/make-reportspec ./  # update trnma.comdb2/.etc/make-reportspec
+#1632408067
+# outer instance passing in Jenkins
+#1632411271
+# We're going to add a property to reportspec json (context.saveauto_name) to allow reportspec.py to implement --saveauto
+#1632414083
+cd /share/progress-metrics.workspace/landlord # to landlo
+#1632414597
+gpa "reportspec autogen --saveauto regression tested" #
+#1632423221
+GIT_URL=https://bbgithub.dev.bloomberg.com/ELT-2020-02-31-NY-Test/comdb2.git # sample OrgName
+#1632429385
+# We need a comdb2 branch to capture today's test activity on make-reportspec.  Let's name it 'make-reportspec-test-env'
+#1632429591
+git branch make-reportspec-test-env #
+#1632429602
+git push -u tdpm make-reportspec-test-env #
+#1632431763
+# Open PR for that new branch: https://bbgithub.dev.bloomberg.com/TdocProgressMetrics/trnma.comdb2/pull/1/files
+#1632431814
+# TODO: turn tdpm:trnma.comdb2:make-reportspec-test-env into a real upstream PR with reportspec-template, Jenkinsfile.
+#1632432163
+gpa Add make_reportspec Makefile target #
+#1632433693
+cp ../../landlord/make-reportspec/make-reportspec ./  && gpa # lv99
+#1632433918
+gpa Remove dead reportspec-template in client-accessor #
+#1632433997
+# Now we want to split the make-reportscript inner and outer parts into two units, so only the latter is packaged with material repos
+#1632479934
+# TODO: the 'paths' in reportspec-template can be another generated field now, and should be.
+#1632480429
+gc -am sync; git push -f tdpm next:make-reportspec-latest # update make-reportspec-latest
+#1632482972
+# TODO: tweak teach-patch branches for bas, comdb2 to include make-reportspec
+#1632483471
+GIT_URL="https://bbgithub.dev.bloomberg.com/training-materials/bas" ./make-reportspec #
+#1632483500
+gpa "Bypass training-materials altogether in make-reportspec" #
+#1632483517
+gc -am sync; git push tdpm next:make-reportspec-latest # update make-reportspec-latest
+#1632485738
+# Let's patch make-reportspec into sep13 comdb2
+#1632485980
+cd /c/Projects/comdb2.workspace/trnma.comdb2 # to comdb2
+#1632486156
+git push mine trnma/master:teach-patch # comdb2
+#1632486323
+cp $Projects/progress-metrics.workspace/landlord/make-reportspec/make-reportspec ./  #
+#1632486341
+cp $ProjectsHome/progress-metrics.workspace/landlord/make-reportspec/make-reportspec ./  #
+#1632486355
+cd /c/Projects/comdb2.workspace/trnma.comdb2/labs/portfolio # to portfol
+#1632486703
+gpa Add make-reportspec + portfolio lab template #
+#1632490560
+cd /share/progress-metrics.workspace/landlord # to landl
+#1632492300
+landlord reportspec autogen --template /share/progress-metrics.workspace/landlord/test/reportspec-autogen.d/reportspec-template-1.rips.tmpl --orgname my-org --rostername my-roster #
+#1632519305
+cd /c/Projects/comdb2.workspace/trnma.comdb2 # to comdb
+#1632519720
+# Let's fix shell completion for our git aliases.
+#1632521739
+cd /c/Projects/progress-metrics.workspace/landlord # to landlord //
+#1632522162
+cat $( d 3; pwd)/make-reportspec #
+#1632522173
+cat $( d 3; pwd)/make-reportspec > make-reportspec #
+#1632522196
+cat $( d 4; pwd)/make-reportspec > make-reportspec #
+#1632522728
+cd /c/Projects/bas.workspace/trnma.bas # to bas //
+#1632522897
+cd /c/Projects/bas.workspace/trnma.bas/labs/fxc/template/.etc # to etc //
+#1632523796
+lc reportspec show $sep13.portfolio-lab #
+#1632523811
+lc reportspec show $sep13.bas-fxc #
+#1632523893
+cd /c/Projects/progress-metrics.workspace/landlord # to landlo
+#1632523955
+cd /c/Projects/progress-metrics.workspace/trnma.comdb2 # to comdb
+#1632524037
+# Now I think all the bad templatedir missing stuff is fixed for make-reportspec
+#1632778514
+# Explore the latest ide-magic and aran3's gdb visualizers PR: https://bbgithub.dev.bloomberg.com/Local-Development/ide-magic/pull/591
+#1632778522
+# Like... does this stuff work now?
+#1632832971
+lc -i  roster add $my_oct4_cpp $(cat) # Added roster for oct 4 cpp
+#1632833011
+# In general the heatmap and org are ready, see chrome bmk folder chrome://bookmarks/?id=8480
+#1632833053
+# Sent email to Arthur O'Dwyer: {MSG /ID 61530D39015A056200390001}
+#1632837591
+cd /c/Projects/elt-classmgr.workspace/sep13 # to elt-clas //
+#1632951736
+cd /c/Projects/cpp.workspace/trnma.bde-compliance-monitor-TRAINER # to compli //
+#1633003763
+cd /c/Projects/wsl.HOME/bin-pub # cdmark
+#1633006725
+# TODO: customize the cpp Docker container to integrate cgdbx
