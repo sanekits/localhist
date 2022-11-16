@@ -16,7 +16,7 @@
 #
 __do_define_pcwrap=false
 type -t __pcwrap_ver >/dev/null && {
-    [[ $(__pcwrap_ver) -lt 3 ]] && {
+    [[ $(__pcwrap_ver) -lt 4 ]] && {
         __do_define_pcwrap=true
     }
 } || {
@@ -27,7 +27,7 @@ type -t __pcwrap_ver >/dev/null && {
 $__do_define_pcwrap && {
     unset __do_define_pcwrap
     __pcwrap_ver() {
-        builtin echo 3
+        builtin echo 4
     }
     [[ -z ${__pcwrap_items+x} ]] && {
         # __pcwrap_items is not yet defined
@@ -44,7 +44,7 @@ $__do_define_pcwrap && {
         false
     }
     __pcwrap_capture_existing_prompt_command() {
-        [[ -z $PROMPT_COMMAND ]] && {
+        [[ -z "$PROMPT_COMMAND" ]] && {
             PROMPT_COMMAND=__pcwrap_run;
             return
         }
@@ -70,8 +70,8 @@ $__do_define_pcwrap && {
     }
     __pcwrap_state() {
         # Debug tool
-        echo "Items: ${__pcwrap_items[@]}" >&2
-        echo "PROMPT_COMMAND=[$PROMPT_COMMAND]" >&2
+        declare -p __pcwrap_items >&2
+        builtin printf "PROMPT_COMMAND=[$PROMPT_COMMAND]\n" >&2
     }
     __pcwrap_run() {
         local origResultCode=$?  # We want inner commands to know the original command status
@@ -87,7 +87,8 @@ $__do_define_pcwrap && {
     __pcwrap_clear() {
         unset __pcwrap_items;
         declare -g -a __pcwrap_items;
-        COMMAND_PROMPT=""
+        PROMPT_COMMAND=""
+        echo "__pcwrap_clear() completed" >&2
     }
     __pcwrap_register
 }
