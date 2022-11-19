@@ -4,7 +4,6 @@
 
 
 PS4='\033[0;33m+(${BASH_SOURCE}:${LINENO}):\033[0m ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-set -x
 scriptName="$(readlink -f "$0")"
 scriptDir=$(command dirname -- "${scriptName}")
 script=$(basename $scriptName)
