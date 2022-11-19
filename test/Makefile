@@ -5,7 +5,7 @@ absdir:=$(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL:=/bin/bash
 LH_BIN=$(realpath $(PWD)/../bin)
 
-ArchiverDepends:=$(LH_BIN)/localhist-archive.sh $(LH_BIN)/bash_history_tool.py Makefile
+ArchiverDepends:=$(LH_BIN)/localhist-archive.sh $(LH_BIN)/bash_history_tool.py Makefile $(LH_BIN)/localhistrc.template
 
 Python3 := $(shell ../bin/python3-select.sh --detect)
 
@@ -18,14 +18,22 @@ help:
 	sort | \
 	pr --omit-pagination --width=100 --columns=3
 
+home1/.localhistrc: $(LH_BIN)/localhistrc.template
+	export XHOME=$(PWD)/home1 ; \
+	@rm home1/.localhistrc &>/dev/null; \
+	sed "s/HOME/XHOME/g" $(LH_BIN)/localhistrc.template \
+		> home1/.localhistrc
+
 
 # The .localhist-archive/current is a symlink pointing to the
 # latest month dir ( e.g.  .localhist-archive/2022-09 )
-home1/.localhist-archive/current/bash_history: home1/.bash_history $(ArchiverDepends)
+home1/.localhist-archive/current/bash_history: home1/.localhistrc home1/.bash_history $(ArchiverDepends)
+	set -x ; \
 	export XHOME=$(PWD)/home1 ; \
-	export LH_ARCHIVE=$(PWD)/home1/.localhist-archive; \
-	rm $${LH_ARCHIVE}/.dailymaint || : ; \
-	$(LH_BIN)/localhist-archive.sh --login
+	export LH_ARCHIVE=$(PWD)/home1/.localhist-archive/fakehost; \
+	touch -d "-2 day" $${LH_ARCHIVE}/.dailymaint ; \
+	ls -al $${LH_ARCHIVE}/.dailymaint; \
+	HOSTNAME=fakehost $(LH_BIN)/localhist-archive.sh --login
 
 .PHONY: fake-90days
 fake-90days:
@@ -55,8 +63,16 @@ home2-sources:
 .PHONY: home2-data
 home2-data: .flag/.gitignore .flag/home2-data
 
+.PHONY: pytest-installed
+pytest-installed:
+	# TODO: use this clue to get self-signed cert working:
+	# https://stackoverflow.com/a/26062583/237059
+	$(Python3) -c 'import pytest' &>/dev/null \
+		|| $(Python3) -m pip install pytest
+
+
 .PHONY: unit-test
-unit-test:
+unit-test: pytest-installed
 	export LH_ROOT=$(realpath $(absdir)/..); \
 	PYTHONPATH=$${LH_ROOT}/bin $(Python3) -m pytest ./
 

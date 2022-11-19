@@ -1,0 +1,26 @@
+# Added by localhist setup: you can modify this file and it won't be overwritten.
+
+alias lh=localhist
+alias h=history
+alias lha=localhist_add
+alias lhac='localhist_add -c'
+alias hisg='set -f; history_grep' # Short form of history_grep, disable globbing
+alias hg='set -f; history_grep'   # Short form of history_grep, disable globbing
+alias hc=$'history | grep -E "#"' # Just show history records with hashes
+shopt -s histappend  # Append to history rather than overwrite
+shopt -s histverify  # When recalling an event from history, let the user check before running
+
+# You can replace the definition of HOSTNAME if you don't want the auto-detected
+# name.  (e.g. Docker container names are often meaningless ).  This value
+# is used to create the history archive dir name.
+export LH_HOSTNAME=$(
+    { [[ -n $HOSTNAME ]] && builtin echo $HOSTNAME ; }  \
+    || command hostname 2>/dev/null \
+    || builtin echo unk-host )
+
+export LH_ARCHIVE=${XHOME}/.localhist-archive/${LH_HOSTNAME}
+HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps
+HISTCONTROL=ignoredups:ignorespace
+HISTSIZE=3000 # Size of in-memory hist buffer
+HISTFILESIZE=10000 # Size of a history file
+DEFAULT_HISTFILE=${XHOME}/.bash_history

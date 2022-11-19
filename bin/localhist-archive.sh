@@ -2,6 +2,9 @@
 # localhist-archive.sh
 #
 
+
+PS4='\033[0;33m+(${BASH_SOURCE}:${LINENO}):\033[0m ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+set -x
 scriptName="$(readlink -f "$0")"
 scriptDir=$(command dirname -- "${scriptName}")
 script=$(basename $scriptName)
@@ -124,8 +127,8 @@ on_login() {
     [[ $* == *--rewrite* ]] && {
         rewrite=true
     }
-    [[ -f ~/.localhistrc ]] || die "Can't find ~/.localhistrc"
-    source ~/.localhistrc
+    [[ -f ${XHOME}/.localhistrc ]] || die "Can't find ${XHOME}/.localhistrc"
+    source ${XHOME}/.localhistrc
     $force || {
         [[ -d ${LH_ARCHIVE} ]] || {
             command mkdir -p ${LH_ARCHIVE}
