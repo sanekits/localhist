@@ -34,5 +34,5 @@ build: bin/prompt-command-wrap.bashrc
 .PHONY: test
 test:
 	@cd test \
-	&& $(MAKE) unit-test
+	&& $(MAKE) unit-test test-home1
 

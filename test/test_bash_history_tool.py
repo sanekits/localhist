@@ -127,8 +127,8 @@ def test_clean_files():
 
 
 if __name__ == "__main__":
-    test_clean_files()
     test_coalesce_events()
+    test_clean_files()
     test_BucketFarm_reload()
     test_BucketFarm_add()
     test_load_bucket()

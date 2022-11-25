@@ -3,4 +3,4 @@
 Provides the `localhist` shell history management toolkit.
 
 ## Maintenance
-- Use devcontainer mode, runs as user `vscode`
+- Regression tests are intended to run in the shellkit devcontainer (withtools)
