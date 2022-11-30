@@ -8,7 +8,8 @@ import contextlib
 
 
 LH_ROOT = os.environ["LH_ROOT"]  # Should point to the localhist/ dir
-sys.path.insert(0, LH_ROOT)
+sys.path.insert(0, f"{LH_ROOT}/bin")
+print("LH_ROOT=",LH_ROOT)
 import io
 from bash_history_tool import *
 

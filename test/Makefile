@@ -4,10 +4,15 @@ absdir:=$(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 SHELL:=/bin/bash
 LH_BIN=$(realpath $(PWD)/../bin)
+LH_ROOT=$(realpath $(PWD)/..)
 
 ArchiverDepends:=$(LH_BIN)/localhist-archive.sh $(LH_BIN)/bash_history_tool.py Makefile $(LH_BIN)/localhistrc.template
 
-Python3 := $(shell ../bin/python3-select.sh --detect)
+ShellkitWorkspace:=$(realpath ${PWD}/../..)
+$(info ShellkitWorkspace is [$(ShellkitWorkspace)] )
+
+DockerComponentMake:=$(realpath $(ShellkitWorkspace)/.devcontainer/shellkit-component.mk)
+$(info DockerComponentMake is $(DockerComponentMake))
 
 .PHONY: help
 help:
@@ -63,24 +68,19 @@ home2-sources:
 .PHONY: home2-data
 home2-data: .flag/.gitignore .flag/home2-data
 
-.PHONY: pytest-installed
-pytest-installed:
-	# TODO: use this clue to get self-signed cert working:
-	# https://stackoverflow.com/a/26062583/237059
-	$(Python3) -c 'import pytest' &>/dev/null \
-		|| $(Python3) -m pip install pytest
 
 
 .PHONY: unit-test
-unit-test: pytest-installed
-	export LH_ROOT=$(realpath $(absdir)/..); \
-	PYTHONPATH=$${LH_ROOT}/bin $(Python3) -m pytest ./
-
-.PHONY: test-home1
-test-home1: home1/.localhist-archive/current/bash_history
+unit-test:
+	make -f $(DockerComponentMake) image Component=shellkit-pytest
+	make -f $(DockerComponentMake) run \
+		Component=shellkit-pytest \
+		Volumes="-v $(LH_ROOT):/workspace" \
+		Environment="-e LH_ROOT=/workspace" \
+		Command='python3.8 -m pytest /workspace/test'
 
 .PHONY: test
-test: test-home1
+test: unit-test
 
 .PHONY: clean
 clean:
