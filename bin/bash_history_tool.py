@@ -249,7 +249,7 @@ def is_timestamp(line: str) -> bool:
 
 def load_raw_log(instream: TextIOWrapper) -> LogEvent:
     """Yield events from instream"""
-    curDate: datetime = datetime.now()
+    curDate: datetime = datetime(2021,7,1) # Default time should be a constant in the past so we don't create new buckets for unstamped junk
     while True:
         line = instream.readline()
         if not line:
