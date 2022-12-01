@@ -17,7 +17,7 @@ pcw_depends := $(shell $(MAKE) -s -C ../prompt-command-wrap pcw-deps)
 
 pre-publish: test
 
-#publish-common: conformity-check
+publish-common: conformity-check
 
 publish: pre-publish publish-common release-draft-upload release-list
 	@echo ">>>> publish complete OK.  <<<"
