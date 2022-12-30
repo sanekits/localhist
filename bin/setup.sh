@@ -79,6 +79,7 @@ main() {
     # nfs-mounted home nets, etc)
     command chmod og+rX ${HOME}/.local/bin/${Kitname} -R
     command chmod og+rX ${HOME}/.local ${HOME}/.local/bin
+    true
 }
 
 [[ -z ${sourceMe} ]] && {

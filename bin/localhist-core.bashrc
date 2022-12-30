@@ -73,7 +73,7 @@ localhist_set() {
         export HISTFILE_PREV=$HISTFILE
         (
             #HISTFILE=$HOME/.bash_history;
-            HISTFILE=( bash --rcfile $HOME/.localhistrc -c 'echo $HISTFILE')
+            HISTFILE=$( bash --rcfile ${HOME}/.localhistrc -c 'echo $HISTFILE' )
             builtin history -s "HISTFILE=$1  # Switching from $HISTFILE_PREV";
             builtin history -a
         )

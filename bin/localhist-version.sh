@@ -2,7 +2,7 @@
 
 # Running localhist-version.sh is the correct way to
 # get the home install path for the tool
-KitVersion=2.5.8
+KitVersion=2.5.9
 
 canonpath() {
     builtin type -t realpath.sh &>/dev/null && {
