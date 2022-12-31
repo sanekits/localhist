@@ -2,29 +2,32 @@
 # vim: filetype=sh :
 
 # If someone does a raw "source taskrc", we ensure that $taskrc_dir gets defined anyway
-[[ -z $taskrc_dir && -f ./taskrc ]] && export taskrc_dir=$PWD
+[[ -z $taskrc_dir && -f ./taskrc ]]     && export taskrc_dir=$PWD
 
-type -t localhist_set >/dev/null && {
-    alias tkr-lh="localhist_set ${taskrc_dir}/bash_history"
-    #Help: tkr-lh sets localhist to ${taskrc_dir}
-}
 
-tmk() {
+function tmake {
     #Help: help -- list targets; tmk -e -- edit taskrc.mk
-    case $1 in
+    case "$1" in
         -e|--edit)
             shift
-            vim ${taskrc_dir}/taskrc.mk "$@"
+            "vim" "${taskrc_dir}/taskrc.mk" "$@"
             return
             ;;
         -h|--help)
-            shift
-            command make -s -C ${taskrc_dir} -f ${taskrc_dir}/taskrc.mk help "$@"
-            return
+            set -- help
             ;;
     esac
-    command make -s -C ${taskrc_dir} -f ${taskrc_dir}/taskrc.mk "$@"
+    command make -s taskrc_dir="${taskrc_dir}" PWD="${PWD}" -C "${taskrc_dir}" -f "${taskrc_dir}/taskrc.mk" "$@"
 }
+
+if command which make &>/dev/null; then
+    alias tmk="make -f ${taskrc_dir}/taskrc.mk"
+    if type -a _complete_alias &>/dev/null; then  # The bashics kit can install complete-alias
+        complete -F _complete_alias tmk
+    fi
+else
+    alias tmk='echo ERROR: "make" not found. >&2'
+fi
 
 # Use taskrc -h for help on built-in taskrc functions.
 # To provide help for definitions in this file, add #Help tags, e.g.:
