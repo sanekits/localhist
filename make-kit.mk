@@ -19,20 +19,7 @@ pre-publish: test
 
 publish-common: conformity-check
 
-publish: pre-publish publish-common release-draft-upload release-list
-	@echo ">>>> publish complete OK.  <<<"
-	@echo ">>>> Manually publish the release from this URL when satisfied, <<<<"
-	@echo ">>>> and then change ./version to avoid accidental confusion. <<<<"
+publish: pre-publish publish-common release-upload release-list
 	cat tmp/draft-url
-
-bin/prompt-command-wrap.bashrc:  $(pcw_depends)
-	$(MAKE) -C ../prompt-command-wrap build
-	cp ../prompt-command-wrap/tmp/prompt-command-wrap.bashrc bin/
-
-build: bin/prompt-command-wrap.bashrc
-
-.PHONY: test
-test:
-	@cd test \
-	&& $(MAKE) test
+	@echo ">>>> publish complete OK. (FINAL)  <<<"
 
