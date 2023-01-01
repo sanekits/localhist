@@ -8,10 +8,10 @@
 #   localhist [r]ead     # Read from current HISTFILE to buffer
 #   localhost [ann]otate # Edit recent events
 #   localhist [s]how     # Show status
-#   localhist [d]ump     # Dump current histfile
-#   localhist [d]ump -c  # Dump current histfile, comments only
+#   localhist [d]ump     # Dump current histfile with timestamps
+#   localhist [d]ump -c  # Dump current histfile, #hashed only
 #   localhist [e]dit     # Load current history buffer into $EDITOR
-#   localhist [i]mport   # Read from file(s) into buffer
+#   localhist [i]mport [file...]  # Read from file(s) into buffer
 #   localhist [c]lear    # Clear buffer only
 #   localhist c[l]ean    # Clean current HISTFILE, removing unworthy stuff
 #   localhist [mem]clean # Clean current memory buffer removing unworthy stuff
@@ -19,7 +19,7 @@
 #   localhist git[sync]  # Run git sync on wc root of $LH_ARCHIVE
 #   localhist co[m]pare  # Compare current HISTFILE with ~/.bash_history
 #   localhist [z]merge   # Merge one or more file args into HISTFILE
-#   localhist [g]rep     # Search all ~/.localhist/* registered files
+#   localhist con[fig]-edit   # Edit ~/.localhistrc contents
 #   localhist [g]rep -a  # Search all LH_ARCHIVE/HOST files
 #   localhist ca[t]alog  # Print stats on all ~/.localhist registered files
 #   localhist e[x]port   # Write buffer to specific file, with edit option
@@ -108,15 +108,18 @@ localhist_register() {
 }
 
 localhist_export_help() {
-    # Set up context and invoke localhist_export.sh
+    # Set up context and invoke localhist_merge.sh
     (
-        [[ -x ${LocalhistHome}/localhist-merge.sh ]] || { echo "ERROR: can't find ${LocalhistHome}/localhist-merge.sh" >&2; exit 1; }
+        [[ -x ${LocalhistHome}/localhist-merge.sh ]] \
+            || { echo "ERROR: can't find ${LocalhistHome}/localhist-merge.sh" >&2; exit 1; }
         HISTFILE=$(mktemp)
-        [[ -z ${HISTFILE} ]] && exit 1;
+        [[ -z ${HISTFILE} ]] \
+            && exit 1;
         trap 'command rm -f $HISTFILE' exit
         builtin history -w
         ${LocalhistHome}/localhist-merge.sh --edit $HISTFILE -o "$@"
-        [[ $? -eq 0 ]] && echo "Ok I merged buffer into $@"
+        [[ $? -eq 0 ]] \
+            && echo "Ok I merged buffer into $@"
     )
 }
 
@@ -250,6 +253,12 @@ localhist() {
                 shift
                 localhist_export_help "$@"
                 set --
+            ;;
+            fig|config-edit)
+                shift
+                $EDITOR ${HOME}/.localhistrc
+                [[ $? -eq 0 ]] \
+                    && source ${HOME}/.localhistrc
             ;;
             z|merge)
                 shift
