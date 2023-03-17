@@ -10,13 +10,20 @@ alias hc=$'history | grep -E "#"' # Just show history records with hashes
 shopt -s histappend  # Append to history rather than overwrite
 shopt -s histverify  # When recalling an event from history, let the user check before running
 
-# You can replace the definition of HOSTNAME if you don't want the auto-detected
-# name.  (e.g. Docker container names are often meaningless ).  This value
-# is used to create the history archive dir name.
-export LH_HOSTNAME=$(
-    { [[ -n $HOSTNAME ]] && builtin echo $HOSTNAME ; }  \
-    || command hostname 2>/dev/null \
-    || builtin echo unk-host )
+[[ -f ~/.localhist-hostname ]] && {
+    # Edit .localhist-hostname if you wish to override the
+    # setup-generated name.  This is useful when working with
+    # volatile environments like docker containers, where the
+    # name is meaningless and doesn't provide a helfpul anchor
+    # for the archived history in git
+    export LH_HOSTNAME=$(cat ~/.localhist-hostname)
+} || {
+    # Fallback if .localhist-hostname not provided:
+    export LH_HOSTNAME=$(
+        { [[ -n $HOSTNAME ]] && builtin echo $HOSTNAME ; }  \
+        || command hostname 2>/dev/null \
+        || builtin echo unk-host )
+}
 
 export LH_ARCHIVE=${HOME}/.localhist-archive/${LH_HOSTNAME}
 HISTTIMEFORMAT="%F %H:%M " # we want date/time stamps

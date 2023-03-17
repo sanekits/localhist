@@ -41,6 +41,13 @@ install_localhistrc() {
     } || {
         cp ${Kitname}/localhistrc.template ~/.localhistrc
     }
+    [[ -f ~/.localhist-hostname ]] || {
+        hostname > ~/.localhist-hostname 2>/dev/null || {
+            cat /etc/hostname > ~/.localhist-hostname || {
+                echo "unk-host" > ~/.localhist-hostname
+            }
+        }
+    }
     (
         source ~/.localhistrc
         [[ -n $DEFAULT_HISTFILE ]] && {
