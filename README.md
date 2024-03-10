@@ -4,7 +4,7 @@ Provides the `localhist` shell history management toolkit.
 
 ## Setup:
 ```
-curl -L https://github.com/sanekits/localhist/releases/download/2.6.3/localhist-setup-2.6.3.sh \
+curl -L https://github.com/sanekits/localhist/releases/download/2.6.4/localhist-setup-2.6.4.sh \
     -o ~/tmp$$.sh && bash ~/tmp$$.sh && rm ~/tmp$$.sh
 ```
 
