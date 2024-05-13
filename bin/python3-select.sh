@@ -5,7 +5,7 @@ export BEST_PY3
 
 python3_select() {
     local cand;
-    for cand in python3.{11,10,9,8,7,6,5} python3 python; do
+    for cand in python3.{13..6} python3 python; do
         local py_cand="$( command which ${cand} 2>/dev/null)"
         [[ -n $py_cand ]] || continue
 	    [[ -n $MSYS ]] && {
