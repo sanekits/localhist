@@ -2,7 +2,7 @@
 
 # Running localhist-version.sh is the correct way to
 # get the home install path for the tool
-KitVersion=2.6.8
+KitVersion=2.6.9
 # The shellkit/ tooling naturally evolves out from under the dependent kits.  ShellkitSetupVers allows
 # detecting the need for refresh of templates/* derived files.  To bump the root version, 
 # zap all templates/* containing 'ShellkitTemplateVers' constants and changes to the corresponding dependent kits
